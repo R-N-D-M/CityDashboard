@@ -1,2 +1,2 @@
-# BeerCompass
+# BarCompass
 Find me the beer
