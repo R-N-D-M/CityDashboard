@@ -28,11 +28,11 @@ module.exports = {
     {
       test: /\.scss$/,
       loaders: ['style', 'css', 'postcss', 'sass']
-    },
-    {
-      test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
-      loader: 'imports?jQuery=jquery'
     }]
+    // {
+    //   test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
+    //   loader: 'imports?jQuery=jquery'
+    // }
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -45,9 +45,9 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.ProvidePlugin({
-      'window.Tether':'tether',
-    }),
+    // new webpack.ProvidePlugin({
+    //   'window.Tether':'tether',
+    // }),
     new HtmlWebpackPlugin({
       template: 'index.html'
     })

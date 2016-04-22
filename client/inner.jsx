@@ -46,5 +46,5 @@ export default class Inner extends React.Component {
 
 // ATTACH PROPTYPE VALIDATION TO ES6 CLASS(NOT ES6 SYNTAX BUT NECESSARY FOR REACT)
 Inner.propTypes = {
-  
+
 };
