@@ -2,7 +2,27 @@
 
 ## General Workflow
 
-1. Fork the repo
+1. Forking the repo:
+  - git clone your fork
+  - git remote add upstream https://github.com/R-N-D-M/BarCompass.git
+  - git checkout -b [yourBranchName]
+  - git push
+1. Pulling from upstream
+  - checkout dev
+  - git pull upstream --rebase dev
+  - Now you have dev and can checkout your branch
+  - git checkout [yourBranch]
+  - git rebase dev
+1. Submitting a pull request
+  - commit your changes
+  - checkout dev
+  - follow instructions from `Pulling from upstream`
+  - you should now be on [yourBranch]
+  - make sure to run webpack *and* 
+    - make sure all tests pass
+    - make sure you pass linting
+    - if either of these fail make changes until they pass then start these instructions over including `Pulling from upstream`
+  - git push origin [yourBranch]
 1. Cut a namespaced feature branch from master
   - bug/...
   - feat/...
@@ -33,7 +53,7 @@
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/makersquare-labs/<NAME_OF_REPO>.git
+git remote add upstream https://github.com/R-N-D-M/BarCompass.git
 ```
 
 ### Cut a namespaced feature branch from master
