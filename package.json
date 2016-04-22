@@ -2,7 +2,7 @@
   "name": "bar-compass",
   "version": "1.0.0",
   "description": "Find me the beer",
-  "main": "compass.js",
+  "main": "main.jsx",
   "scripts": {
     "start": "node server.js",
     "es6": "dev --progress && nodemon server.js",
@@ -10,14 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dylanbhughes/BarCompass.git"
+    "url": "git+https://github.com/R-N-D-M/BarCompass.git"
   },
   "author": "",
+  "contributors": ["Maksym Matłosz <mmatlosz@gmail.com>", "Ramin Yavari <raminyav23@gmail.com>", "Sigmund Tang <shindigira@gmail.com>","Dylan Hughes <dylanbhughes@gmail.com> (http://www.dylanbhughes.io)"],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dylanbhughes/BarCompass/issues"
+    "url": "https://github.com/R-N-D-M/BarCompass/issues"
   },
-  "homepage": "https://github.com/dylanbhughes/BarCompass#readme",
+  "homepage": "https://github.com/R-N-D-M/BarCompass#readme",
   "dependencies": {
     "autoprefixer": "^6.3.6",
     "babel-core": "6.7.4",

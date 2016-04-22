@@ -19,6 +19,6 @@ app.use(webpackMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath
 }));
 app.use(webpackHot(compiler));
-app.use(express.static(path.join(__dirname, 'es6Refactor/')));
+app.use(express.static(path.join(__dirname, 'client/')));
 
 app.listen(process.env.PORT || 3000);
