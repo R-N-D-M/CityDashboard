@@ -23,73 +23,10 @@
     - make sure you pass linting
     - if either of these fail make changes until they pass then start these instructions over including `Pulling from upstream`
   - git push origin [yourBranch]
-1. Cut a namespaced feature branch from master
-  - bug/...
-  - feat/...
-  - test/...
-  - doc/...
-  - refactor/...
-1. Make commits to your feature branch. Prefix each commit like so:
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
-1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-   directly to master. Include a description of your changes.
-1. Your pull request will be reviewed by another maintainer. The point of code
-   reviews is to help keep the codebase clean and of high quality and, equally
-   as important, to help you grow as a programmer. If your code reviewer
-   requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
-   new commit.
-1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
-
-## Detailed Workflow
-
-### Fork the repo
-
-Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
-
-```
-git remote add upstream https://github.com/R-N-D-M/BarCompass.git
-```
-
-### Cut a namespaced feature branch from master
-
-Your branch should follow this naming convention:
-  - bug/...
-  - feat/...
-  - test/...
-  - doc/...
-  - refactor/...
-
-These commands will help you do this:
-
-``` bash
-
-# Creates your branch and brings you there
-git checkout -b `your-branch-name`
-```
-
-### Make commits to your feature branch.
-
-Prefix each commit like so
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
-
-Make changes and commits on your branch, and make sure that you
-only make changes that are relevant to this branch. If you find
-yourself making unrelated changes, make a new branch for those
-changes.
 
 #### Commit Message Guidelines
 
+- Commit messages should complete the following sentence, "If applied, this commit will. . ."
 - Commit messages should be written in the present tense; e.g. "Fix continuous
   integration script".
 - The first line of your commit message should be a brief summary of what the
@@ -107,7 +44,7 @@ changes to the master branch into yours by running this command
 from your branch:
 
 ```bash
-git pull --rebase upstream master
+git pull --rebase upstream dev
 ```
 
 This will start the rebase process. You must commit all of your changes
