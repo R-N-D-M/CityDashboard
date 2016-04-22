@@ -1,14 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// THIS IS YOUR WEBPACK CONFIG FOR THE ES6/SASS VERSION
-//   _____   ____  _   _ _ _______   _______ ____  _    _  _____ _    _
-//  |  __ \ / __ \| \ | ( )__   __| |__   __/ __ \| |  | |/ ____| |  | |
-//  | |  | | |  | |  \| |/   | |       | | | |  | | |  | | |    | |__| |
-//  | |  | | |  | | . ` |    | |       | | | |  | | |  | | |    |  __  |
-//  | |__| | |__| | |\  |    | |       | | | |__| | |__| | |____| |  | |
-//  |_____/ \____/|_| \_|    |_|       |_|  \____/ \____/ \_____|_|  |_|
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 var webpack = require('webpack');
 var path = require('path');
 var autoprefixer = require('autoprefixer')
@@ -20,16 +9,16 @@ var ROOT_PATH = path.resolve(__dirname);
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'bootstrap-loader',
+    // 'bootstrap-loader',
     'tether',
-    path.resolve(ROOT_PATH, 'es6Refactor/main.jsx'),
+    path.resolve(ROOT_PATH, 'client/main.jsx'),
     'webpack-hot-middleware/client'
   ],
   module: {
     preLoaders: [{
       test: /\.jsx?$/,
       loaders: ['eslint'],
-      include: path.resolve(ROOT_PATH, 'es6Refactor')
+      include: path.resolve(ROOT_PATH, 'client')
     }],
     loaders: [{
       test: /\.jsx?$/,
