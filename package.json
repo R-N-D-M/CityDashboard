@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "es6": "dev --progress && nodemon server.js",
-    "test": "mocha -w test/helpers/browser.js test/*.spec.js"
+    "test": "node_modules/mocha/bin/mocha -w test/helpers/browser.js test/*.spec.js",
+    "lint": "node_modules/eslint/bin/eslint.js .",
+    "build": "webpack --progress" 
   },
   "repository": {
     "type": "git",
