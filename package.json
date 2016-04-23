@@ -1,0 +1,59 @@
+{
+  "name": "bar-compass",
+  "version": "1.0.0",
+  "description": "Find me the beer",
+  "main": "main.jsx",
+  "scripts": {
+    "start": "node server.js",
+    "es6": "dev --progress && nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R-N-D-M/BarCompass.git"
+  },
+  "author": "",
+  "contributors": ["Maksym Matłosz <mmatlosz@gmail.com>", "Ramin Yavari <raminyav23@gmail.com>", "Sigmund Tang <shindigira@gmail.com>","Dylan Hughes <dylanbhughes@gmail.com> (http://www.dylanbhughes.io)"],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/R-N-D-M/BarCompass/issues"
+  },
+  "homepage": "https://github.com/R-N-D-M/BarCompass#readme",
+  "dependencies": {
+    "autoprefixer": "^6.3.6",
+    "babel-core": "6.7.4",
+    "babel-eslint": "6.0.2",
+    "babel-loader": "6.2.4",
+    "babel-plugin-react-transform": "2.0.2",
+    "babel-preset-es2015": "6.6.0",
+    "babel-preset-react": "6.5.0",
+    "babel-preset-react-hmre": "1.1.1",
+    "bootstrap": "^4.0.0-alpha.2",
+    "bootstrap-loader": "^1.0.10",
+    "css-loader": "^0.23.1",
+
+    "eslint": "2.2.0",
+    "eslint-loader": "1.3.0",
+    "eslint-plugin-babel": "3.1.0",
+    "eslint-plugin-react": "4.2.3",
+    "express": "4.13.4",
+    "html-webpack-plugin": "2.15.0",
+    "imports-loader": "^0.6.5",
+    "jquery": "^2.2.3",
+    "node-sass": "^3.4.2",
+    "postcss-loader": "^0.8.2",
+    "react": "0.14.8",
+    "react-dom": "0.14.8",
+    "resolve-url-loader": "^1.4.3",
+    "sass-loader": "^3.2.0",
+    "sass-resources-loader": "^1.0.2",
+    "soundcloud": "3.1.0",
+    "style-loader": "^0.13.1",
+    "tether": "^1.2.0",
+    "underscore": "1.8.3",
+    "url-loader": "^0.5.7",
+    "webpack": "1.12.14",
+    "webpack-dev-middleware": "1.6.1",
+    "webpack-hot-middleware": "2.10.0"
+  }
+}
