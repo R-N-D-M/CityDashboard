@@ -8,7 +8,7 @@
     "es6": "dev --progress && nodemon server.js",
     "test": "node_modules/mocha/bin/mocha -w test/helpers/browser.js test/*.spec.js",
     "lint": "node_modules/eslint/bin/eslint.js .",
-    "build": "webpack --progress" 
+    "build": "node_modules/webpack/bin/webpack.js --progress" 
   },
   "repository": {
     "type": "git",
