@@ -21,4 +21,8 @@ app.use(webpackMiddleware(compiler, {
 app.use(webpackHot(compiler));
 app.use(express.static(path.join(__dirname, 'client/')));
 
+app.post('/bars', (request, response)=> {
+  console.log("POST request to /bars: ", request);
+});
+
 app.listen(process.env.PORT || 3000);
