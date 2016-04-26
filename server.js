@@ -1,3 +1,4 @@
+"use strict";
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'client/')));
 
 app.post('/bars', (request, response)=> {
   console.log("POST request to /bars: ", request);
+  response.send('hello world');
 });
 
 app.listen(process.env.PORT || 3000);
