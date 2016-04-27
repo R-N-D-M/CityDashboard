@@ -1,4 +1,6 @@
 import React from 'react';
+var geomagnetism = require('geomagnetism');
+// import geomagnetism from 'geomagnetism';
 
 class Compass extends React.Component {
   constructor(props) {
@@ -9,12 +11,16 @@ class Compass extends React.Component {
     this.init();
   }
   init() {
+    // let info = geomagnetism.model().point([37.787507, -122.399838]);
+    // console.log("COMPONENT", geomagnetism, '----');
     let magneticDeclination = 13.66;
+    // let magneticDeclination = info.decl;
     let compass = document.getElementById('compass');
     if (window.DeviceOrientationEvent) {
 
+      // console.log('magnetic declination:', info.decl);
       window.addEventListener('deviceorientation', function(event) {
-        let alpha, webkitAlpha;
+        var alpha, webkitAlpha;
         //Check for iOS property
         if (event.webkitCompassHeading) {
           alpha = event.webkitCompassHeading;
@@ -33,18 +39,16 @@ class Compass extends React.Component {
         // Get compass heading by 360 - alpha
 
         // compass.style.Transform = 'rotate(' + alpha + 'deg)';
-        compass.style.Transform = 'rotate(' + ((magneticDeclination + 360 - alpha)) + 'deg)';
-
+        compass.style.Transform = 'rotate(-' + ((magneticDeclination + (360-alpha))%360) + 'deg)';
         // compass.style.WebkitTransform = 'rotate('+ webkitAlpha + 'deg)';
-        compass.style.WebkitTransform = 'rotate(' + ((magneticDeclination + 360 - webkitAlpha)) + 'deg)';
-
+        compass.style.WebkitTransform = 'rotate(-'+ ((magneticDeclination + (360-webkitAlpha))%360) + 'deg)';
         //Rotation is reversed for FireFox
-        // compass.style.MozTransform = 'rotate(-' + alpha + 'deg)';
-        compass.style.MozTransform = 'rotate(-' + ((magneticDeclination + 360 - alpha)) + 'deg)';
+        // compass.style.MozTransform = 'rotate(' + alpha + 'deg)';
+        compass.style.MozTransform = 'rotate(' + ((magneticDeclination + (360-alpha))%360) + 'deg)';
 
-        console.log("Heading: ", (360 - alpha));
+        console.log("Heading: ", (360-alpha));
         document.getElementById('heading').innerHTML = "360-alpha: " + (360 - alpha);
-        document.getElementById('heading2').innerHTML = "magneticDeclination+360-alpha: " + ((magneticDeclination + 360 - alpha) % 360);
+        document.getElementById('heading2').innerHTML = "magneticDeclination+360-alpha: " + ((magneticDeclination+360 - alpha)%360);
         // document.getElementById('heading3').innerHTML = "calculatedBearing: " + (calculatedBearing);
       }, false);
     }
