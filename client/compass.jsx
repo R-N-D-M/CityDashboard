@@ -1,5 +1,5 @@
 import React from 'react';
-var geomagnetism = require('geomagnetism');
+// var geomagnetism = require('geomagnetism');
 // import geomagnetism from 'geomagnetism';
 
 class Compass extends React.Component {
