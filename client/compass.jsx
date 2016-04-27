@@ -47,7 +47,7 @@ class Compass extends React.Component {
         compass.style.MozTransform = 'rotate(' + ((magneticDeclination + (360-alpha))%360) + 'deg)';
 
         console.log("Heading: ", (360-alpha));
-        document.getElementById('heading').innerHTML = "360-alpha: " + (360 - alpha);
+        document.getElementById('heading').innerHTML = "360-alpha: " + ((360 - alpha)%360);
         document.getElementById('heading2').innerHTML = "magneticDeclination+360-alpha: " + ((magneticDeclination+360 - alpha)%360);
         // document.getElementById('heading3').innerHTML = "calculatedBearing: " + (calculatedBearing);
       }, false);
