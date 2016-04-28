@@ -23,14 +23,17 @@ class Compass extends React.Component {
     ) * 180/Math.PI;
   }
   init() {
+    // locations
+    let currentLocation = [37.787507, -122.399838];
+    let unoDosTacosLocation = [37.789341, -122.400751];
 
     // get magnetic declination
-    let info = geomagnetism.model().point([37.787507, -122.399838]);
+    let info = geomagnetism.model().point(currentLocation);
     console.log("Magnetic declination: ", info.decl, '----');
     let magneticDeclination = info.decl;
 
     // get heading of bar (right now Uno Dos Tacos (4/27/2015))
-    let calculatedBearing = this.bearingDegrees(37.787507, -122.399838, 37.789341, -122.400751);
+    let calculatedBearing = this.bearingDegrees(currentLocation[0], currentLocation[1],unoDosTacosLocation[0],unoDosTacosLocation[1]);
 
     let compass = document.getElementById('compass');
     if (window.DeviceOrientationEvent) {
