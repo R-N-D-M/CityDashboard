@@ -1,9 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { Router, Router, hashHistory } from 'react-router';
-// import About from './about';
-// import Repos from './repo'
-
 import NavBar from './navBar';
 import Weather from './weather';
 import Bart from './bart';
@@ -16,6 +12,10 @@ class App extends React.Component {
     this.state = {
       locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."]
     };
+    this.widgets = [{
+      name: 'weather',
+      deployed: true
+    }];
   }
   componentWillMount() {
     console.log('Main component will mount!');
@@ -36,7 +36,7 @@ class App extends React.Component {
   render() {
     return (
       <div style={{height: "100%", width: "100%"}}>
-        <NavBar />
+        <NavBar widgets={this.widgets} />
         <div className="bothcontainer" style={{display: "flex", width: "100%", height: "100%"}}>
           <div style={{width: "100%", height: "80%", flex: "1", border: "1px solid red"}} id={'widgets'}>
             <Weather location={this.state.locationTrue}/>
@@ -48,7 +48,5 @@ class App extends React.Component {
     );
   }
 }
-
-
 
 ReactDOM.render(<App />, document.getElementById('app'));
