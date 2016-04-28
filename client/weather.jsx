@@ -7,7 +7,7 @@ class Weather extends React.Component {
     super(props);
     this.state = {
       appid: "9fb12d07534f5cbab4ff6c758a01f407",
-      location: [37.787507, -122.399838],
+      // location: [37.787507, -122.399838],
       locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
       city: "No weather information yet.",
       description: "No weather information yet.",
@@ -20,22 +20,40 @@ class Weather extends React.Component {
       windspeed: "No weather information yet."
     };
   }
+  componentWillMount() {
+    console.log('Weather component will mount!');
+  }
   componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition( (position) => {
-        console.log(position);
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        this.setState({
-          locationTrue: [lat, lng]
-        });
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition( (position) => {
+    //     console.log(position);
+    //     let lat = position.coords.latitude;
+    //     let lng = position.coords.longitude;
+    //     this.setState({
+    //       locationTrue: [lat, lng]
+    //     });
+    //     this.getWeather();
+    //   });
+    // }
+
+    console.log('Weather component mounted');
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log("Weather component received prop change!");
+    if(nextProps && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
+      // console.log("np", nextProps.location);
+      this.setState({locationTrue: nextProps.location}, () => {
+        // console.log("nl", this.state.locationTrue);
         this.getWeather();
       });
+
     }
-    console.log('Weather component mounted');
+
   }
   getWeather() {
     let url = "http://api.openweathermap.org/data/2.5/weather?lat=" + this.state.locationTrue[0] + "&lon=" + this.state.locationTrue[1] + "&appid=" + this.state.appid;
+
+    // console.log("url: ", url);
 
     Axios.get(url)
       .then( (response) => {
@@ -62,7 +80,8 @@ class Weather extends React.Component {
       <div style={{
           width: "25%",
           border: "2px dotted green",
-          margin: "8px"
+          margin: "8px",
+          float: "left"
         }}>
 
         <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
