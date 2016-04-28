@@ -31,7 +31,6 @@ class Weather extends React.Component {
         });
         this.getWeather();
       });
-
     }
     console.log('Weather component mounted');
   }
