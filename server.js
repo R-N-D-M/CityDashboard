@@ -5,10 +5,12 @@ var webpack = require('webpack');
 var webpackConfig = require('./webpack.config');
 var webpackMiddleware = require('webpack-dev-middleware');
 var webpackHot = require('webpack-hot-middleware');
-var getBarsList = require('./server/bars.js');
 var bodyParser = require('body-parser');
-var weather = require('./server/weather.js');
 var compiler = webpack(webpackConfig);
+
+// server files
+var getBarsList = require('./server/bars.js');
+var weather = require('./server/weather.js');
 
 var app = express();
 
@@ -30,8 +32,8 @@ app.use(express.static(path.join(__dirname, 'client/')));
 
 
 app.post('/bars', (request, response, next) => {
-  console.log("server.js: request.body: ", request.body);
-  console.log("server.js: request.body.location: ", request.body.location);
+  // console.log("server.js: request.body: ", request.body);
+  // console.log("server.js: request.body.location: ", request.body.location);
   getBarsList(request.body.location, request.body.radius)
   .then((barsList) => {
     console.log("bars list is this: ", barsList);
@@ -46,7 +48,6 @@ app.post('/bars', (request, response, next) => {
   // response.send('hello world');
 });
 
-<<<<<<< dbe9eb022c9c01aad5fb9889372a0d85072bb8a6
 // handleSubmission = function(){
 //   axios.post('/getdata',{
 //     data: data
@@ -65,11 +66,10 @@ app.post('/bars', (request, response, next) => {
 //     res.send(response);
 //   });
 // })
-=======
+
 app.post('/weather', (request, response)=> {
-  console.log("POST request to /weather: ", request);
+  console.log("POST request to /weather");
   weather.getWeather(request, response);
 });
->>>>>>> added weather to backend
 
 app.listen(process.env.PORT || 3000);

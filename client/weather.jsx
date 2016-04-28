@@ -1,4 +1,3 @@
-// app id 9fb12d07534f5cbab4ff6c758a01f407
 import React from 'react';
 import Axios from 'axios';
 
@@ -6,7 +5,7 @@ class Weather extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appid: "9fb12d07534f5cbab4ff6c758a01f407",
+      // appid: "9fb12d07534f5cbab4ff6c758a01f407",
       // location: [37.787507, -122.399838],
       locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
       city: "No weather information yet.",
@@ -37,17 +36,17 @@ class Weather extends React.Component {
     // }
 
     console.log('Weather component mounted');
-    let url = '/weather';
-    let data = {
-      greeting: "hello"
-    };
-    Axios.post(url, data)
-      .then( (response) => {
-        console.log("/Weather post succeeded!");
-      })
-      .catch( (response) => {
-        console.log("Error getting weather: ", response);
-      });
+    // let url = '/weather';
+    // let dataToSend = {
+    //   greeting: "hello"
+    // };
+    // Axios.post(url, dataToSend)
+    //   .then( (response) => {
+    //     console.log("/Weather post succeeded with data returned: ", response.data);
+    //   })
+    //   .catch( (response) => {
+    //     console.log("Error getting weather: ", response);
+    //   });
   }
   componentWillReceiveProps(nextProps) {
     console.log("Weather component received prop change!");
@@ -59,27 +58,50 @@ class Weather extends React.Component {
       });
 
     }
-
   }
   getWeather() {
-    let url = "http://api.openweathermap.org/data/2.5/weather?lat=" + this.state.locationTrue[0] + "&lon=" + this.state.locationTrue[1] + "&appid=" + this.state.appid;
+    // let url = "http://api.openweathermap.org/data/2.5/weather?lat=" + this.state.locationTrue[0] + "&lon=" + this.state.locationTrue[1] + "&appid=" + this.state.appid;
+    //
+    // // console.log("url: ", url);
+    //
+    // Axios.get(url)
+    //   .then( (response) => {
+    //     console.log("Weather: ", response);
+    //     this.setState({
+    //       city: response.data.name,
+    //       description: response.data.weather[0].description,
+    //       temp: response.data.main.temp,
+    //       temp_max: response.data.main.temp_max,
+    //       temp_min: response.data.main.temp_min,
+    //       humidity: response.data.main.humidity,
+    //       pressure: response.data.main.pressure,
+    //       winddeg: response.data.wind.deg,
+    //       windspeed: response.data.wind.speed
+    //     });
+    //   });
+    //   .catch( (response) => {
+    //     console.log("Error getting weather: ", response);
+    //   });
 
-    // console.log("url: ", url);
-
-    Axios.get(url)
+    let url = '/weather';
+    let dataToSend = {
+      latLng: this.state.locationTrue
+    };
+    Axios.post(url, dataToSend)
       .then( (response) => {
-        console.log("Weather: ", response);
+        console.log("/Weather post succeeded: ", response.data);
         this.setState({
-          city: response.data.name,
-          description: response.data.weather[0].description,
-          temp: response.data.main.temp,
-          temp_max: response.data.main.temp_max,
-          temp_min: response.data.main.temp_min,
-          humidity: response.data.main.humidity,
-          pressure: response.data.main.pressure,
-          winddeg: response.data.wind.deg,
-          windspeed: response.data.wind.speed
+          city: response.data.city,
+          description: response.data.description,
+          temp: response.data.temp,
+          temp_max: response.data.temp_max,
+          temp_min: response.data.temp_min,
+          humidity: response.data.humidity,
+          pressure: response.data.pressure,
+          winddeg: response.data.winddeg,
+          windspeed: response.data.windspeed
         });
+        console.log("This state: ", this.state);
       })
       .catch( (response) => {
         console.log("Error getting weather: ", response);
