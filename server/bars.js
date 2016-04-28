@@ -3,7 +3,7 @@ var _ = require('underscore');
 var keys = require('../configuration.js');
 var axios = require('axios');
 
-function getBarsList(request) {
+function getBarsList(location, radius) {
   // accept request object with lat/long in the body
   // build this request object
   // location: -33.8670,151.1957
@@ -12,12 +12,15 @@ function getBarsList(request) {
   // name: cruise
   // key: API_KEY
   //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670,151.1957&radius=500&types=bar=cruise&key=YOUR_API_KEY
-
+  // console.log("bars.js: request is: ", request);
+  // console.log("bars.js: request.body.location: ", request.body.location);
+  // console.log("bars.js: request.body.radius: ", request.body.radius);
+  //console.log("request.body.location", request.body.location);
   // build request string
   let base = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
   let params = {
-    location: request.body.location,
-    radius: request.body.radius,
+    location: location,
+    radius: radius,
     type: 'bar',
     opennow: true,
     // rankby: 'distance',
@@ -30,12 +33,12 @@ function getBarsList(request) {
   // _.each(params, (item, key)=>{
   //   base += key + '=' + item +'&';
   // });
-  console.log("Base after additions", base);
   // make request with axios
+
   return axios.get(base, {params: params})
     .then((response) => {
       console.log("BarsList from Google", response.data);
-      return Promise.resolve(response.data);;
+      return response.data;
     })
     .catch(function (response) {
       if (response instanceof Error) {
@@ -53,6 +56,7 @@ function getBarsList(request) {
   // return results
 }
 
-module.exports = {
-  getBarsList: getBarsList
-}
+module.exports = getBarsList
+// {
+//   getBarsList: getBarsList
+// }

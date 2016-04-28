@@ -23,6 +23,8 @@
     - make sure you pass linting
     - if either of these fail make changes until they pass then start these instructions over including `Pulling from upstream`
   - git push origin [yourBranch]
+  - go to github and click submit pull request from your branch
+  - see git-workflow.png to correctly select options
 
 #### Commit Message Guidelines
 
