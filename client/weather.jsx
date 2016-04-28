@@ -61,7 +61,8 @@ class Weather extends React.Component {
     return (
       <div style={{
           width: "25%",
-          border: "2px dotted green"
+          border: "2px dotted green",
+          margin: "8px"
         }}>
 
         <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
