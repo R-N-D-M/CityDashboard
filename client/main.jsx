@@ -1,9 +1,9 @@
 // ES6 SYNTAX FOR IMPORTING MODULES
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Router, hashHistory } from 'react-router';
-import About from './about';
-import Repos from './repo'
+// import { Router, Router, hashHistory } from 'react-router';
+// import About from './about';
+// import Repos from './repo'
 
 // ES6 SYNTAX FOR IMPORTING CUSTOM EXPORTS FROM A MODULE
 // import { SOUND_CLOUD_KEY } from './config';
@@ -53,5 +53,7 @@ class App extends React.Component {
     );
   }
 }
+
+// <Bart />
 
 ReactDOM.render(<App />, document.getElementById('app'));
