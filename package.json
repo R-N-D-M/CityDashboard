@@ -39,7 +39,8 @@
     "react-addons-test-utils": "^0.14.7",
     "sinon": "^1.17.3",
     "geomagnetism": "0.0.2",
-    "json-loader": "^0.5.4"
+    "json-loader": "^0.5.4",
+    "request": "^2.72.0"
   },
   "dependencies": {
     "autoprefixer": "^6.3.6",

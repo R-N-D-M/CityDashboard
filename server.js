@@ -7,8 +7,7 @@ var webpackMiddleware = require('webpack-dev-middleware');
 var webpackHot = require('webpack-hot-middleware');
 var getBarsList = require('./server/bars.js');
 var bodyParser = require('body-parser');
-
-
+var weather = require('./server/weather.js');
 var compiler = webpack(webpackConfig);
 
 var app = express();
@@ -41,12 +40,13 @@ app.post('/bars', (request, response, next) => {
     response.send();
   });
 
-    
+
 
   // console.log("POST request to /bars: ", request);
   // response.send('hello world');
 });
 
+<<<<<<< dbe9eb022c9c01aad5fb9889372a0d85072bb8a6
 // handleSubmission = function(){
 //   axios.post('/getdata',{
 //     data: data
@@ -54,7 +54,7 @@ app.post('/bars', (request, response, next) => {
 //     this.setState({
 //       property: response.data.title
 //     })
-//   })   
+//   })
 // }
 
 
@@ -65,5 +65,11 @@ app.post('/bars', (request, response, next) => {
 //     res.send(response);
 //   });
 // })
+=======
+app.post('/weather', (request, response)=> {
+  console.log("POST request to /weather: ", request);
+  weather.getWeather(request, response);
+});
+>>>>>>> added weather to backend
 
 app.listen(process.env.PORT || 3000);

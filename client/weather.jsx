@@ -37,6 +37,17 @@ class Weather extends React.Component {
     // }
 
     console.log('Weather component mounted');
+    let url = '/weather';
+    let data = {
+      greeting: "hello"
+    };
+    Axios.post(url, data)
+      .then( (response) => {
+        console.log("/Weather post succeeded!");
+      })
+      .catch( (response) => {
+        console.log("Error getting weather: ", response);
+      });
   }
   componentWillReceiveProps(nextProps) {
     console.log("Weather component received prop change!");
@@ -96,6 +107,7 @@ class Weather extends React.Component {
         <div className="windspeed">Wind Speed(mph): {this.state.windspeed}</div>
       </div>
     );
+
   }
 
 }
