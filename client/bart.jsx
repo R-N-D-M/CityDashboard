@@ -7,7 +7,7 @@ class Bart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      myValue: "set ZAK This"
+      myValue: 'set ZAK This'
     }
   }
 
@@ -20,9 +20,12 @@ class Bart extends React.Component {
     let base = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today";
     axios.get(base)
       .then((response) => {
-        console.log("response.data: ", response.data);
+        console.log('response.data: ', response.data);
+        console.log('response is: ', response);
+        let testJson = xmlToJson(response.request.responseXML.documentElement);
+        console.log('testJson: ', testJson)
         this.setState({
-          myValue: response.data
+          myValue: testJson
         })
       })
       .catch(function(response) {
