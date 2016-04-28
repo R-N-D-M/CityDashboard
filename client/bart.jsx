@@ -1,6 +1,7 @@
 
 import React, { PropTypes } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
+import xmlToJson from './xmlToJson.js';
 
 class Bart extends React.Component {
   constructor(props) {
@@ -10,25 +11,28 @@ class Bart extends React.Component {
     }
   }
 
-  // componentWillMount(){
-  //   // let delays = getBartDelays();
-  //   // this.setState({ myValue: delays });
-  // }
+  componentWillMount(){
+    let delays = this.getBartDelays();
+    this.setState({ myValue: delays });
+  }
 
-  // getBartDelays(){
-  //   let base = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today";
-  //   return axios.get(base)
-  //     .then((response) => {
-  //       return response.data
-  //     })
-  //     .catch(function(response) {
-  //       if (response instanceof Error){
-  //         console.log('Error', response.message);
-  //       } else {
-  //         console.log(response.data);
-  //       }
-  //     });
-  // }
+  getBartDelays(){
+    let base = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today";
+    axios.get(base)
+      .then((response) => {
+        console.log("response.data: ", response.data);
+        this.setState({
+          myValue: response.data
+        })
+      })
+      .catch(function(response) {
+        if (response instanceof Error){
+          console.log('Error', response.message);
+        } else {
+          console.log(response.data);
+        }
+      });
+  }
 
   render() {
     if (!this.state.myValue) {
