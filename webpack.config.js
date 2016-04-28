@@ -29,10 +29,7 @@ module.exports = {
       test: /\.scss$/,
       loaders: ['style', 'css', 'postcss', 'sass']
     },
-    {
-      test: /\.json$/,
-      loader: "json"
-    }]
+  ]
     // {
     //   test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
     //   loader: 'imports?jQuery=jquery'

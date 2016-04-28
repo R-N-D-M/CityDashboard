@@ -5,11 +5,12 @@ var webpack = require('webpack');
 var webpackConfig = require('./webpack.config');
 var webpackMiddleware = require('webpack-dev-middleware');
 var webpackHot = require('webpack-hot-middleware');
-var getBarsList = require('./server/bars.js');
 var bodyParser = require('body-parser');
-
-
 var compiler = webpack(webpackConfig);
+
+// server files
+var getBarsList = require('./server/bars.js');
+var weather = require('./server/weather.js');
 
 var app = express();
 
@@ -31,8 +32,8 @@ app.use(express.static(path.join(__dirname, 'client/')));
 
 
 app.post('/bars', (request, response, next) => {
-  console.log("server.js: request.body: ", request.body);
-  console.log("server.js: request.body.location: ", request.body.location);
+  // console.log("server.js: request.body: ", request.body);
+  // console.log("server.js: request.body.location: ", request.body.location);
   getBarsList(request.body.location, request.body.radius)
   .then((barsList) => {
     console.log("bars list is this: ", barsList);
@@ -41,7 +42,7 @@ app.post('/bars', (request, response, next) => {
     response.send();
   });
 
-    
+
 
   // console.log("POST request to /bars: ", request);
   // response.send('hello world');
@@ -54,7 +55,7 @@ app.post('/bars', (request, response, next) => {
 //     this.setState({
 //       property: response.data.title
 //     })
-//   })   
+//   })
 // }
 
 
@@ -65,5 +66,10 @@ app.post('/bars', (request, response, next) => {
 //     res.send(response);
 //   });
 // })
+
+app.post('/weather', (request, response)=> {
+  console.log("POST request to /weather");
+  weather.getWeather(request, response);
+});
 
 app.listen(process.env.PORT || 3000);
