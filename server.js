@@ -26,7 +26,7 @@ app.use(webpackMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath
 }));
 app.use(webpackHot(compiler));
-app.use(express.static(path.join(__dirname, 'client/')));
+app.use(express.static(path.join(__dirname, 'dist/')));
 
 
 
