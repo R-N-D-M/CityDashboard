@@ -11,7 +11,7 @@ module.exports = {
   entry: [
     // 'bootstrap-loader',
     'tether',
-    path.resolve(ROOT_PATH, 'client/main.jsx'),
+    path.resolve(ROOT_PATH, 'client/app.jsx'),
     'webpack-hot-middleware/client'
   ],
   module: {

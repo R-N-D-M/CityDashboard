@@ -1,10 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import NavBar from './navBar';
 import Weather from './weather';
 import Bart from './bart';
-
-// require('./styles.scss');
 
 class Main extends React.Component {
   constructor(props) {
@@ -50,5 +47,3 @@ class Main extends React.Component {
 }
 
 export default Main;
-
-ReactDOM.render(<Main />, document.getElementById('app'));
