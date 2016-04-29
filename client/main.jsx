@@ -3,6 +3,7 @@ import NavBar from './navBar';
 import Weather from './weather';
 import Bart from './bart';
 import Nearby from './nearby';
+import Movies from './movies';
 
 class Main extends React.Component {
   constructor(props) {
@@ -44,7 +45,8 @@ class Main extends React.Component {
             <Nearby location={this.state.locationTrue}/>
             </div>
         </div>
-        <Bart />
+        <Bart/>
+        <Movies location={this.state.locationTrue}/>
       </div>
 
     );

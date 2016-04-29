@@ -15,7 +15,7 @@ class Movies extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log("Movies component received prop change!");
     if(nextProps && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
-      this.setState({latLong: nextProps.location}, () => {
+      this.setState({locationTrue: nextProps.location}, () => {
         this.getMovies();
       });
     }
@@ -24,27 +24,26 @@ class Movies extends React.Component {
 
     let url = '/movies';
     let data = {
-      latLong: this.state.latLong
+      latLong: this.state.locationTrue
     };
 
     Axios.post(url, data)
       .then( (response) => {
         console.log('/movie post works', response.data);
-        this.setState({
-          showtimes: response.data;
-        });
-        console.log("This state: ", this.state);
+        // this.setState({
+        //   showtimes: response.data;
+        // });
+        // console.log("This state: ", this.state);
       })
       .catch( (response) => {
         console.log('Error getting movies: ', response);
       });
-
-
   }
   render() {
 
     return (
-      <div></div>)
+      <div></div>
+    );
   }
 }
 
