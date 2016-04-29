@@ -9,7 +9,7 @@
     "test": "node_modules/mocha/bin/mocha -w test/helpers/browser.js test/*.spec.js",
     "lint": "node_modules/eslint/bin/eslint.js .",
     "build": "node_modules/webpack/bin/webpack.js --progress",
-    "heroku-prebuild": "npm run build" 
+    "heroku-postbuild": "npm run build" 
   },
   "repository": {
     "type": "git",
