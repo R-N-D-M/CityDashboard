@@ -26,7 +26,7 @@ function getBarsList(location, radius) {
     key: keys.GOOGLE_PLACES_API_KEY
   }
 
-  return axios.get(base, {params: params})
+  return axios.get(base, params)
     .then((response) => {
       // console.log("BarsList from Google", response.data);
       return response.data;

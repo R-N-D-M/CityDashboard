@@ -89,7 +89,7 @@ class Weather extends React.Component {
     };
     Axios.post(url, dataToSend)
       .then( (response) => {
-        console.log("/Weather post succeeded: ", response.data);
+        console.log("/weather post succeeded: ", response.data);
         this.setState({
           city: response.data.city,
           description: response.data.description,
@@ -101,11 +101,11 @@ class Weather extends React.Component {
           winddeg: response.data.winddeg,
           windspeed: response.data.windspeed
         });
-        console.log("This state: ", this.state);
+        // console.log("This state: ", this.state);
       })
       .catch( (response) => {
-        console.log("Error getting weather: ", response);
-      });
+        console.log("Error getting weather!");
+    });
 
   }
   render() {

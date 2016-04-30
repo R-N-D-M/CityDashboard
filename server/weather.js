@@ -1,5 +1,4 @@
 // app id 9fb12d07534f5cbab4ff6c758a01f407
-var request = require('request');
 var axios = require('axios');
 
 var APP_ID = "9fb12d07534f5cbab4ff6c758a01f407";
@@ -12,13 +11,17 @@ var getWeather = function(request, response) {
   // console.log("latLng: ", latLng);
   url = "http://api.openweathermap.org/data/2.5/weather?lat=" + latLng[0] + "&lon=" + latLng[1] + "&appid=" + APP_ID;
 
+  // console.log("url: ", url);
+
   axios.get(url)
     .then( (resp) => {
+      // console.log("Weather: ", resp.data);
       sendWeather(resp.data, request, response)
     })
     .catch( (resp) => {
-      console.log("Error getting weather: ", response);
-    });
+      console.log("Error getting weather: ", resp);
+      response.status(503).send("Error getting weather!");
+  });
 
 };
 
@@ -35,7 +38,7 @@ var sendWeather = function (data, request, response) {
         windspeed: data.wind.speed
   };
 
-  response.status(200).send(objToSend);
+  return response.status(200).send(objToSend);
 
 };
 

@@ -11,6 +11,7 @@ var compiler = webpack(webpackConfig);
 // server files
 var getBarsList = require('./server/bars.js');
 var weather = require('./server/weather.js');
+var nearby = require('./server/nearby.js');
 
 var app = express();
 
@@ -41,6 +42,11 @@ app.post('/bars', (request, response, next) => {
 app.post('/weather', (request, response)=> {
   console.log("POST request to /weather");
   weather.getWeather(request, response);
+});
+
+app.post('/nearby', (request, response)=> {
+  console.log("POST request to /nearby");
+  nearby.getGoogleData(request, response);
 });
 
 app.listen(process.env.PORT || 3000);
