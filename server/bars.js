@@ -4,13 +4,12 @@ var keys = require('../configuration.js');
 var axios = require('axios');
 
 function getBarsList(location, radius) {
-  // accept request object with lat/long in the body
   // build this request object
-  // location: -33.8670,151.1957
-  // radius: 500
-  // types: food
-  // name: cruise
-  // key: API_KEY
+    // location: -33.8670,151.1957
+    // radius: 500
+    // types: food
+    // name: cruise
+    // key: API_KEY
   //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670,151.1957&radius=500&types=bar=cruise&key=YOUR_API_KEY
   // console.log("bars.js: request is: ", request);
   // console.log("bars.js: request.body.location: ", request.body.location);
@@ -26,18 +25,10 @@ function getBarsList(location, radius) {
     // rankby: 'distance',
     key: keys.GOOGLE_PLACES_API_KEY
   }
-  console.log("Base: ", base);
-  console.log("Params: ", params);
-  // iterate through parameters
-    // add '&' + key + '=' + value to string
-  // _.each(params, (item, key)=>{
-  //   base += key + '=' + item +'&';
-  // });
-  // make request with axios
 
   return axios.get(base, {params: params})
     .then((response) => {
-      console.log("BarsList from Google", response.data);
+      // console.log("BarsList from Google", response.data);
       return response.data;
     })
     .catch(function (response) {

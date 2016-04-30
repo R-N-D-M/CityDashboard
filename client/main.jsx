@@ -12,6 +12,9 @@ class Main extends React.Component {
     this.widgets = [{
       name: 'weather',
       deployed: true
+    }, {
+      name: 'bart',
+      deployed: false
     }];
   }
   componentWillMount() {
@@ -33,7 +36,7 @@ class Main extends React.Component {
   render() {
     return (
       <div style={{height: "100%", width: "100%"}}>
-        <NavBar widgets={this.widgets} />
+        <NavBar style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.widgets} />
         <div className="bothcontainer" style={{display: "flex", width: "100%", height: "100%"}}>
           <div style={{width: "100%", height: "80%", flex: "1", border: "1px solid red"}} id={'widgets'}>
             <Weather location={this.state.locationTrue}/>

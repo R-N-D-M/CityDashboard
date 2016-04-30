@@ -40,6 +40,7 @@
     "body-parser": "^1.15.0",
     "bootstrap": "^4.0.0-alpha.2",
     "bootstrap-loader": "^1.0.10",
+    "classnames": "^2.2.4",
     "css-loader": "^0.23.1",
     "dotenv": "^2.0.0",
     "eslint": "2.2.0",

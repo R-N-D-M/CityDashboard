@@ -12,11 +12,8 @@ var getWeather = function(request, response) {
   // console.log("latLng: ", latLng);
   url = "http://api.openweathermap.org/data/2.5/weather?lat=" + latLng[0] + "&lon=" + latLng[1] + "&appid=" + APP_ID;
 
-  console.log("url: ", url);
-
   axios.get(url)
     .then( (resp) => {
-      console.log("Weather: ", resp.data);
       sendWeather(resp.data, request, response)
     })
     .catch( (resp) => {
