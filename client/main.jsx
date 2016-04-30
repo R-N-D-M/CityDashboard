@@ -82,6 +82,7 @@ export default class Main extends React.Component {
         <div className="container-fluid" style={{backgroundColor: 'red'}}>
           {widgets}
         </div>
+        <Bart location={this.state.locationTrue}/>
       </div>
 
     );
