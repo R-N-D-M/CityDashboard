@@ -5,15 +5,16 @@ var axios = require('axios');
 
 var SERVER_KEY = "AIzaSyCtFen6UlngOLpcBYNQM19oVYNUJD-jwSk";
 var getGoogleData = function(request, response) {
-
   var latLng = request.body.latLng;
   var latLngStr = "" + latLng[0] + "," + latLng[1];
   var radius = 805; // 805 meters = 0.5 mile
   // var type = "restaurant";
-  var type = "bar";
+  // var type = "bar";
+  var type = request.body.type;
   // var name = "burger";
   var name = "";
   var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latLngStr + "&radius=" + radius + "&type=" + type + "&name" + name + "&key=" + SERVER_KEY;
+  var urlRankByDistance = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latLngStr + "rankby=distance" + "&type=" + type + "&name" + name + "&key=" + SERVER_KEY;
   // console.log("url: ", url);
   axios.get(url)
     .then( (resp) => {
