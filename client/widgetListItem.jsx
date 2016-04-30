@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 
 export default class WidgetListItem extends React.Component {
   constructor(props) {
@@ -8,9 +9,12 @@ export default class WidgetListItem extends React.Component {
 
 
   render() {
+    let itemClasses = classNames("dropdown-item", {
+      'disabled': this.props.deployed
+    });
 
     return (
-      <option>{this.props.name}</option>
+      <a className={itemClasses} href="#">{ this.props.name }</a>
     );
   }
 }

@@ -29,43 +29,14 @@ app.use(webpackHot(compiler));
 app.use(express.static(path.join(__dirname, 'dist/')));
 
 
-
-
 app.post('/bars', (request, response, next) => {
-  // console.log("server.js: request.body: ", request.body);
-  // console.log("server.js: request.body.location: ", request.body.location);
   getBarsList(request.body.location, request.body.radius)
   .then((barsList) => {
-    console.log("bars list is this: ", barsList);
     response.writehead(200);
     response.write(barsList);
     response.send();
   });
-
-  // console.log("POST request to /bars: ", request);
-  // response.send('hello world');
 });
-
-
-
-// handleSubmission = function(){
-//   axios.post('/getdata',{
-//     data: data
-//   }).then(function(response){
-//     this.setState({
-//       property: response.data.title
-//     })
-//   })
-// }
-
-
-// app.post('/getdata', function(request,response){
-//   console.log("getdata test:");
-//   var data = request.body.data;
-//   getDataFromGoogleAPI(data).then(function(response){
-//     res.send(response);
-//   });
-// })
 
 app.post('/weather', (request, response)=> {
   console.log("POST request to /weather");

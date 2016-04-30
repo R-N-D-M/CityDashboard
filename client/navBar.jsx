@@ -11,10 +11,12 @@ export default class NavBar extends React.Component {
   render() {
 
     return (
-      <div style={{textAlign: 'left', display: 'inline-block'}} >
-        <h1 style={{display: 'inline-block', width: '1200px'}}>City Dashboard - San Francisco</h1>
-        <WidgetList widgets={this.props.widgets}/>
-      </div>
+      <nav className="navbar navbar-dark bg-inverse">
+        <h1 className="navbar-brand">City Dashboard - San Francisco</h1>
+        <div className="nav navbar-nav">
+          <WidgetList widgets={this.props.widgets} />
+        </div>
+      </nav>
     );
   }
 }
