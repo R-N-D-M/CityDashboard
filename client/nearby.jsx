@@ -56,15 +56,52 @@ class Nearby extends React.Component {
 
     initMap();
 
-    const createMarker = (place) => {
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
+    // create user location's marker
+    //////////////////////////////////////////
+    // let pinColor = "FE7569";  // bright red
+    let pinColor = "2599FF"; // bright blue
+
+    let pinImage = new google.maps.MarkerImage(
+      "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+      new google.maps.Size(21, 34),
+      new google.maps.Point(0,0),
+      new google.maps.Point(10, 34)
+    );
+
+    let pinShadow = new google.maps.MarkerImage(
+      "http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+      new google.maps.Size(40, 37),
+      new google.maps.Point(0, 0),
+      new google.maps.Point(12, 35)
+    );
+
+    let userMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(
+          this.state.locationTrue[0],
+          this.state.locationTrue[1]
+        ),
         map: map,
-        position: place.geometry.location
+        icon: pinImage,
+        shadow: pinShadow
+    });
+
+    google.maps.event.addListener(userMarker, 'click', function() {
+      infowindow.setContent('<div><strong>' + "Your Location" + '</strong><br></div>');
+      infowindow.open(map, this);
+    });
+
+
+    //////////////////////////////////////////
+    const createMarker = (place) => {
+      let placeLoc = place.geometry.location;
+      let marker = new google.maps.Marker({
+        map: map,
+        position: placeLoc
       });
       // listener for markers clicked
       google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(place.name);
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+          place.vicinity + '</div>');
         infowindow.open(map, this);
       });
     }
@@ -74,15 +111,16 @@ class Nearby extends React.Component {
       createMarker(data[i]);
     }
 
-    var userLocation = new google.maps.LatLng(this.state.locationTrue[0], this.state.locationTrue[1]);
-
+    // var userLocation = new google.maps.LatLng(this.state.locationTrue[0], this.state.locationTrue[1]);
+    //
     // var userWindow = new google.maps.InfoWindow({
     //     map: map,
     //     position: userLocation,
     //     content:
-    //         '<h1>Location pinned from HTML5 Geolocation!</h1>' +
-    //         '<h2>Latitude: ' + this.state.locationTrue[0] + '</h2>' +
-    //         '<h2>Longitude: ' + this.state.locationTrue[1] + '</h2>'
+    //       '<div><strong>' + "Your Location" + '</strong><br></div>'
+    //         // '<h1>Location pinned from HTML5 Geolocation!</h1>' +
+    //         // '<h2>Latitude: ' + this.state.locationTrue[0] + '</h2>' +
+    //         // '<h2>Longitude: ' + this.state.locationTrue[1] + '</h2>'
     // });
 
     // var userMarker = new google.maps.Marker({
