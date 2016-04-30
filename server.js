@@ -46,7 +46,6 @@ app.post('/weather', (request, response)=> {
   weather.getWeather(request, response);
 });
 
-
 app.post('/nearby', (request, response)=> {
   console.log("POST request to /nearby");
   nearby.getGoogleData(request, response);
@@ -65,3 +64,4 @@ app.post('/movies', (request, response) => {
 });
 
 app.listen(process.env.PORT || 3000); //change back to 3000
+
