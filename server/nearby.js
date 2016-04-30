@@ -14,7 +14,7 @@ var getGoogleData = function(request, response) {
   // var name = "burger";
   var name = "";
   var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latLngStr + "&radius=" + radius + "&type=" + type + "&name" + name + "&key=" + SERVER_KEY;
-  var urlRankByDistance = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latLngStr + "rankby=distance" + "&type=" + type + "&name" + name + "&key=" + SERVER_KEY;
+  var urlRankByDistance = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latLngStr + "&rankby=distance" + "&type=" + type + "&name" + name + "&key=" + SERVER_KEY;
   // console.log("url: ", url);
   axios.get(url)
     .then( (resp) => {
