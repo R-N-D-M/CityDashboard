@@ -28,13 +28,13 @@ export default class Main extends React.Component {
       nearby: {
         id: 'nearby',
         name: 'Nearby',
-        deployed: true,
+        deployed: false,
         makeFunction: this.makeNearby
       },
       movies: {
         id: 'movies',
         name: 'Movies',
-        deployed: true,
+        deployed: false,
         makeFunction: this.makeMovies
       }
     };
