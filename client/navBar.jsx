@@ -14,7 +14,7 @@ export default class NavBar extends React.Component {
       <nav className="navbar navbar-dark bg-inverse">
         <h1 className="navbar-brand">City Dashboard - San Francisco</h1>
         <div className="nav navbar-nav">
-          <WidgetList widgets={this.props.widgets} />
+          <WidgetList widgets={this.props.widgets} handleClick={ this.props.handleClick } />
         </div>
       </nav>
     );

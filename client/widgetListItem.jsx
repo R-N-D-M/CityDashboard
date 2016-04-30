@@ -4,21 +4,17 @@ import classNames from 'classnames';
 export default class WidgetListItem extends React.Component {
   constructor(props) {
     super(props);
-
   }
-
-
   render() {
     let itemClasses = classNames("dropdown-item", {
       'disabled': this.props.deployed
     });
-
+    var trigger = function() {
+      this.props.handleClick(this.props.id);
+    };
+    trigger = trigger.bind(this);
     return (
-      <a className={itemClasses} href="#">{ this.props.name }</a>
+      <button onClick={ trigger } className={itemClasses} href="#">{ this.props.name }</button>
     );
   }
 }
-
-WidgetListItem.propTypes = {
-
-};

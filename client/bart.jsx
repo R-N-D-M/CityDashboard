@@ -9,6 +9,7 @@ class Bart extends React.Component {
     this.state = {
       myValue: 'set ZAK This'
     }
+    //props.alert("bart");
   }
 
   componentWillMount(){
