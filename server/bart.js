@@ -48,6 +48,7 @@ var getListOfStations = function(request) {
           }
           stationArray.push(BARTobj);
         });
+        console.log("stationArray: ", stationArray);
         var closestStation = getClosestStation(stationArray);
         console.log("ClosestStation: ", closestStation);
       })
@@ -65,7 +66,9 @@ var getNextDeparture = function(station){
     var deptArr = [];
     axios.get(base)
       .then((resp) => {
-        resp.data.query.results.root.station.etd.forEach((destination) => {
+        resp.data.query.results.root.station.etd.forEach((obj) => {
+            console.log("obj is: ", obj);
+
           
         });
       })
