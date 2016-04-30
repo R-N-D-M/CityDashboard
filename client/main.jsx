@@ -42,11 +42,8 @@ class Main extends React.Component {
         <div className="bothcontainer" style={{display: "flex", width: "100%", height: "100%"}}>
           <div style={{width: "100%", height: "80%", flex: "1", border: "1px solid red"}} id={'widgets'}>
             <Weather location={this.state.locationTrue}/>
-<<<<<<< 68a28c80cc0449d1ffc4a3539a16d9c2fadd0b4d
             <Nearby location={this.state.locationTrue}/>
-=======
             <Movies location={this.state.locationTrue}/>
->>>>>>> core: built out movies API to send from client to server
             </div>
         </div>
         <Bart/>
