@@ -8,7 +8,7 @@ class Bart extends React.Component {
     this.state = {
       locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
       myValue: 'set ZAK This',
-      closestStation: [1]
+      nextTrains: [1]
     };
   }
 
@@ -29,11 +29,11 @@ class Bart extends React.Component {
     };
     axios.post(url, dataToSend)
       .then( (response) => {
-        console.log("/bart post succeeded: ", response.data);
-        this.setState({
-          closestStation: [2]
-        });
-        console.log("this state in getClosestStation: ", getClosestStation);
+        console.log("/bart post succeeded: ", response.data[0]);
+        this.setState(
+          response.data
+        );
+        console.log("this state in getClosestStation: ", this.state);
       })
       .catch( (response) => {
         console.log("Error getting station: ", response);
@@ -83,6 +83,7 @@ class Bart extends React.Component {
           <p>{this.state.myValue}</p>
           <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
           <div className="locationTrue">bartArr: {this.state.bartArr}</div>
+          <div className="nextTrains">{this.state}</div>
         </div>
       );
     }
