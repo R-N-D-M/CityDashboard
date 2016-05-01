@@ -57,10 +57,10 @@ class Bart extends React.Component {
       TrainsData = that.state.nextTrains.map((trains) => {
         return (
           <div>
-            <div className="destinations">Destination: {trains.destination}</div>
-            <div className="directions">Direction: {trains.direction}</div>
-            <div className="platforms">Platform #: {trains.platform}</div>
-            <div className="times">Minutes Until: {trains.time}</div>
+            <span className="destinations">Destination: {trains.destination} </span>
+            <span className="directions">Direction: {trains.direction} </span>
+            <span className="platforms">Platform #: {trains.platform} </span>
+            <span className="times">Minutes Until: {trains.time} </span>
           </div>
         );
       });
@@ -72,7 +72,7 @@ class Bart extends React.Component {
     } else {
       return (
          <div className='bart'style={{
-          width: "25%",
+          width: "50%",
           border: "2px dotted green",
           margin: "8px",
           float: "left"
