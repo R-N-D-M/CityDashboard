@@ -8,7 +8,7 @@ class Bart extends React.Component {
     this.state = {
       locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
       myValue: 'set ZAK This',
-      nextTrains: [1]
+      nextTrains: []
     };
   }
 
@@ -21,7 +21,8 @@ class Bart extends React.Component {
         this.getClosestStation();
       });
     }
-  }  
+  }
+
   getClosestStation() {
     let url = '/bart';
     let dataToSend = {
@@ -29,10 +30,10 @@ class Bart extends React.Component {
     };
     axios.post(url, dataToSend)
       .then( (response) => {
-        console.log("/bart post succeeded: ", response.data[0]);
-        this.setState(
-          response.data
-        );
+        console.log("/bart post succeeded: ", response.data);
+        this.setState({
+          nextTrains: response.data
+        });
         console.log("this state in getClosestStation: ", this.state);
       })
       .catch( (response) => {
@@ -42,48 +43,42 @@ class Bart extends React.Component {
 
   componentDidMount() {
     console.log('bart component will mount');
-    // this.getListOfStations();
     this.getClosestStation();
-    // console.log("stations list: ", stations);
-    // let delays = this.getBartDelays();
-    // this.setState({ 
-    //   // myValue: delays,
-    //   otherValue: stations
-    // });
   }
 
-
-  // getBartDelays() {
-  //   let base = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today";
-  //   return axios.get(base)
-  //     .then((response) => {
-  //       console.log('response.data: ', response.data);
-  //       console.log('response is: ', response);
-  //       let testJson = xmlToJson(response.request.responseXML.documentElement);
-  //       console.log('testJson: ', testJson)
-  //       this.setState({
-  //         myValue: testJson
-  //       })
-  //     })
-  //     .catch(function(response) {
-  //       if (response instanceof Error){
-  //         console.log('Error', response.message);
-  //       } else {
-  //         console.log(response.data);
-  //       }
-  //     });
-  // }
-
   render() {
+
+    let TrainsData;
+    let that = this;
+    // console.log("this", that); 
+    console.log("IN REDNER: this.state", that.state.nextTrains);
+
+    if(that.state.nextTrains.length > 0){
+      TrainsData = that.state.nextTrains.map((trains) => {
+        return (
+          <div>
+            <div className="destinations">Destination: {trains.destination}</div>
+            <div className="directions">Direction: {trains.direction}</div>
+            <div className="platforms">Platform #: {trains.platform}</div>
+            <div className="times">Minutes Until: {trains.time}</div>
+          </div>
+        );
+      });
+      console.log("trainsData", TrainsData);
+    }
+
     if (!this.state.myValue) {
       return <div></div>;
     } else {
       return (
-        <div className='bart'>
+         <div className='bart'style={{
+          width: "25%",
+          border: "2px dotted green",
+          margin: "8px",
+          float: "left"
+        }}>
           <p>{this.state.myValue}</p>
-          <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
-          <div className="locationTrue">bartArr: {this.state.bartArr}</div>
-          <div className="nextTrains">{this.state}</div>
+          <div className="TrainsData">{TrainsData}</div>
         </div>
       );
     }
