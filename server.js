@@ -13,6 +13,7 @@ var getBarsList = require('./server/bars.js');
 var weather = require('./server/weather.js');
 var nearby = require('./server/nearby.js');
 var movies = require('./server/movies.js');
+var bart = require('./server/bart.js');
 
 var app = express();
 
@@ -50,6 +51,11 @@ app.post('/nearby', (request, response)=> {
   nearby.getGoogleData(request, response);
 });
 
+app.post('/bart', (request, response)=> {
+  console.log("POST request to /bart");
+  bart.getListOfStations(request, response);
+});
+
 app.post('/movies', (request, response) => {
   console.log('Post request to /movies')
   movies.getMovies(request,response)
@@ -57,3 +63,4 @@ app.post('/movies', (request, response) => {
 });
 
 app.listen(process.env.PORT || 3000); //change back to 3000
+
