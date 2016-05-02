@@ -16,28 +16,31 @@ export default class Main extends React.Component {
       weather: {
         id: 'weather',
         name: 'Weather',
-        deployed: true,
         makeFunction: this.makeWeather
       },
       bart: {
         id: 'bart',
         name: 'Bart',
-        deployed: false,
         makeFunction: this.makeBart
       },
       nearby: {
         id: 'nearby',
         name: 'Nearby',
-        deployed: false,
         makeFunction: this.makeNearby
       },
       movies: {
         id: 'movies',
         name: 'Movies',
-        deployed: false,
         makeFunction: this.makeMovies
       }
     };
+    this.state.deployedWidgets = [
+      {
+        id: 'weather',
+        name: 'Weather',
+        makeFunction: this.makeWeather
+      }
+    ];
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
@@ -55,7 +58,8 @@ export default class Main extends React.Component {
     }
   }
   handleClick(id) {
-    this.state.widgets[id].deployed = true;
+    console.log("Deploying", this.state.widgets[id].name);
+    this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[id])});
   }
   makeBart(context) {
     return <Bart alert={ context.state.locationTrue }/>;
@@ -71,11 +75,14 @@ export default class Main extends React.Component {
   }
   render() {
     let widgets = [];
-    _.each(this.state.widgets, (widget) => {
-      if(widget.deployed) {
-        widgets.push(widget.makeFunction(this));
-      }
+    _.each(this.state.deployedWidgets, (widget) => {
+      widgets.push(widget.makeFunction(this));
     });
+    var layouts = {0: [
+      {i: 'a', x: 0, y: 0, w: 1, h: 2, static: false},
+      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
+      {i: 'c', x: 4, y: 0, w: 1, h: 2}
+    ]};
     return (
       <div style={{height: window.innerHeight*1.1}} className="container-fluid">
         <NavBar style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
