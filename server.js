@@ -51,10 +51,9 @@ app.post('/nearby', (request, response)=> {
   nearby.getGoogleData(request, response);
 });
 
-app.post('/bart', (request, response)=>{
+app.post('/bart', (request, response)=> {
   console.log("POST request to /bart");
   bart.getListOfStations(request, response);
-  // bart.getThing(request, response);
 });
 
 app.post('/movies', (request, response) => {
