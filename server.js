@@ -59,8 +59,7 @@ app.post('/bart', (request, response)=> {
 app.post('/movies', (request, response) => {
   console.log('Post request to /movies')
   movies.getMovies(request,response)
-  // response.status(200).send('yooooooo');
 });
 
-app.listen(process.env.PORT || 3000); //change back to 3000
 
+app.listen(process.env.PORT || 3000); 
