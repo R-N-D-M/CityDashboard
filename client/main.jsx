@@ -1,10 +1,18 @@
 import React from 'react';
-import _ from 'underscore';
+import ReactGridLayout from 'react-grid-layout';
+import _ from 'lodash';
 import NavBar from './navBar';
 import Weather from './weather';
 import Bart from './bart';
 import Nearby from './nearby';
 import Movies from './movies';
+
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+// import WidthProvider from 'react-grid-layout'.WidthProvider;
+let WidthProvider = ReactGridLayout.WidthProvider;
+// import ResponsiveReactGridLayout from 'react-grid-layout'.Responsive;
+let ResponsiveReactGridLayout = ReactGridLayout.Responsive;
+ResponsiveReactGridLayout = WidthProvider(ResponsiveReactGridLayout);
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -87,16 +95,30 @@ export default class Main extends React.Component {
     _.each(this.state.deployedWidgets, (widget) => {
       widgets.push(widget.makeFunction(this));
     });
-    var layouts = {0: [
-      {i: 'a', x: 0, y: 0, w: 1, h: 2, static: false},
-      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
+
+    // var layouts = {0: [
+    //   {i: 'a', x: 0, y: 0, w: 1, h: 2, static: false},
+    //   {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
+    //   {i: 'c', x: 4, y: 0, w: 1, h: 2}
+    // ]};
+
+    let layout = [
+      {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
+      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 10, maxW: 20},
       {i: 'c', x: 4, y: 0, w: 1, h: 2}
-    ]};
+    ];
+    //, minW: 2, maxW: 4
     return (
       <div style={{height: window.innerHeight*1.1}} className="container-fluid">
         <NavBar style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
         <div className="container-fluid" style={{backgroundColor: 'red'}}>
           {widgets}
+        </div>
+        <div>
+          <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={30} width={1200} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+      cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black", height: "1500px"}}>
+            <div key={'b'} style={{border: "1px solid red", overflow: "scroll"}}><Weather location={this.state.locationTrue} /></div>
+          </ResponsiveReactGridLayout>
         </div>
       </div>
 
