@@ -58,7 +58,7 @@ export default class Main extends React.Component {
     this.state.widgets[id].deployed = true;
   }
   makeBart(context) {
-    return <Bart alert={ context.triggeredEvent }/>;
+    return <Bart alert={ context.state.locationTrue }/>;
   }
   makeWeather(context) {
     return <Weather location={ context.state.locationTrue } />;
