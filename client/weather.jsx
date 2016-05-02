@@ -64,7 +64,7 @@ class Weather extends React.Component {
       <div style={{
           width: "350px",
           height: '300px',
-          border: "2px solid green",
+          border: "2px dotted green",
           margin: "8px",
           float: "left"
         }}>
