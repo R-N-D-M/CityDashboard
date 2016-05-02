@@ -47,7 +47,6 @@
     "bootstrap-loader": "^1.0.10",
     "chai": "^3.5.0",
     "classnames": "^2.2.4",
-    "css-loader": "^0.23.1",
     "dotenv": "^2.0.0",
     "enzyme": "^2.0.0",
     "eslint": "2.2.0",
