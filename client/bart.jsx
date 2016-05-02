@@ -10,7 +10,6 @@ class Bart extends React.Component {
     };
   }
 
-
   componentWillReceiveProps(nextProps) {
     if(nextProps && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       this.setState({locationTrue: nextProps.location}, () => {
