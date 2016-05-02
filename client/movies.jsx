@@ -5,7 +5,8 @@ class Movies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."]
+      locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
+      response: 'no movie data'
     };
   }
   componentWillMount() {
@@ -33,11 +34,24 @@ class Movies extends React.Component {
     Axios.post(url, data)
       .then( (response) => {
         console.log('/movie post works', response.data);
-        // this.setState({
-        //   showtimes: response.data;
-        // });
-        // console.log("This state: ", this.state);
+        let res = Object.keys(response.data).map((theatreName, theatreIndex) => {
+          let movieAndShowtimes = response.data[theatreName];
+          let eachMovie = movieAndShowtimes.map((movie, index) => (
+            <div key={index}>
+              <div>{movie.title}</div>
+              <div>{movie.showtimes}</div>
+            </div>
+          ));
+          return (
+          <div key={theatreIndex}>
+            <div>{theatreName}</div>
+            {eachMovie}
+          </div>)
       })
+      this.setState({
+        response: res
+      });
+    })
       .catch( (response) => {
         console.log('Error getting movies: ', response);
       });
@@ -45,10 +59,17 @@ class Movies extends React.Component {
   render() {
 
     return (
-      <div></div>
+      <div style={{
+        width: "40%",
+        border: "2px dotted green",
+        margin: "8px",
+        float: "left"
+        }}>
+        
+      {this.state.response}
+      </div>
     );
   }
 }
-
 
 export default Movies;

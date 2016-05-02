@@ -33,3 +33,7 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+#unneeded files for project created by mac operating system
+.DS_Store
+server/.DS_Store
