@@ -5,13 +5,13 @@ class Bart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
+      locationTrue: this.props.location,
       nextTrains: []
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
+    if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       this.setState({locationTrue: nextProps.location}, () => {
         this.getClosestStation();
       });
@@ -34,7 +34,9 @@ class Bart extends React.Component {
   }
 
   componentDidMount() {
-    this.getClosestStation();
+    if(this.state.locationTrue) {
+      this.getClosestStation();
+    }
   }
 
   render() {

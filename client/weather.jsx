@@ -1,11 +1,11 @@
 import React from 'react';
 import Axios from 'axios';
 
-class Weather extends React.Component {
+export default class Weather extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
+      locationTrue: this.props.location,
       city: "No weather information yet.",
       description: "No weather information yet.",
       temp: "No weather information yet.",
@@ -18,13 +18,15 @@ class Weather extends React.Component {
     };
   }
   componentWillMount() {
-    console.log('Weather component will mount!');
+    if(this.state.locationTrue) {
+      this.getWeather();
+    }
   }
   componentDidMount() {
   }
   componentWillReceiveProps(nextProps) {
     console.log("Weather component received prop change!");
-    if(nextProps && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
+    if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       // console.log("np", nextProps.location);
       this.setState({locationTrue: nextProps.location}, () => {
         // console.log("nl", this.state.locationTrue);
@@ -85,5 +87,3 @@ class Weather extends React.Component {
   }
 
 }
-
-export default Weather;

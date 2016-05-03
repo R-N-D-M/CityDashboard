@@ -10,7 +10,7 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."]
+      locationTrue: false
     };
     this.state.widgets = {
       weather: {
@@ -62,7 +62,7 @@ export default class Main extends React.Component {
     this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[id])});
   }
   makeBart(context) {
-    return <Bart alert={ context.state.locationTrue }/>;
+    return <Bart location={ context.state.locationTrue }/>;
   }
   makeWeather(context) {
     return <Weather location={ context.state.locationTrue } />;

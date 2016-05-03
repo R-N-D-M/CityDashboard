@@ -7,15 +7,20 @@ class Nearby extends React.Component {
   	super(props);
   	this.state = {
       locationLoaded: false,
-      locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
+      locationTrue: this.props.location,
       canPush: false,
       map: null,
       markers: []
     };
   }
+  componentDidMount(){
+    if(this.state.locationTrue) {
+      this.startMap();
+    }
+  }
   componentWillReceiveProps(nextProps) {
     console.log("Nearby component received prop change!");
-    if(nextProps && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
+    if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       this.setState({locationTrue: nextProps.location, canPush: true, locationLoaded: true}, () => {
         // this.getWeather();
         // console.log("CAN PUSH!!!", this.state.canPush);
@@ -260,7 +265,7 @@ class Nearby extends React.Component {
     };
 
     return (
-      <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), hiddenStyle)}>
+      <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
         <select style={{width: "100%"}} onChange={this.handleSelectChange.bind(this)}>
           <option disabled selected value> -- Select Category -- </option>
           <option value="bar">Bars</option>
