@@ -32,6 +32,9 @@ module.exports = {
     {
       test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
       loader: 'imports?jQuery=jquery'
+    },
+    {
+      test: /\.css$/, loader: "style-loader!css-loader"
     }]
   },
   resolve: {

@@ -197,11 +197,10 @@ class Nearby extends React.Component {
   startMap() {
     let map;
     let infowindow;
-
     infowindow = new google.maps.InfoWindow();
 
     let initMap = () => {
-      var start = {
+      let start = {
         lat: this.state.locationTrue[0],
         lng: this.state.locationTrue[1]
       };
@@ -211,9 +210,17 @@ class Nearby extends React.Component {
         zoom: 15
       });
       this.setState({ map: map });
+
+      google.maps.event.addListener(map, "idle", function(){
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(start);
+      });
     }
 
     initMap();
+
+
+
 
     // create user location's marker
     //////////////////////////////////////////
@@ -258,10 +265,17 @@ class Nearby extends React.Component {
     };
     let mainStyle = {
       // width: "25%",
-      border: "2px dotted purple",
-      margin: "8px",
-      float: "left",
-      overflow: "scroll"
+      // border: "2px dotted purple",
+      // margin: "8px",
+      // float: "left",
+      // overflow: "scroll"
+      width: "100%",
+      height: "100%"
+    };
+    let mapStyle = {
+      height: "100%",
+      width: "100%",
+      border: "1px solid black"
     };
 
     return (
@@ -274,7 +288,7 @@ class Nearby extends React.Component {
           <option value="cafe">Cafés</option>
           <option value="bakery">Bakeries</option>
         </select>
-        <div style={{height: "300px", width: "300px", border: "1px solid black"}} id="map"></div>
+        <div style={mapStyle} id="map"></div>
       </div>
     );
   }

@@ -49,6 +49,8 @@ export default class Main extends React.Component {
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
     this.handleClick = this.handleClick.bind(this);
+
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
   componentDidMount() {
     if (navigator.geolocation) {
@@ -104,7 +106,7 @@ export default class Main extends React.Component {
 
     let layout = [
       {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
-      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 10, maxW: 20},
+      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
       {i: 'c', x: 4, y: 0, w: 1, h: 2}
     ];
     //, minW: 2, maxW: 4
@@ -115,9 +117,14 @@ export default class Main extends React.Component {
           {widgets}
         </div>
         <div>
-          <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={30} width={1200} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-      cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black", height: "1500px"}}>
-            <div key={'b'} style={{border: "1px solid red", overflow: "scroll"}}><Weather location={this.state.locationTrue} /></div>
+          <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={350} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+      cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black"}}>
+          <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+            <Weather location={this.state.locationTrue} />
+          </div>
+          <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+            <Nearby location={this.state.locationTrue} />
+          </div>
           </ResponsiveReactGridLayout>
         </div>
       </div>
@@ -125,3 +132,10 @@ export default class Main extends React.Component {
     );
   }
 }
+
+// <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+//   <Weather location={this.state.locationTrue} />
+// </div>
+// <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+//   <Nearby location={this.state.locationTrue} />
+// </div>
