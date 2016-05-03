@@ -35,11 +35,7 @@ export default class Main extends React.Component {
       }
     };
     this.state.deployedWidgets = [
-      {
-        id: 'weather',
-        name: 'Weather',
-        makeFunction: this.makeWeather
-      }
+      this.state.widgets.weather
     ];
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
@@ -57,9 +53,22 @@ export default class Main extends React.Component {
       });
     }
   }
-  handleClick(id) {
-    console.log("Deploying", this.state.widgets[id].name);
-    this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[id])});
+  handleClick(input) {
+    let deployed = false;
+    for(let i = 0; i < this.state.deployedWidgets.length; i++){
+      if(this.state.deployedWidgets[i].id === input) {
+        deployed = true;
+      }
+    };
+    if(deployed) {
+      this.setState({deployedWidgets: _.reject(this.state.deployedWidgets, (widget) => {
+        return widget.id === input;
+      })});
+    }
+    else {
+      console.log("Deploying", this.state.widgets[input].name);
+      this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[input])});
+    }
   }
   makeBart(context) {
     return <Bart location={ context.state.locationTrue }/>;
