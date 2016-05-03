@@ -12,7 +12,7 @@ var getMovies = function(request, response) {
 
   var startDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
   url = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=' + startDate + '&lat=' + latLng[0] + '&lng=' + latLng[1] + '&radius=0.5&units=mi&api_key=' + Movies_ID;
-  console.log('this is the url', url)
+  // console.log('this is the url', url)
   axios.get(url)
     .then( (resp) => {
       // console.log("Movies: ",resp.data);
@@ -30,7 +30,7 @@ var sendMovies = function(data, request, response) {
 
   data = apiHelper(data);
 
-  console.log('this is the data',data);
+  // console.log('this is the data',data);
 
   response.status(200).send(data);
 }
@@ -43,16 +43,16 @@ var apiHelper = function(data) {
     innerResult[theatreName] = (innerResult[theatreName]) ? innerResult[theatreName].concat(current.dateTime) : [current.dateTime];
     return innerResult;
   }, {});
-  
+
     // console.log(showTimesAtTheatre)
     var currentTitle = curr.title;
-    
+
     for (var key in showTimesAtTheatre) {
       var titleShowtimes = {
         title: currentTitle,
         showtimes: showTimesAtTheatre[key]
       };
-      
+
       result[key] = (!result[key]) ? [titleShowtimes] : result[key].concat(titleShowtimes);
     }
   return result;

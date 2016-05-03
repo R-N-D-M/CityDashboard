@@ -15,7 +15,7 @@ class Gridtest extends React.Component {
     return (
       <div>
         <ReactGridLayout className="layout" layout={layout} cols={12} rowHeight={1200} width={1200} style={{border: "1px solid black"}}>
-          <Weather key={'a'} style={{border: "1px solid red"}}>a</Weather>
+          <div key={'a'} style={{border: "1px solid red"}}>a</div>
         </ReactGridLayout>
       </div>
     );

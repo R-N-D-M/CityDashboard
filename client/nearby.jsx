@@ -208,12 +208,12 @@ class Nearby extends React.Component {
       map = new google.maps.Map(document.getElementById('map'), {
         center: start,
         zoom: 15
+        // streetViewControl: false
       });
       this.setState({ map: map });
 
       google.maps.event.addListener(map, "idle", function(){
         google.maps.event.trigger(map, 'resize');
-        map.setCenter(start);
       });
     }
 
@@ -280,7 +280,7 @@ class Nearby extends React.Component {
 
     return (
       <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
-        <select style={{width: "100%"}} onChange={this.handleSelectChange.bind(this)}>
+        <select style={{width: "100%", marginTop: "10px"}} onChange={this.handleSelectChange.bind(this)}>
           <option disabled selected value> -- Select Category -- </option>
           <option value="bar">Bars</option>
           <option value="restaurant">Restaurants</option>

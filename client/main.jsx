@@ -81,16 +81,27 @@ export default class Main extends React.Component {
     }
   }
   makeBart(context) {
-    return <Bart location={ context.state.locationTrue }/>;
+    return <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+      <Bart location={context.state.locationTrue} />
+    </div>
   }
   makeWeather(context) {
-    return <Weather location={ context.state.locationTrue } />;
+    // return <Weather location={ context.state.locationTrue } />;
+    return <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+      <Weather location={context.state.locationTrue} />
+    </div>
   }
   makeNearby(context) {
-    return <Nearby location={ context.state.locationTrue } />
+    // return <Nearby location={ context.state.locationTrue } />
+    return <div key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
+      <Nearby location={context.state.locationTrue} />
+    </div>
   }
   makeMovies(context) {
-    return <Movies location={ context.state.locationTrue } />
+    // return <Movies location={ context.state.locationTrue } />
+    return <div key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
+      <Movies location={context.state.locationTrue} />
+    </div>
   }
   render() {
     let widgets = [];
@@ -105,26 +116,26 @@ export default class Main extends React.Component {
     // ]};
 
     let layout = [
-      {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
-      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
-      {i: 'c', x: 4, y: 0, w: 1, h: 2}
+      {i: 'a', x: 0, y: 0, w: 1, h: 1, static: true},
+      // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+      {i: 'b', x: 1, y: 0, w: 3, h: 3},
+      {i: 'c', x: 2, y: 2, w: 3, h: 3},
+      {i: 'd', x: 3, y: 3, w: 3, h: 3},
+      {i: 'e', x: 4, y: 4, w: 3, h: 3}
     ];
+    if (widgets.length < 1) {
+      widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
+    }
     //, minW: 2, maxW: 4
     return (
       <div style={{height: window.innerHeight*1.1}} className="container-fluid">
         <NavBar style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
-        <div className="container-fluid" style={{backgroundColor: 'red'}}>
-          {widgets}
+        <div className="container-fluid" style={{backgroundColor: 'red'}} >
         </div>
         <div>
           <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={350} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
       cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black"}}>
-          <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
-            <Weather location={this.state.locationTrue} />
-          </div>
-          <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
-            <Nearby location={this.state.locationTrue} />
-          </div>
+          {widgets}
           </ResponsiveReactGridLayout>
         </div>
       </div>
@@ -138,4 +149,18 @@ export default class Main extends React.Component {
 // </div>
 // <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
 //   <Nearby location={this.state.locationTrue} />
+// </div>
+
+
+
+// <div>
+//   <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={350} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+// cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black"}}>
+//   <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+//     <Weather location={this.state.locationTrue} />
+//   </div>
+//   <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+//     <Nearby location={this.state.locationTrue} />
+//   </div>
+//   </ResponsiveReactGridLayout>
 // </div>
