@@ -5,24 +5,27 @@ class Movies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: ["Waiting on location data (async delay)...", "Waiting on location data (async delay)..."],
+      locationTrue: this.props.location,
       response: 'no movie data'
     };
   }
   componentWillMount() {
-    console.log('Movies Component Will Mount!')
+    // console.log('Movies Component Will Mount!')
+
   }
   componentDidMount() {
-    console.log('Movies Component Mounted')
+    if(this.state.locationTrue) {
+      this.getMovies();
+    }
   }
   componentWillReceiveProps(nextProps) {
     console.log("Movies component received prop change!");
-    if(nextProps && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
+    if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       this.setState({locationTrue: nextProps.location}, () => {
         // console.log(this.state.locationTrue)
         this.getMovies();
       });
-      
+
     }
   }
   getMovies() {
@@ -65,7 +68,7 @@ class Movies extends React.Component {
         margin: "8px",
         float: "left"
         }}>
-        
+
       {this.state.response}
       </div>
     );
