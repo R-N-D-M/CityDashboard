@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import _ from 'lodash';
+import _ from 'underscore';
 
 class Nearby extends React.Component {
   constructor(props) {
@@ -197,11 +197,10 @@ class Nearby extends React.Component {
   startMap() {
     let map;
     let infowindow;
-
     infowindow = new google.maps.InfoWindow();
 
     let initMap = () => {
-      var start = {
+      let start = {
         lat: this.state.locationTrue[0],
         lng: this.state.locationTrue[1]
       };
@@ -209,11 +208,19 @@ class Nearby extends React.Component {
       map = new google.maps.Map(document.getElementById('map'), {
         center: start,
         zoom: 15
+        // streetViewControl: false
       });
       this.setState({ map: map });
+
+      google.maps.event.addListener(map, "idle", function(){
+        google.maps.event.trigger(map, 'resize');
+      });
     }
 
     initMap();
+
+
+
 
     // create user location's marker
     //////////////////////////////////////////
@@ -258,15 +265,22 @@ class Nearby extends React.Component {
     };
     let mainStyle = {
       // width: "25%",
-      border: "2px dotted purple",
-      margin: "8px",
-      float: "left",
-      overflow: "scroll"
+      // border: "2px dotted purple",
+      // margin: "8px",
+      // float: "left",
+      // overflow: "scroll"
+      width: "100%",
+      height: "100%"
+    };
+    let mapStyle = {
+      height: "100%",
+      width: "100%",
+      border: "1px solid black"
     };
 
     return (
       <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
-        <select style={{width: "100%"}} onChange={this.handleSelectChange.bind(this)}>
+        <select style={{width: "100%", marginTop: "10px"}} onChange={this.handleSelectChange.bind(this)}>
           <option disabled selected value> -- Select Category -- </option>
           <option value="bar">Bars</option>
           <option value="restaurant">Restaurants</option>
@@ -274,7 +288,7 @@ class Nearby extends React.Component {
           <option value="cafe">Cafés</option>
           <option value="bakery">Bakeries</option>
         </select>
-        <div style={{height: "300px", width: "300px", border: "1px solid black"}} id="map"></div>
+        <div style={mapStyle} id="map"></div>
       </div>
     );
   }

@@ -19,7 +19,7 @@ class Movies extends React.Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    console.log("Movies component received prop change!");
+    // console.log("Movies component received prop change!");
     if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       this.setState({locationTrue: nextProps.location}, () => {
         // console.log(this.state.locationTrue)
@@ -33,10 +33,10 @@ class Movies extends React.Component {
     let data = {
       latLong: this.state.locationTrue
     };
-    console.log(data);
+    // console.log(data);
     Axios.post(url, data)
       .then( (response) => {
-        console.log('/movie post works', response.data);
+        // console.log('/movie post works', response.data);
         let res = Object.keys(response.data).map((theatreName, theatreIndex) => {
           let movieAndShowtimes = response.data[theatreName];
           let eachMovie = movieAndShowtimes.map((movie, index) => (

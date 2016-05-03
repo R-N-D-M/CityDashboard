@@ -23,7 +23,7 @@ var getGoogleData = function(request, response) {
     })
     .catch( (resp) => {
       console.log("Error getting bars: ", response);
-      response.status(503).send("Error getting barlist!");
+      response.status(503).send("Error getting google list!");
   });
 
   // return response.status(200).send("You REALLY want google data?");

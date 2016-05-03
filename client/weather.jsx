@@ -25,7 +25,7 @@ export default class Weather extends React.Component {
   componentDidMount() {
   }
   componentWillReceiveProps(nextProps) {
-    console.log("Weather component received prop change!");
+    // console.log("Weather component received prop change!");
     if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       // console.log("np", nextProps.location);
       this.setState({locationTrue: nextProps.location}, () => {
@@ -62,15 +62,17 @@ export default class Weather extends React.Component {
 
   }
   render() {
-    return (
-      <div style={{
-          width: "350px",
-          height: '300px',
-          border: "2px dotted green",
-          margin: "8px",
-          float: "left"
-        }}>
 
+    let weatherStyle = {
+        // width: "350px",
+        // height: '300px',
+        // border: "2px dotted green",
+        // margin: "8px",
+        // float: "left"
+      };
+
+    return (
+      <div style={weatherStyle}>
         <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
         <div className="city">Current City: {this.state.city}</div>
         <div className="description">Weather: {this.state.description}</div>
