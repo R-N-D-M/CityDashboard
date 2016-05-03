@@ -6,6 +6,8 @@ import Weather from './weather';
 import Bart from './bart';
 import Nearby from './nearby';
 import Movies from './movies';
+import Home from './home';
+import LoggedIn from './loggedIn';
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 let WidthProvider = ReactGridLayout.WidthProvider;
@@ -49,6 +51,26 @@ export default class Main extends React.Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+  componentWillMount() {
+    this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
+
+    this.setState({idToken: this.getIdToken()});
+  }
+  getIdToken() {
+    let idToken = localStorage.getItem('userToken');
+    let authHash = this.lock.parseHash(window.location.hash);
+    if (!idToken && authHash) {
+      if (authHash.id_token) {
+        idToken = authHash.id_token
+        localStorage.setItem('userToken', authHash.id_token);
+      }
+      if (authHash.error) {
+        console.log("Error signing in", authHash);
+        return null;
+      }
+    }
+    return idToken;
   }
   componentDidMount() {
     if (navigator.geolocation) {
@@ -102,6 +124,12 @@ export default class Main extends React.Component {
     </div>
   }
   render() {
+    if (this.state.idToken) {
+      return (<LoggedIn lock={this.lock} idToken={this.state.idToken} />);
+    } 
+    else {
+      return (<Home lock={this.lock} />);
+    }
     let widgets = [];
     _.each(this.state.deployedWidgets, (widget) => {
       widgets.push(widget.makeFunction(this));
