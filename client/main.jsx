@@ -76,7 +76,7 @@ export default class Main extends React.Component {
       })});
     }
     else {
-      console.log("Deploying", this.state.widgets[input].name);
+      // console.log("Deploying", this.state.widgets[input].name);
       this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[input])});
     }
   }
@@ -140,24 +140,3 @@ export default class Main extends React.Component {
     );
   }
 }
-
-// <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
-//   <Weather location={this.state.locationTrue} />
-// </div>
-// <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
-//   <Nearby location={this.state.locationTrue} />
-// </div>
-
-
-
-// <div>
-//   <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={350} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-// cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black"}}>
-//   <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
-//     <Weather location={this.state.locationTrue} />
-//   </div>
-//   <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
-//     <Nearby location={this.state.locationTrue} />
-//   </div>
-//   </ResponsiveReactGridLayout>
-// </div>

@@ -25,7 +25,7 @@ export default class Weather extends React.Component {
   componentDidMount() {
   }
   componentWillReceiveProps(nextProps) {
-    console.log("Weather component received prop change!");
+    // console.log("Weather component received prop change!");
     if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       // console.log("np", nextProps.location);
       this.setState({locationTrue: nextProps.location}, () => {
