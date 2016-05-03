@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import _ from 'lodash';
+import _ from 'underscore';
 
 class Nearby extends React.Component {
   constructor(props) {

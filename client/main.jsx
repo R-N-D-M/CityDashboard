@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactGridLayout from 'react-grid-layout';
-import _ from 'lodash';
+import _ from 'underscore';
 import NavBar from './navBar';
 import Weather from './weather';
 import Bart from './bart';
@@ -130,16 +130,13 @@ export default class Main extends React.Component {
     return (
       <div style={{height: window.innerHeight*1.1}} className="container-fluid">
         <NavBar style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
-        <div className="container-fluid" style={{backgroundColor: 'red'}} >
-        </div>
-        <div>
+        <div className="container-fluid">
           <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={350} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
       cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black"}}>
-          {widgets}
+            {widgets}
           </ResponsiveReactGridLayout>
         </div>
       </div>
-
     );
   }
 }
