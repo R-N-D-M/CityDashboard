@@ -69,12 +69,22 @@ class Nearby extends React.Component {
       currentMarkers.push(marker);
       this.setState({markers: currentMarkers});
 
+
+
       // listener for markers clicked
       google.maps.event.addListener(marker, 'click', function() {
+        map.setCenter(marker.getPosition());
+      });
+
+      google.maps.event.addListener(marker, 'mouseover', function() {
         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
           place.vicinity + '</div>');
-        infowindow.open(map, this);
+        infowindow.open(map, marker);
       });
+
+      google.maps.event.addListener(marker, 'mouseout', function(){
+          infowindow.close();
+       });
     }
 
     // creates markers for all results
@@ -151,6 +161,7 @@ class Nearby extends React.Component {
 
     google.maps.event.addListener(userMarker, 'click', function() {
       infowindow.setContent('<div><strong>' + "Your Location" + '</strong><br></div>');
+      map.setCenter(userMarker.getPosition());
       infowindow.open(map, this);
     });
 
@@ -207,13 +218,15 @@ class Nearby extends React.Component {
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: start,
-        zoom: 15
-        // streetViewControl: false
+        zoom: 15,
+        draggable: false,
+        streetViewControl: false
       });
       this.setState({ map: map });
 
       google.maps.event.addListener(map, "idle", function(){
         google.maps.event.trigger(map, 'resize');
+        // map.setCenter(start);
       });
     }
 
@@ -252,9 +265,17 @@ class Nearby extends React.Component {
     });
 
     google.maps.event.addListener(userMarker, 'click', function() {
-      infowindow.setContent('<div><strong>' + "Your Location" + '</strong><br></div>');
-      infowindow.open(map, this);
+      map.setCenter(userMarker.getPosition());
     });
+
+    google.maps.event.addListener(userMarker, 'mouseover', function() {
+      infowindow.setContent('<div><strong>' + "Your Location" + '</strong><br></div>');
+      infowindow.open(map, userMarker);
+    });
+
+    google.maps.event.addListener(userMarker, 'mouseout', function(){
+        infowindow.close();
+     });
   }
   render() {
     let hiddenStyle = {
@@ -280,7 +301,7 @@ class Nearby extends React.Component {
     if(this.state.locationTrue) {
       return (
         <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
-          <select style={{width: "100%", marginTop: "10px"}} onChange={this.handleSelectChange.bind(this)}>
+          <select style={{width: "100%"}} onChange={this.handleSelectChange.bind(this)}>
             <option disabled selected value> -- Select Category -- </option>
             <option value="bar">Bars</option>
             <option value="restaurant">Restaurants</option>

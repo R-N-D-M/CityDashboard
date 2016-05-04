@@ -40,12 +40,9 @@ export default class Main extends React.Component {
         makeFunction: this.makeMovies
       }
     };
-    this.state.deployedWidgets = [
-      this.state.widgets.weather,
-      this.state.widgets.bart,
-      this.state.widgets.nearby,
-      this.state.widgets.movies,
-    ];
+    // deployed widgets are pushed in this array for rendering
+    this.state.deployedWidgets = [];
+
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
@@ -119,10 +116,10 @@ export default class Main extends React.Component {
     let layout = [
       {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
       // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
-      {i: 'b', x: 1, y: 1, w: 2, h: 2},
-      {i: 'c', x: 2, y: 1, w: 3, h: 3},
-      {i: 'd', x: 3, y: 1, w: 3, h: 3},
-      {i: 'e', x: 4, y: 1, w: 3, h: 3}
+      {i: 'b', x: 0, y: 0, w: 3, h: 3},
+      {i: 'c', x: 0, y: 0, w: 3, h: 3},
+      {i: 'd', x: 0, y: 0, w: 3, h: 3},
+      {i: 'e', x: 0, y: 0, w: 3, h: 3}
     ];
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
