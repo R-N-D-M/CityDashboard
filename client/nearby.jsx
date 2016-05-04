@@ -298,6 +298,7 @@ class Nearby extends React.Component {
       width: "100%",
       border: "1px solid black"
     };
+
     if(this.state.locationTrue) {
       return (
         <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
@@ -312,8 +313,7 @@ class Nearby extends React.Component {
           <div style={mapStyle} id="map"></div>
         </div>
       );
-    }
-    else {
+    } else {
       return (
         <div>
           <p>Getting Your Location, Please Wait</p>
@@ -321,7 +321,6 @@ class Nearby extends React.Component {
       );
     }
   }
-
 }
 
 export default Nearby;
