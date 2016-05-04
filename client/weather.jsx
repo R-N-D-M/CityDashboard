@@ -35,6 +35,7 @@ export default class Weather extends React.Component {
 
     }
   }
+
   getWeather() {
     let url = '/weather';
     let dataToSend = {
@@ -54,12 +55,12 @@ export default class Weather extends React.Component {
           winddeg: response.data.winddeg,
           windspeed: response.data.windspeed
         });
+        // window.localstorage.weather = this.state;
         // console.log("This state: ", this.state);
       })
       .catch( (response) => {
         console.log("Error getting weather!");
     });
-
   }
   render() {
 
