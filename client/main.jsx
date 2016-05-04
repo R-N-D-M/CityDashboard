@@ -48,8 +48,20 @@ export default class Main extends React.Component {
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleLayoutChange = this.handleLayoutChange.bind(this);
 
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
+    // saving state layout
+    this.state.defaultLayout = [
+      {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+      // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+      {i: 'b', x: 0, y: 0, w: 3, h: 3},
+      {i: 'c', x: 0, y: 0, w: 3, h: 3},
+      {i: 'd', x: 0, y: 0, w: 3, h: 3},
+      {i: 'e', x: 0, y: 0, w: 3, h: 3}
+    ];
+    this.state.layout = this.state.layout || this.state.defaultLayout;
   }
   componentWillMount() {
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
@@ -99,6 +111,9 @@ export default class Main extends React.Component {
       this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[input])});
     }
   }
+  handleLayoutChange(layout) {
+    this.setState({layout:layout});
+  }
   updateStateOnFirebase(someStateObject) {
     if(someStateObject.name="Bart") {
       // do the firebase thing that'll update teh bart state on firebase
@@ -132,15 +147,14 @@ export default class Main extends React.Component {
     _.each(this.state.deployedWidgets, (widget) => {
       widgets.push(widget.makeFunction(this));
     });
-
-    let layout = [
-      {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-      // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
-      {i: 'b', x: 0, y: 0, w: 3, h: 3},
-      {i: 'c', x: 0, y: 0, w: 3, h: 3},
-      {i: 'd', x: 0, y: 0, w: 3, h: 3},
-      {i: 'e', x: 0, y: 0, w: 3, h: 3}
-    ];
+    // let layout = [
+    //   {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+    //   // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+    //   {i: 'b', x: 0, y: 0, w: 3, h: 3},
+    //   {i: 'c', x: 0, y: 0, w: 3, h: 3},
+    //   {i: 'd', x: 0, y: 0, w: 3, h: 3},
+    //   {i: 'e', x: 0, y: 0, w: 3, h: 3}
+    // ];
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
     }
@@ -150,7 +164,7 @@ export default class Main extends React.Component {
         <div style={{height: window.innerHeight*1.1}} className="container-fluid">
           <NavBar lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
           <div className="container-fluid">
-            <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+            <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
         cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}}>
               {widgets}
             </ResponsiveReactGridLayout>
@@ -163,7 +177,7 @@ export default class Main extends React.Component {
         <div style={{height: window.innerHeight*1.1}} className="container-fluid">
           <NavBar lock={this.lock} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
           <div className="container-fluid">
-            <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+            <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
         cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}}>
               {widgets}
             </ResponsiveReactGridLayout>
