@@ -69,10 +69,13 @@ class Nearby extends React.Component {
       currentMarkers.push(marker);
       this.setState({markers: currentMarkers});
 
+
+
       // listener for markers clicked
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
           place.vicinity + '</div>');
+        map.setCenter(marker.getPosition());
         infowindow.open(map, this);
       });
     }
@@ -151,6 +154,7 @@ class Nearby extends React.Component {
 
     google.maps.event.addListener(userMarker, 'click', function() {
       infowindow.setContent('<div><strong>' + "Your Location" + '</strong><br></div>');
+      map.setCenter(userMarker.getPosition());
       infowindow.open(map, this);
     });
 
@@ -207,13 +211,15 @@ class Nearby extends React.Component {
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: start,
-        zoom: 15
-        // streetViewControl: false
+        zoom: 15,
+        draggable: false,
+        streetViewControl: false
       });
       this.setState({ map: map });
 
       google.maps.event.addListener(map, "idle", function(){
         google.maps.event.trigger(map, 'resize');
+        // map.setCenter(start);
       });
     }
 
@@ -253,6 +259,7 @@ class Nearby extends React.Component {
 
     google.maps.event.addListener(userMarker, 'click', function() {
       infowindow.setContent('<div><strong>' + "Your Location" + '</strong><br></div>');
+      map.setCenter(userMarker.getPosition());
       infowindow.open(map, this);
     });
   }

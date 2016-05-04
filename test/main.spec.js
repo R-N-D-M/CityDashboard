@@ -4,11 +4,19 @@ import {expect} from 'chai';
 
 
 import Main from '../client/main';
-import Weather from '../client/weather';
+// import Weather from '../client/weather';
+
+import ReactGridLayout from 'react-grid-layout';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+// import WidthProvider from 'react-grid-layout'.WidthProvider;
+let WidthProvider = ReactGridLayout.WidthProvider;
+// import ResponsiveReactGridLayout from 'react-grid-layout'.Responsive;
+let ResponsiveReactGridLayout = ReactGridLayout.Responsive;
+ResponsiveReactGridLayout = WidthProvider(ResponsiveReactGridLayout);
 
 describe('<Main />', function () {
-  it('should have a Weather child component', function () {
+  it('should have a ResponsiveReactGridLayout child component', function () {
     const wrapper = shallow(<Main />);
-    expect(wrapper.find(Weather)).to.have.length(1);
+    expect(wrapper.find(ResponsiveReactGridLayout)).to.have.length(1);
   });
 });
