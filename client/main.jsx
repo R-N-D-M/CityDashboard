@@ -40,12 +40,9 @@ export default class Main extends React.Component {
         makeFunction: this.makeMovies
       }
     };
-    this.state.deployedWidgets = [
-      this.state.widgets.weather,
-      this.state.widgets.bart,
-      this.state.widgets.nearby,
-      this.state.widgets.movies,
-    ];
+    // deployed widgets are pushed in this array for rendering
+    this.state.deployedWidgets = [];
+
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
