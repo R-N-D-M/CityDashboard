@@ -35,9 +35,7 @@ export default class Weather extends React.Component {
 
     }
   }
-  replaceInformationFromFirebase() {
 
-  }
   getWeather() {
     let url = '/weather';
     let dataToSend = {
@@ -63,7 +61,6 @@ export default class Weather extends React.Component {
       .catch( (response) => {
         console.log("Error getting weather!");
     });
-
   }
   render() {
 

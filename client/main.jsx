@@ -6,8 +6,7 @@ import Weather from './weather';
 import Bart from './bart';
 import Nearby from './nearby';
 import Movies from './movies';
-// import Home from './home';
-// import LoggedIn from './loggedIn';
+
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 let WidthProvider = ReactGridLayout.WidthProvider;
@@ -98,6 +97,11 @@ export default class Main extends React.Component {
     else {
       // console.log("Deploying", this.state.widgets[input].name);
       this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[input])});
+    }
+  }
+  updateStateOnFirebase(someStateObject) {
+    if(someStateObject.name="Bart") {
+      // do the firebase thing that'll update teh bart state on firebase
     }
   }
   makeBart(context) {

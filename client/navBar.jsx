@@ -21,8 +21,6 @@ export default class NavBar extends React.Component {
     window.location.href= "/";
   }
   componentDidMount() {
-  // In this case, the lock and token are retrieved from the parent component
-  // If these are available locally, use `this.lock` and `this.idToken`
     this.props.lock.getProfile(this.props.idToken, function (err, profile) {
       if (err) {
         console.log("Error loading the Profile", err);
