@@ -105,25 +105,25 @@ export default class Main extends React.Component {
     }
   }
   makeBart(context) {
-    return <div key={'b'} style={{border: "1px solid red", overflow: "scroll"}}>
+    return <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
       <Bart location={context.state.locationTrue} />
     </div>
   }
   makeWeather(context) {
     // return <Weather location={ context.state.locationTrue } />;
-    return <div key={'c'} style={{border: "1px solid blue", overflow: "scroll"}}>
+    return <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
       <Weather location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
     // return <Nearby location={ context.state.locationTrue } />
-    return <div key={'d'} style={{border: "1px solid pink", overflow: "scroll"}}>
+    return <div key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
     // return <Movies location={ context.state.locationTrue } />
-    return <div key={'e'} style={{border: "1px solid orange", overflow: "scroll"}}>
+    return <div key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
       <Movies location={context.state.locationTrue} />
     </div>
   }
@@ -151,20 +151,20 @@ export default class Main extends React.Component {
           <NavBar lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
           <div className="container-fluid">
             <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 6, md: 6, sm: 6, xs: 1, xxs: 2}} style={{border: "1px solid black"}}>
+        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}}>
               {widgets}
             </ResponsiveReactGridLayout>
           </div>
         </div>
       );
-    } 
+    }
     else {
       return (
         <div style={{height: window.innerHeight*1.1}} className="container-fluid">
           <NavBar lock={this.lock} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
           <div className="container-fluid">
             <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 6, md: 6, sm: 6, xs: 1, xxs: 2}} style={{border: "1px solid black"}}>
+        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}}>
               {widgets}
             </ResponsiveReactGridLayout>
           </div>
@@ -173,4 +173,3 @@ export default class Main extends React.Component {
     }
   }
 }
-
