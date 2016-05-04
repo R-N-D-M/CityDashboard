@@ -55,15 +55,14 @@ class Bart extends React.Component {
       });
     }
     if (!this.state.locationTrue) {
-      return <div></div>;
+      return (
+        <div>
+          <p>Getting Your Location, Please Wait</p>
+        </div>
+      );
     } else {
       return (
-         <div className='bart'style={{
-          width: "50%",
-          border: "2px dotted green",
-          margin: "8px",
-          float: "left"
-        }}>
+         <div>
           <p>{this.state.myValue}</p>
           <div className="TrainsData">{TrainsData}</div>
         </div>

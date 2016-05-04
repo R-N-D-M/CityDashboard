@@ -60,18 +60,20 @@ class Movies extends React.Component {
       });
   }
   render() {
-
-    return (
-      <div style={{
-        width: "40%",
-        border: "2px dotted green",
-        margin: "8px",
-        float: "left"
-        }}>
-
-      {this.state.response}
-      </div>
-    );
+    if(this.state.locationTrue) {
+      return (
+        <div style={{overflowY: 'scroll'}}>
+          {this.state.response}
+        </div>
+      );
+    }
+    else {
+      return (
+        <div>
+          <p>Getting Your Location, Please Wait</p>
+        </div>
+      );
+    }
   }
 }
 

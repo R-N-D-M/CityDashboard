@@ -70,21 +70,29 @@ export default class Weather extends React.Component {
         // margin: "8px",
         // float: "left"
       };
-
-    return (
-      <div style={weatherStyle}>
-        <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
-        <div className="city">Current City: {this.state.city}</div>
-        <div className="description">Weather: {this.state.description}</div>
-        <div className="currentTemp">Current Temperature(Kelvins): {this.state.temp}</div>
-        <div className="maxTemp">Max Temperature(Kelvins): {this.state.temp_max}</div>
-        <div className="minTemp">Min Temperature(Kelvins): {this.state.temp_min}</div>
-        <div className="humidity">Humidity: {this.state.humidity}</div>
-        <div className="pressure">Pressure: {this.state.pressure}</div>
-        <div className="winddegree">Wind(Degrees): {this.state.winddeg}</div>
-        <div className="windspeed">Wind Speed(mph): {this.state.windspeed}</div>
-      </div>
-    );
+    if(this.state.locationTrue){
+      return (
+        <div style={weatherStyle}>
+          <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
+          <div className="city">Current City: {this.state.city}</div>
+          <div className="description">Weather: {this.state.description}</div>
+          <div className="currentTemp">Current Temperature(Kelvins): {this.state.temp}</div>
+          <div className="maxTemp">Max Temperature(Kelvins): {this.state.temp_max}</div>
+          <div className="minTemp">Min Temperature(Kelvins): {this.state.temp_min}</div>
+          <div className="humidity">Humidity: {this.state.humidity}</div>
+          <div className="pressure">Pressure: {this.state.pressure}</div>
+          <div className="winddegree">Wind(Degrees): {this.state.winddeg}</div>
+          <div className="windspeed">Wind Speed(mph): {this.state.windspeed}</div>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div style={weatherStyle}>
+          <p>Getting Your Location, Please Wait</p>
+        </div>
+      );
+    }
 
   }
 

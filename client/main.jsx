@@ -8,9 +8,7 @@ import Nearby from './nearby';
 import Movies from './movies';
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
-// import WidthProvider from 'react-grid-layout'.WidthProvider;
 let WidthProvider = ReactGridLayout.WidthProvider;
-// import ResponsiveReactGridLayout from 'react-grid-layout'.Responsive;
 let ResponsiveReactGridLayout = ReactGridLayout.Responsive;
 ResponsiveReactGridLayout = WidthProvider(ResponsiveReactGridLayout);
 
@@ -43,7 +41,10 @@ export default class Main extends React.Component {
       }
     };
     this.state.deployedWidgets = [
-      this.state.widgets.weather
+      this.state.widgets.weather,
+      this.state.widgets.bart,
+      this.state.widgets.nearby,
+      this.state.widgets.movies,
     ];
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
@@ -81,25 +82,25 @@ export default class Main extends React.Component {
     }
   }
   makeBart(context) {
-    return <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+    return <div key={'b'} style={{border: "1px solid red", overflow: "scroll"}}>
       <Bart location={context.state.locationTrue} />
     </div>
   }
   makeWeather(context) {
     // return <Weather location={ context.state.locationTrue } />;
-    return <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+    return <div key={'c'} style={{border: "1px solid blue", overflow: "scroll"}}>
       <Weather location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
     // return <Nearby location={ context.state.locationTrue } />
-    return <div key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
+    return <div key={'d'} style={{border: "1px solid pink", overflow: "scroll"}}>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
     // return <Movies location={ context.state.locationTrue } />
-    return <div key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
+    return <div key={'e'} style={{border: "1px solid orange", overflow: "scroll"}}>
       <Movies location={context.state.locationTrue} />
     </div>
   }
@@ -116,12 +117,12 @@ export default class Main extends React.Component {
     // ]};
 
     let layout = [
-      {i: 'a', x: 0, y: 0, w: 1, h: 1, static: true},
+      {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
       // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
-      {i: 'b', x: 1, y: 0, w: 3, h: 3},
-      {i: 'c', x: 2, y: 2, w: 3, h: 3},
-      {i: 'd', x: 3, y: 3, w: 3, h: 3},
-      {i: 'e', x: 4, y: 4, w: 3, h: 3}
+      {i: 'b', x: 1, y: 1, w: 2, h: 2},
+      {i: 'c', x: 2, y: 1, w: 3, h: 3},
+      {i: 'd', x: 3, y: 1, w: 3, h: 3},
+      {i: 'e', x: 4, y: 1, w: 3, h: 3}
     ];
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
@@ -131,8 +132,8 @@ export default class Main extends React.Component {
       <div style={{height: window.innerHeight*1.1}} className="container-fluid">
         <NavBar style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
         <div className="container-fluid">
-          <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={350} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-      cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} style={{border: "1px solid black"}}>
+          <ResponsiveReactGridLayout className="layout" layout={layout} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+      cols={{lg: 6, md: 6, sm: 6, xs: 1, xxs: 2}} style={{border: "1px solid black"}}>
             {widgets}
           </ResponsiveReactGridLayout>
         </div>

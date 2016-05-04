@@ -277,20 +277,28 @@ class Nearby extends React.Component {
       width: "100%",
       border: "1px solid black"
     };
-
-    return (
-      <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
-        <select style={{width: "100%", marginTop: "10px"}} onChange={this.handleSelectChange.bind(this)}>
-          <option disabled selected value> -- Select Category -- </option>
-          <option value="bar">Bars</option>
-          <option value="restaurant">Restaurants</option>
-          <option value="gym">Gyms</option>
-          <option value="cafe">Cafés</option>
-          <option value="bakery">Bakeries</option>
-        </select>
-        <div style={mapStyle} id="map"></div>
-      </div>
-    );
+    if(this.state.locationTrue) {
+      return (
+        <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
+          <select style={{width: "100%", marginTop: "10px"}} onChange={this.handleSelectChange.bind(this)}>
+            <option disabled selected value> -- Select Category -- </option>
+            <option value="bar">Bars</option>
+            <option value="restaurant">Restaurants</option>
+            <option value="gym">Gyms</option>
+            <option value="cafe">Cafés</option>
+            <option value="bakery">Bakeries</option>
+          </select>
+          <div style={mapStyle} id="map"></div>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div>
+          <p>Getting Your Location, Please Wait</p>
+        </div>
+      );
+    }
   }
 
 }
