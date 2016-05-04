@@ -1,28 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {ref} from './helpers/constants';
+import Main from './main';
 
 class LoggedIn extends React.Component{
-  getInitialState(){
-    return {
-      profile: null
-    }
-  } // maybe needs to be constructor instead of getInitialState
+  constructor(props) {
+    super(props);
 
-  // getFoos(){ 
-  //   fetch('/dbconnections/signup', {
-  //   headers: {
-  //     'Authorization': 'Bearer ' + localStorage.getItem('userToken')
-  //   },
-  //     method: 'GET',
-  //     cache: false
-  //   });
-  // }
+    this.state = {profile: null}
+    this.onLogout = this.onLogout.bind(this);
+  } 
 
-  // getFoos.then(function (response) {
-  //   response.json().then(function (foos) {
-  //     console.log('the foos:', foos);
-  //   });
-  // });
+  onLogIn(userID, profile) {
+    ref.child(`users/${userID}`).set(profile)
+  }
+
+  onLogout() {
+    console.log('bro wtf')
+    localStorage.removeItem('userToken');
+    window.location.href= "/";
+  }
 
   componentDidMount() {
     // In this case, the lock and token are retrieved from the parent component
@@ -32,7 +29,10 @@ class LoggedIn extends React.Component{
         console.log("Error loading the Profile", err);
         return;
       }
-      this.setState({profile: profile});
+      else {
+        this.onLogIn(profile.user_id, profile);
+        this.setState({profile});
+      }
     }.bind(this));
   }
 
@@ -41,7 +41,10 @@ class LoggedIn extends React.Component{
   render() {
     if (this.state.profile) {
       return (
-        <h2>Welcome {this.state.profile.nickname}</h2>
+        <div>
+          <h2>Welcome {this.state.profile.nickname}</h2>
+          <a onClick={this.onLogout}>Logout</a>
+        </div>
       );
     } else {
       return (

@@ -124,12 +124,12 @@ export default class Main extends React.Component {
     </div>
   }
   render() {
-    if (this.state.idToken) {
-      return (<LoggedIn lock={this.lock} idToken={this.state.idToken} />);
-    } 
-    else {
-      return (<Home lock={this.lock} />);
-    }
+    // if (this.state.idToken) {
+    //   return (<LoggedIn lock={this.lock} idToken={this.state.idToken} />);
+    // } 
+    // else {
+    //   return (<Home lock={this.lock} />);
+    // }
     let widgets = [];
     _.each(this.state.deployedWidgets, (widget) => {
       widgets.push(widget.makeFunction(this));
