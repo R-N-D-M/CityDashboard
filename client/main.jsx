@@ -2,10 +2,10 @@ import React from 'react';
 import ReactGridLayout from 'react-grid-layout';
 import _ from 'underscore';
 import NavBar from './navBar';
-import Weather from './weather';
-import Bart from './bart';
-import Nearby from './nearby';
-import Movies from './movies';
+import Weather from './widgets/weather';
+import Bart from './widgets/bart';
+import Nearby from './widgets/nearby';
+import Movies from './widgets/movies';
 
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
