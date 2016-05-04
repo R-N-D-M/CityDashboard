@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 
 import Main from './main';
 
-require('./styles.scss');
-require('./reactgridlayout.css');
-require('./reactresizeable.css');
+require('./styles/styles.scss');
+require('./styles/reactgridlayout.css');
+require('./styles/reactresizeable.css');
 
 const App = () => {
   return <Main />;
