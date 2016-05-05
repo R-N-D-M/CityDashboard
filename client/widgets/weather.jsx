@@ -43,7 +43,7 @@ export default class Weather extends React.Component {
     };
     Axios.post(url, dataToSend)
       .then( (response) => {
-        console.log("/weather post succeeded: ", response.data);
+        // console.log("/weather post succeeded: ", response.data);
         this.setState({
           city: response.data.city,
           description: response.data.description,
