@@ -37,3 +37,4 @@ bower_components/
 #unneeded files for project created by mac operating system
 .DS_Store
 server/.DS_Store
+.env
