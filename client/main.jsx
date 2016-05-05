@@ -161,6 +161,7 @@ export default class Main extends React.Component {
     // ];
 
     // placeholder since ResponsiveReactGridLayout cannot handle a null div
+    // set to key 'a'
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
     }
