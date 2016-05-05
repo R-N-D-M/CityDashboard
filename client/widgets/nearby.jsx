@@ -72,19 +72,19 @@ class Nearby extends React.Component {
 
 
       // listener for markers clicked
-      google.maps.event.addListener(marker, 'click', function() {
-        map.setCenter(marker.getPosition());
-      });
+      // google.maps.event.addListener(marker, 'click', function() {
+      //   map.setCenter(marker.getPosition());
+      // });
 
-      google.maps.event.addListener(marker, 'mouseover', function() {
+      google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
           place.vicinity + '</div>');
         infowindow.open(map, marker);
       });
 
-      google.maps.event.addListener(marker, 'mouseout', function(){
-          infowindow.close();
-       });
+      // google.maps.event.addListener(marker, 'mouseout', function(){
+      //     infowindow.close();
+      //  });
     }
 
     // creates markers for all results
@@ -219,8 +219,8 @@ class Nearby extends React.Component {
       map = new google.maps.Map(document.getElementById('map'), {
         center: start,
         zoom: 15,
-        draggable: false,
-        streetViewControl: false
+        // draggable: false,
+        // streetViewControl: false
       });
       this.setState({ map: map });
 
@@ -264,18 +264,18 @@ class Nearby extends React.Component {
         shadow: pinShadow
     });
 
-    google.maps.event.addListener(userMarker, 'click', function() {
-      map.setCenter(userMarker.getPosition());
-    });
+    // google.maps.event.addListener(userMarker, 'click', function() {
+    //   map.setCenter(userMarker.getPosition());
+    // });
 
-    google.maps.event.addListener(userMarker, 'mouseover', function() {
+    google.maps.event.addListener(userMarker, 'click', function() {
       infowindow.setContent('<div><strong>' + "Your Location" + '</strong><br></div>');
       infowindow.open(map, userMarker);
     });
 
-    google.maps.event.addListener(userMarker, 'mouseout', function(){
-        infowindow.close();
-     });
+    // google.maps.event.addListener(userMarker, 'mouseout', function(){
+    //     infowindow.close();
+    //  });
   }
   render() {
     let hiddenStyle = {

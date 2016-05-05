@@ -120,25 +120,29 @@ export default class Main extends React.Component {
     }
   }
   makeBart(context) {
-    return <div key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+    return <div className="drag" key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+      <div className="drag" style={{width:"100%", backgroundColor: "#F08080"}}>DRAG ME</div>
       <Bart location={context.state.locationTrue} />
     </div>
   }
   makeWeather(context) {
     // return <Weather location={ context.state.locationTrue } />;
-    return <div key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+    return <div className="drag" key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+      <div className="drag" style={{width:"100%", backgroundColor: "#ADD8E6"}}>DRAG ME</div>
       <Weather location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
     // return <Nearby location={ context.state.locationTrue } />
-    return <div key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
+    return <div className="drag" key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
+      <div className="drag" style={{width:"100%", backgroundColor: "#FFB6C1"}}>DRAG ME</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
     // return <Movies location={ context.state.locationTrue } />
-    return <div key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
+    return <div className="drag" key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
+      <div className="drag" style={{width:"100%", backgroundColor: "#FFA07A"}}>DRAG ME</div>
       <Movies location={context.state.locationTrue} />
     </div>
   }
@@ -155,6 +159,8 @@ export default class Main extends React.Component {
     //   {i: 'd', x: 0, y: 0, w: 3, h: 3},
     //   {i: 'e', x: 0, y: 0, w: 3, h: 3}
     // ];
+
+    // placeholder since ResponsiveReactGridLayout cannot handle a null div
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
     }
@@ -165,7 +171,7 @@ export default class Main extends React.Component {
           <NavBar lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
           <div className="container-fluid">
             <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}}>
+        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
               {widgets}
             </ResponsiveReactGridLayout>
           </div>
@@ -178,7 +184,7 @@ export default class Main extends React.Component {
           <NavBar lock={this.lock} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
           <div className="container-fluid">
             <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}}>
+        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
               {widgets}
             </ResponsiveReactGridLayout>
           </div>
