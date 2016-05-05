@@ -8,7 +8,7 @@ import Bart from './widgets/bart';
 import Nearby from './widgets/nearby';
 import Movies from './widgets/movies';
 
-  
+
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 let WidthProvider = ReactGridLayout.WidthProvider;
 let ResponsiveReactGridLayout = ReactGridLayout.Responsive;
