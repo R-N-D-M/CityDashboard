@@ -1,7 +1,7 @@
 // app id 9fb12d07534f5cbab4ff6c758a01f407
 var axios = require('axios');
 
-var APP_ID = "9fb12d07534f5cbab4ff6c758a01f407";
+var APP_ID = process.env.APP_ID;
 
 var getWeather = function(request, response) {
   var url;
