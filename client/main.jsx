@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactGridLayout from 'react-grid-layout';
 import _ from 'underscore';
+import {ref} from './helpers/constants';
 import NavBar from './navBar';
 import Weather from './widgets/weather';
 import Bart from './widgets/bart';
@@ -17,7 +18,8 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: false
+      locationTrue: false,
+      idToken: false
     };
     this.state.widgets = {
       weather: {
@@ -49,11 +51,11 @@ export default class Main extends React.Component {
     this.makeWeather = this.makeWeather.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleLayoutChange = this.handleLayoutChange.bind(this);
-
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-
+    this.onLogout = this.onLogout.bind(this);
+    this.onLogin = this.onLogin.bind(this);
+    this.save = this.save.bind(this);
     // saving state layout
-    this.state.defaultLayout = [
+    this.defaultLayout = [
       {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
       // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
       {i: 'b', x: 0, y: 0, w: 3, h: 3},
@@ -61,7 +63,7 @@ export default class Main extends React.Component {
       {i: 'd', x: 0, y: 0, w: 3, h: 3},
       {i: 'e', x: 0, y: 0, w: 3, h: 3}
     ];
-    this.state.layout = this.state.layout || this.state.defaultLayout;
+    this.layout = this.layout || this.defaultLayout;
   }
   componentWillMount() {
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
@@ -112,7 +114,9 @@ export default class Main extends React.Component {
     }
   }
   handleLayoutChange(layout) {
-    this.setState({layout:layout});
+    //this.setState({layout:layout});
+    console.log("this", this);
+    console.log("layout change fired, this.state.layout", this.state, "argument layout: ", layout);
   }
   updateStateOnFirebase(someStateObject) {
     if(someStateObject.name="Bart") {
@@ -146,51 +150,44 @@ export default class Main extends React.Component {
       <Movies location={context.state.locationTrue} />
     </div>
   }
+  onLogin(userID, profile) {
+    ref.child(`users/${userID}`).set(profile);
+  }
+  onLogout() {
+    localStorage.removeItem('userToken');
+    window.location.href= "/";
+  }
+  save() {
+    ref.set({state: this.state}, (error) => {
+      if (error) {
+        console.log('Synchronization failed');
+      }
+      else {
+        console.log('Synchronization succeeded');
+      }
+    });
+  }
   render() {
     let widgets = [];
     _.each(this.state.deployedWidgets, (widget) => {
       widgets.push(widget.makeFunction(this));
     });
-    // let layout = [
-    //   {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //   // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
-    //   {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //   {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //   {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //   {i: 'e', x: 0, y: 0, w: 3, h: 3}
-    // ];
-
-    // placeholder since ResponsiveReactGridLayout cannot handle a null div
-    // set to key 'a'
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
     }
-
-    if (this.state.idToken) {
-      return (
-        <div style={{height: window.innerHeight*1.1}} className="container-fluid">
-          <NavBar lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
-          <div className="container-fluid">
-            <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
-              {widgets}
-            </ResponsiveReactGridLayout>
-          </div>
+    return (
+      <div className="container-fluid">
+        <NavBar lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.state.widgets} handleClick={ this.handleClick } />
+        {/*<div>
+          <button onClick={this.saveState}>Save</button>
+        </div>*/}
+        <div className="container-fluid">
+          <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+      cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
+            {widgets}
+          </ResponsiveReactGridLayout>
         </div>
-      );
-    }
-    else {
-      return (
-        <div style={{height: window.innerHeight*1.1}} className="container-fluid">
-          <NavBar lock={this.lock} style={{paddingLeft: '0px', marginLeft: '0px'}} widgets={this.state.widgets} handleClick={ this.handleClick }/>
-          <div className="container-fluid">
-            <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
-              {widgets}
-            </ResponsiveReactGridLayout>
-          </div>
-        </div>
-      );
-    }
+      </div>
+    );
   }
 }

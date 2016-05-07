@@ -30,6 +30,7 @@ class Bart extends React.Component {
         });
       })
       .catch( (response) => {
+        console.log("Error getting closest station from bart: ", response);
       });
   }
 
