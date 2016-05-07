@@ -79,16 +79,15 @@ export default class Weather extends React.Component {
     if(this.state.locationTrue){
       return (
         <div style={weatherStyle}>
-          <div className="locationTrue">Lat: {this.state.locationTrue[0]} Long: {this.state.locationTrue[1]}</div>
-          <div className="city">Current City: {this.state.city}</div>
+          <div className="city">{this.state.city}</div>
           <div className="description">Weather: {this.state.description} <img className="weathericon" src={iconURL}/></div>
-          <div className="currentTemp">Current Temperature(Kelvins): {this.state.temp}</div>
-          <div className="maxTemp">Max Temperature(Kelvins): {this.state.temp_max}</div>
-          <div className="minTemp">Min Temperature(Kelvins): {this.state.temp_min}</div>
-          <div className="humidity">Humidity: {this.state.humidity}</div>
+          <div className="currentTemp">Current Temperature: {Math.round(((this.state.temp - 273.15)*9/5)+32) + '°' + 'F'}</div>
+          <div className="maxTemp">High: {Math.round(((this.state.temp_max - 273.15)*9/5)+32) + '°' + 'F'}</div>
+          <div className="minTemp">Low: {Math.round(((this.state.temp_min - 273.15)*9/5)+32) + '°' + 'F'}</div>
+          <div className="humidity">Humidity: {this.state.humidity + '%'}</div>
           <div className="pressure">Pressure: {this.state.pressure}</div>
-          <div className="winddegree">Wind(Degrees): {this.state.winddeg}</div>
-          <div className="windspeed">Wind Speed(mph): {this.state.windspeed}</div>
+          <div className="winddegree">Wind: {this.state.winddeg + '°'}</div>
+          <div className="windspeed">Wind Speed: {this.state.windspeed + 'mph'}</div>
         </div>
       );
     }
