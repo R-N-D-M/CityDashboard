@@ -6,18 +6,19 @@ import Axios from 'axios';
 
 import Movies from '../client/widgets/movies';
 
-describe('<Movies />', function () {
-  it('should have a div in the component to display current movies', function () {
+describe('<Movies />', () => {
+
+  it('should have a div in the component to display current movies', () => {
     const wrapper = shallow(<Movies />);
     expect(wrapper.find('div')).to.have.length(1);
   });
 
-  it('should have a paragraph element to display Loading when data has not come in yet', function() {
+  it('should have a paragraph element to display Loading when data has not come in yet', () => {
     const wrapper = shallow(<Movies />);
     expect(wrapper.find('p')).to.have.length(1);
   });
 
-  it('should mount the <Movies /> component', function () {
+  it('should mount the <Movies /> component', () => {
     const willMount = Sinon.spy();
     const didMount = Sinon.spy();
     const willUnmount = Sinon.spy();
@@ -47,15 +48,15 @@ describe('<Movies />', function () {
     expect(willMount.callCount).to.equal(2);
   });
 
-  it('show have props', function() {
+  it('show have props', () => {
     const wrapper = shallow(<Movies />);
     expect(wrapper.props().location).to.be.defined
   });
-  it('should have an initial response state', function() {
+
+  it('should have an initial response state',() => {
     const wrapper = mount(<Movies />);
     expect(wrapper.state().response).to.equal('no movie data');
+    wrapper.unmount();
   });
-
 });
-
 
