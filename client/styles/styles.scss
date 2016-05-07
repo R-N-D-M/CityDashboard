@@ -1,3 +1,12 @@
 $container-shadow: 4px 4px 19px -6px rgba(0,0,0,0.68);
 $bottom-shadow: 0px 5px 19px -10px rgba(0,0,0,0.68);
 $main-color: #87AAAF;
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
