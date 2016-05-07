@@ -3,7 +3,7 @@
 // backup browser key AIzaSyDoDZbCJKAUjIxHNiFNRZGtL5RsVnuyQw0
 var axios = require('axios');
 
-var SERVER_KEY = "AIzaSyCtFen6UlngOLpcBYNQM19oVYNUJD-jwSk";
+var SERVER_KEY = process.env.NEARBY_ID;
 var getGoogleData = function(request, response) {
   var latLng = request.body.latLng;
   var latLngStr = "" + latLng[0] + "," + latLng[1];
