@@ -94,15 +94,17 @@ export default class Main extends React.Component {
         //   id: 4,
         //   content: "Monkeys.\nWho doesn't love monkeys?"
         // }
-      ],
-      selectedId: null
+      ]
     };
-    this.state.notepad.nextNodeId = this.state.notepad.notes.length+1;
+    
+    // default notepad settings
+    this.state.notepad.selectedId = null;
+    this.state.notepad.nextNodeId = this.state.notepad.nextNodeId || 1;
+
     this.handleNPstate = this.handleNPstate.bind(this);
   }
   componentWillMount() {
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
-
     this.setState({idToken: this.getIdToken()});
   }
   getIdToken() {

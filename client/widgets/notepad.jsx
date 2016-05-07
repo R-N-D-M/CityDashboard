@@ -6,8 +6,9 @@ class Notepad extends React.Component {
   	super(props);
   	this.state = {};
     this.state.notepad = this.props.notepad;
+    // on-start settings
     this.state.notepad.selectedId = null;
-    this.state.notepad.nextNodeId = this.state.notepad.notes.length+1;
+    this.state.notepad.nextNodeId = this.state.notepad.nextNodeId || 1;
     this.handleNPtoMainChange = this.handleNPtoMainChange.bind(this);
   }
   onAddNote = function () {
@@ -99,14 +100,11 @@ class NotesList extends React.Component {
     this.props.handleClickFromNL(id);
   }
   render() {
+    let count = 0;
     let notes = this.props.notepad.notes;
     let selectedId = this.props.notepad.selectedId;
-    console.log("selected id: ", selectedId);
+    // console.log("selected id: ", selectedId);
 
-    // style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}
-
-    // style={{width:"100%", borderTop: "solid 1px gray"}}
-    // style={{color: "orange" }}
     let textStyle = {
       fontWeight: "normal",
       color: "orange"
@@ -122,7 +120,6 @@ class NotesList extends React.Component {
         notes.map( (note) => {
           return (
             <NoteSummary
-              style={{width:"100%", borderTop: "solid 1px gray"}}
               key={note.id}
               note={note}
               handleClick={this.handleClick.bind(this)}
@@ -154,7 +151,7 @@ class NoteSummary extends React.Component {
 // style={{width:"100%", borderTop: "solid 1px gray"}}
 // style={{color: "orange" }}
     return (
-      <div className="note-summary">
+      <div className="note-summary" style={{width:"100%", borderTop: "solid 1px gray"}}>
         <pre style = {this.props.textStyle}
           onClick={()=>{this.props.handleClick(note.id)}}>{content}</pre>
       </div>
