@@ -39,9 +39,9 @@ export default class NavBar extends React.Component {
           <div className="nav navbar-nav">
             <WidgetList widgets={this.props.widgets} handleClick={ this.props.handleClick } />
           </div>
-          {/*<div className="btn btn-secondary nav-item active pull-xs-right">
+          <div className="btn btn-secondary nav-item active pull-xs-right">
             <a onClick={loginLogoutAction}>{loginLogout}</a>
-          </div>*/}
+          </div>
         </nav>
       )
   }

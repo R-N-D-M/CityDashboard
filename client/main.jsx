@@ -19,7 +19,9 @@ export default class Main extends React.Component {
     super(props);
     this.state = {
       locationTrue: false,
-      idToken: false
+      idToken: false,
+      deployedWidgets: [],
+      profile: null
     };
     this.state.widgets = {
       weather: {
@@ -48,8 +50,6 @@ export default class Main extends React.Component {
         makeFunction: this.makeNotepad
       }
     };
-    // deployed widgets are pushed in this array for rendering
-    this.state.deployedWidgets = [];
 
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
@@ -140,14 +140,10 @@ export default class Main extends React.Component {
     }
   }
   handleLayoutChange(layout) {
-    //this.setState({layout:layout});
-    console.log("this", this);
-    console.log("layout change fired, this.state.layout", this.state, "argument layout: ", layout);
-  }
-  updateStateOnFirebase(someStateObject) {
-    if(someStateObject.name="Bart") {
-      // do the firebase thing that'll update teh bart state on firebase
+    if(layout){
+      this.layout = layout;
     }
+    console.log("this.layout", this.layout);
   }
   makeBart(context) {
     return <div className="drag" key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
@@ -156,21 +152,18 @@ export default class Main extends React.Component {
     </div>
   }
   makeWeather(context) {
-    // return <Weather location={ context.state.locationTrue } />;
     return <div className="drag" key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#ADD8E6"}}>DRAG ME</div>
       <Weather location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
-    // return <Nearby location={ context.state.locationTrue } />
     return <div className="drag" key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#FFB6C1"}}>DRAG ME</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
-    // return <Movies location={ context.state.locationTrue } />
     return <div className="drag" key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#FFA07A"}}>DRAG ME</div>
       <Movies location={context.state.locationTrue} />
@@ -178,13 +171,20 @@ export default class Main extends React.Component {
   }
   onLogin(userID, profile) {
     ref.child(`users/${userID}`).set(profile);
+    this.setState({profile: profile});
   }
   onLogout() {
     localStorage.removeItem('userToken');
+    this.setSetstate({profile: null});
     window.location.href= "/";
   }
   save() {
-    ref.set({state: this.state}, (error) => {
+    let layoutAndDeployedWidgets = {
+      layout: this.layout,
+      deployedWidgets: this.deployedWidgets
+    };
+    layoutAndDeployedWidgets = JSON.stringify(layoutAndDeployedWidgets);
+    ref.child(`users/${this.state.profile.user_id}`).update({layoutAndDeployedWidgets: layoutAndDeployedWidgets}, (error) => {
       if (error) {
         console.log('Synchronization failed');
       }
@@ -217,11 +217,11 @@ export default class Main extends React.Component {
     return (
       <div className="container-fluid">
         <NavBar lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.state.widgets} handleClick={ this.handleClick } />
-        {/*<div>
-          <button onClick={this.saveState}>Save</button>
-        </div>*/}
+        <div>
+          <button onClick={this.save}>Save</button>
+        </div>
         <div className="container-fluid">
-          <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+          <ResponsiveReactGridLayout className="layout" layout={this.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
       cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
             {widgets}
           </ResponsiveReactGridLayout>
