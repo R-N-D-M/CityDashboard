@@ -51,4 +51,11 @@ describe('<Movies />', function () {
     const wrapper = shallow(<Movies />);
     expect(wrapper.props().location).to.be.defined
   });
+  it('should have an initial response state', function() {
+    const wrapper = mount(<Movies />);
+    expect(wrapper.state().response).to.equal('no movie data');
+  });
+
 });
+
+
