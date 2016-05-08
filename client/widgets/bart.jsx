@@ -6,7 +6,8 @@ class Bart extends React.Component {
     super(props);
     this.state = {
       locationTrue: this.props.location,
-      nextTrains: []
+      nextTrains: [],
+      originStation: ''
     };
   }
 
@@ -25,8 +26,10 @@ class Bart extends React.Component {
     };
     axios.post(url, dataToSend)
       .then( (response) => {
+        console.log("line 29: response", response);
         this.setState({
-          nextTrains: response.data
+          nextTrains: response.data.deptArr,
+          originStation: response.data.originStation.name
         });
       })
       .catch( (response) => {
@@ -47,10 +50,10 @@ class Bart extends React.Component {
       TrainsData = that.state.nextTrains.map((trains) => {
         return (
           <div>
-            <span className="destinations">Destination: {trains.destination} </span>
-            <span className="directions">Direction: {trains.direction} </span>
-            <span className="platforms">Platform #: {trains.platform} </span>
-            <span className="times">Minutes Until: {trains.time} </span>
+            <span className="destinations">Destination: {trains.destination}</span>
+            <span className="directions">Direction: {trains.direction}</span>
+            <span className="platforms">Platform #: {trains.platform}</span>
+            <span className="times">Minutes Until: {trains.time}</span>
           </div>
         );
       });
@@ -64,7 +67,7 @@ class Bart extends React.Component {
     } else {
       return (
          <div>
-          <p>{this.state.myValue}</p>
+          <div>Departing from: {this.state.originStation}</div>
           <div className="TrainsData">{TrainsData}</div>
         </div>
       );
