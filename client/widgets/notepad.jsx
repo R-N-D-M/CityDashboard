@@ -7,11 +7,11 @@ class Notepad extends React.Component {
   	this.state = {};
     this.state.notepad = this.props.notepad;
     // on-start settings
-    this.state.notepad.selectedId = null;
-    this.state.notepad.nextNodeId = this.state.notepad.nextNodeId || 1;
+    // this.state.notepad.selectedId = null;
+    // this.state.notepad.nextNodeId = this.state.notepad.nextNodeId || 1;
     this.handleNPtoMainChange = this.handleNPtoMainChange.bind(this);
   }
-  onAddNote = function () {
+  onAddNote() {
     let note = {id: this.state.notepad.nextNodeId, content: ''};
 
     let currentNotepad = this.state.notepad;
@@ -38,6 +38,23 @@ class Notepad extends React.Component {
     // transfers from notepad to main
     this.handleNPtoMainChange(this.state.notepad);
   }
+  onDeleteNote(id) {
+    let currentNotepad = this.state.notepad;
+    let note = _.find(currentNotepad.notes, (note) => {
+        return note.id === id;
+    });
+    if (note) {
+      currentNotepad.notes = currentNotepad.notes.filter( (note) => {
+          return note.id !== id;
+      });
+    }
+    if (currentNotepad.selectedId === id) {
+      currentNotepad.selectedId = null;
+    }
+    this.setState({notepad:currentNotepad});
+    // transfers from notepad to main
+    this.handleNPtoMainChange(this.state.notepad);
+  }
   onSelectNote(id) {
     let currentNotepad = this.state.notepad;
     currentNotepad.selectedId = id;
@@ -56,7 +73,7 @@ class Notepad extends React.Component {
 
     let editor = null;
 
-    let selectedNote = _.find(notepad.notes, function (note) {
+    let selectedNote = _.find(notepad.notes, (note) => {
       return note.id === notepad.selectedId;
     });
 
@@ -66,10 +83,11 @@ class Notepad extends React.Component {
 
     return (
       <div id="notepad">
-        <NotesList notepad={notepad} handleClickFromNL={this.onSelectNote.bind(this)} />
+        <NotesList notepad={notepad} handleClickFromNL={this.onSelectNote.bind(this)}
+        handleDelete={this.onDeleteNote.bind(this)} />
         <br />
           <div>
-            <button onClick={this.onAddNote.bind(this)}>Add note</button>
+            <button onClick={this.onAddNote.bind(this)}>Add Note</button>
           </div>
           {editor}
       </div>
@@ -96,8 +114,10 @@ class NoteEditor extends React.Component {
 
 class NotesList extends React.Component {
   handleClick(id) {
-    // console.log("ID from NotesList: ", id);
     this.props.handleClickFromNL(id);
+  }
+  handleDelete(id) {
+    this.props.handleDelete(id);
   }
   render() {
     let count = 0;
@@ -107,12 +127,16 @@ class NotesList extends React.Component {
 
     let textStyle = {
       fontWeight: "normal",
-      color: "orange"
+      color: "orange",
+      paddingRight: "2cm",
+      wordWrap: "break-word"
     };
 
     let selectedStyle = {
       fontWeight: "bold",
-      color: "#FA8072"
+      color: "#FA8072",
+      paddingRight: "2cm",
+      wordWrap: "break-word"
     };
     return (
       <div className="notes-list" style={{borderBottom: "solid 1px gray", backgroundColor: "#FFFACD"}}>
@@ -120,9 +144,9 @@ class NotesList extends React.Component {
         notes.map( (note) => {
           return (
             <NoteSummary
-              key={note.id}
               note={note}
               handleClick={this.handleClick.bind(this)}
+              handleDelete={this.handleDelete.bind(this)}
               textStyle={selectedId === note.id ? selectedStyle : textStyle}
               />
           );
@@ -146,16 +170,42 @@ class NoteSummary extends React.Component {
     // }
 
     let content = note.content;
-    // console.log("content: ", content)
     if (!content) content = '-- Awaiting Input --';
-// style={{width:"100%", borderTop: "solid 1px gray"}}
-// style={{color: "orange" }}
+
     return (
       <div className="note-summary" style={{width:"100%", borderTop: "solid 1px gray"}}>
-        <pre style = {this.props.textStyle}
-          onClick={()=>{this.props.handleClick(note.id)}}>{content}</pre>
+        <div className="note-summary-innerwrapper" style={{width:"100%"}}>
+          <button
+            aria-label="Delete Note"
+            style={{position:"absolute", right:"0"}} onClick={()=>{this.props.handleDelete(note.id)}}>
+            &#x274C;
+          </button>
+          <pre style = {this.props.textStyle}
+            onClick={()=>{this.props.handleClick(note.id)}}>
+            {'\n' + content}
+          </pre>
+        </div>
       </div>
     );
   }
 
 }
+
+
+
+// {
+//   id: 1,
+//   content: "Hello, world!\nBoring.\nBoring.\nBoring."
+// },
+// {
+//   id: 2,
+//   content: "React is awesome.\nSeriously, it's the greatest."
+// },
+// {
+//   id: 3,
+//   content: "Robots are pretty cool.\nRobots are awesome, until they take over."
+// },
+// {
+//   id: 4,
+//   content: "Monkeys.\nWho doesn't love monkeys?"
+// }

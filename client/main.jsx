@@ -61,6 +61,7 @@ export default class Main extends React.Component {
     this.onLogout = this.onLogout.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.save = this.save.bind(this);
+
     // saving state layout
     this.defaultLayout = [
       {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
@@ -76,31 +77,19 @@ export default class Main extends React.Component {
 
     // this.state.layout = this.state.layout || this.state.defaultLayout;
 
-    this.state.notepad = {
-      notes: [
-        // {
-        //   id: 1,
-        //   content: "Hello, world!\nBoring.\nBoring.\nBoring."
-        // },
-        // {
-        //   id: 2,
-        //   content: "React is awesome.\nSeriously, it's the greatest."
-        // },
-        // {
-        //   id: 3,
-        //   content: "Robots are pretty cool.\nRobots are awesome, until they take over."
-        // },
-        // {
-        //   id: 4,
-        //   content: "Monkeys.\nWho doesn't love monkeys?"
-        // }
-      ]
+    // default notepad if no previous notepad is found
+    this.defaultNotepad = {
+      notes: []
     };
-    
+
+    // set notepad here
+    this.state.notepad = this.state.notepad || this.defaultNotepad;
+
     // default notepad settings
     this.state.notepad.selectedId = null;
     this.state.notepad.nextNodeId = this.state.notepad.nextNodeId || 1;
 
+    // handleNPstate transfers the state of the child Notepad to main component
     this.handleNPstate = this.handleNPstate.bind(this);
   }
   componentWillMount() {
@@ -212,10 +201,7 @@ export default class Main extends React.Component {
     </div>
   }
   handleNPstate(statefromNP) {
-    this.setState({
-      notepad: statefromNP
-    });
-    // console.log("NOTEPAD STATE-handleNPstate: ", this.state.notepad);
+    this.setState({notepad: statefromNP});
   }
   render() {
     // will move to state later
