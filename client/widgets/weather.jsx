@@ -89,7 +89,6 @@ export default class Weather extends React.Component {
           <div className="pressure">Pressure: {this.state.pressure}</div>
           <div className="winddegree">Wind(Degrees): {this.state.winddeg}</div>
           <div className="windspeed">Wind Speed(mph): {this.state.windspeed}</div>
-          <div className="windspeed">Wind Speed(mph): {this.state.windspeed}</div>
         </div>
       );
     }
