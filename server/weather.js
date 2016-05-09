@@ -29,6 +29,7 @@ var sendWeather = function (data, request, response) {
   var objToSend = {
         city: data.name,
         description: data.weather[0].description,
+        icon: data.weather[0].icon,
         temp: data.main.temp,
         temp_max: data.main.temp_max,
         temp_min: data.main.temp_min,
