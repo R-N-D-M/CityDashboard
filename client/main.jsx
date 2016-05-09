@@ -7,7 +7,7 @@ import Weather from './widgets/weather';
 import Bart from './widgets/bart';
 import Nearby from './widgets/nearby';
 import Movies from './widgets/movies';
-
+import Notepad from './widgets/notepad';
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 let WidthProvider = ReactGridLayout.WidthProvider;
@@ -41,6 +41,11 @@ export default class Main extends React.Component {
         id: 'movies',
         name: 'Movies',
         makeFunction: this.makeMovies
+      },
+      notepad: {
+        id: 'notepad',
+        name: 'Notepad',
+        makeFunction: this.makeNotepad
       }
     };
     // deployed widgets are pushed in this array for rendering
@@ -50,10 +55,13 @@ export default class Main extends React.Component {
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.makeNotepad = this.makeNotepad.bind(this);
+
     this.handleLayoutChange = this.handleLayoutChange.bind(this);
     this.onLogout = this.onLogout.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.save = this.save.bind(this);
+
     // saving state layout
     this.defaultLayout = [
       {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
@@ -61,13 +69,31 @@ export default class Main extends React.Component {
       {i: 'b', x: 0, y: 0, w: 3, h: 3},
       {i: 'c', x: 0, y: 0, w: 3, h: 3},
       {i: 'd', x: 0, y: 0, w: 3, h: 3},
-      {i: 'e', x: 0, y: 0, w: 3, h: 3}
+      {i: 'e', x: 0, y: 0, w: 3, h: 3},
+      {i: 'f', x: 0, y: 0, w: 3, h: 3}
     ];
+
     this.layout = this.layout || this.defaultLayout;
+
+    // this.state.layout = this.state.layout || this.state.defaultLayout;
+
+    // default notepad if no previous notepad is found
+    this.defaultNotepad = {
+      notes: []
+    };
+
+    // set notepad here
+    this.state.notepad = this.state.notepad || this.defaultNotepad;
+
+    // default notepad settings
+    this.state.notepad.selectedId = null;
+    this.state.notepad.nextNodeId = this.state.notepad.nextNodeId || 1;
+
+    // handleNPstate transfers the state of the child Notepad to main component
+    this.handleNPstate = this.handleNPstate.bind(this);
   }
   componentWillMount() {
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
-
     this.setState({idToken: this.getIdToken()});
   }
   getIdToken() {
@@ -167,11 +193,24 @@ export default class Main extends React.Component {
       }
     });
   }
+  makeNotepad(context) {
+    // return <Movies location={ context.state.locationTrue } />
+    return <div className="drag" key={'f'} style={{border: "1px solid green", overflow: "auto"}}>
+      <div className="drag" style={{width:"100%", backgroundColor: "#90EE90"}}>DRAG ME</div>
+      <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
+    </div>
+  }
+  handleNPstate(statefromNP) {
+    this.setState({notepad: statefromNP});
+  }
   render() {
+    // will move to state later
+    // console.log("NOTEPAD STATE-RENDER: ", this.state.notepad);
     let widgets = [];
     _.each(this.state.deployedWidgets, (widget) => {
       widgets.push(widget.makeFunction(this));
     });
+
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
     }
