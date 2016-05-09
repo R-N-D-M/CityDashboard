@@ -64,6 +64,7 @@
     "jsdom": "^8.1.0",
     "json-loader": "^0.5.4",
     "mocha": "^2.4.5",
+    "moment": "^2.13.0",
     "node-sass": "^3.6.0",
     "postcss-loader": "^0.8.2",
     "react": "0.14.8",

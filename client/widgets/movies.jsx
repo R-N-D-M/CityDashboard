@@ -1,12 +1,14 @@
 import React from 'react';
 import Axios from 'axios';
+import Moment from 'moment';
+//qk93ft2mkdfavw8abjr4yy9b
 
 class Movies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       locationTrue: this.props.location,
-      response: 'no movie data'
+      response: 'Getting Your Location, Please Wait'
     };
   }
   componentWillMount() {
@@ -41,16 +43,20 @@ class Movies extends React.Component {
           let movieAndShowtimes = response.data[theatreName];
           let eachMovie = movieAndShowtimes.map((movie, index) => (
             <div key={index}>
-              <div>{movie.title}</div>
-              <div>{movie.showtimes}</div>
+              <div style={{fontWeight: 'bold'}}>{movie.title}</div>
+              <div><span style={{fontWeight: 'bold'}}>Showtimes:</span> {movie.showtimes.map((time) => {
+                return Moment(time).format("h:mma ")
+              })}</div>
             </div>
           ));
           return (
           <div key={theatreIndex}>
-            <div>{theatreName}</div>
-            {eachMovie}
-          </div>)
-      })
+            <div style={{fontSize: 16, fontWeight: 'bold'}}>{theatreName}</div>
+            <div>{eachMovie}</div>
+            <br/>
+          </div>
+          )
+        })
       this.setState({
         response: res
       });
