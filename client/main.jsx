@@ -198,7 +198,7 @@ export default class Main extends React.Component {
     </div>
   }
   makeNearby(context) {
-    return <div className="drag" key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
+    return <div id={'nearbycontainer'} className="drag" key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#FFB6C1"}}>DRAG ME</div>
       <Nearby location={context.state.locationTrue} />
     </div>
