@@ -34,6 +34,7 @@ class Bart extends React.Component {
       })
       .catch( (response) => {
         console.log("Error getting closest station from bart: ", response);
+        // this.getClosestStation();
       });
   }
 
@@ -42,6 +43,12 @@ class Bart extends React.Component {
       this.getClosestStation();
     }
   }
+          // <div>
+          //   <span className="destinations">Destination: {trains.destination} </span>
+          //   <span className="directions">Direction: {trains.direction} </span>
+          //   <span className="platforms">Platform #: {trains.platform} </span>
+          //   <span className="times">Minutes Until: {trains.time} </span>
+          // </div>
 
   render() {
     let TrainsData;
@@ -49,12 +56,24 @@ class Bart extends React.Component {
     if(that.state.nextTrains.length > 0){
       TrainsData = that.state.nextTrains.map((trains) => {
         return (
-          <div>
-            <span className="destinations">Destination: {trains.destination}</span>
-            <span className="directions">Direction: {trains.direction}</span>
-            <span className="platforms">Platform #: {trains.platform}</span>
-            <span className="times">Minutes Until: {trains.time}</span>
-          </div>
+          <tbody>
+            <tr>
+              <th>Destinations: </th>
+              <th>{trains.destination} </th>
+            </tr>
+            <tr>
+              <th>Direction: </th>
+              <th>{trains.direction} </th>
+            </tr>
+            <tr>
+              <th>Platform #: </th>
+              <th>{trains.platform} </th>
+            </tr>
+            <tr>
+              <th>Minutes Until: </th>
+              <th>{trains.time} </th>
+            </tr>
+          </tbody>  
         );
       });
     }
@@ -68,7 +87,11 @@ class Bart extends React.Component {
       return (
          <div>
           <div>Departing from: {this.state.originStation}</div>
-          <div className="TrainsData">{TrainsData}</div>
+          <div className="TrainsData">
+          <table>
+            {TrainsData}
+          </table>
+          </div>
         </div>
       );
     }

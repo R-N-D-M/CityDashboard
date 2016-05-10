@@ -42,7 +42,7 @@ export default class Main extends React.Component {
       movies: {
         id: 'movies',
         name: 'Movies',
-        makeFunction: this.makeMovies
+        // makeFunction: this.makeMovies
       },
       notepad: {
         id: 'notepad',
