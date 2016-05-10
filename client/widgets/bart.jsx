@@ -7,7 +7,9 @@ class Bart extends React.Component {
     this.state = {
       locationTrue: this.props.location,
       nextTrains: [],
-      originStation: ''
+      originStation: '',
+      imgUrl: '/assets/fail.jpg',
+      error: false
     };
   }
 
@@ -34,6 +36,7 @@ class Bart extends React.Component {
       })
       .catch( (response) => {
         console.log("Error getting closest station from bart: ", response);
+        this.setState({error: true});
         this.getClosestStation();
       });
   }
@@ -43,12 +46,7 @@ class Bart extends React.Component {
       this.getClosestStation();
     }
   }
-          // <div>
-          //   <span className="destinations">Destination: {trains.destination} </span>
-          //   <span className="directions">Direction: {trains.direction} </span>
-          //   <span className="platforms">Platform #: {trains.platform} </span>
-          //   <span className="times">Minutes Until: {trains.time} </span>
-          // </div>
+
 
 render() {
     let TrainsData;
@@ -57,13 +55,20 @@ render() {
       TrainsData = that.state.nextTrains.map((trains) => {
         return (
           <tr>
-            <th>{trains.destination}</th>
-            <th>{trains.direction}</th>
-            <th>{trains.platform}</th>
-            <th>{trains.time}</th>
+            <th>{trains.destination} </th>
+            <th>{trains.direction} </th>
+            <th>{trains.platform} </th>
+            <th>{trains.time} </th>
           </tr>
         );
       });
+    }
+    if (this.state.error === true){
+      return (
+        <div>
+          <img id='fail' src={this.state.imgUrl} style={{width: '100%'}}/>
+        </div>
+      );
     }
     if (!this.state.locationTrue) {
       return (

@@ -29,6 +29,7 @@ var getListOfStations = function(request, response) {
     var long1 = request.body.latLng[1];
     var base = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%27http%3A%2F%2Fapi.bart.gov%2Fapi%2Fstn.aspx%3Fcmd%3Dstns%26key%3DMW9S-E7SL-26DU-VV8V%27&format=json&diagnostics=true&callback=';
     var stationArray = [];
+    console.log("line 32");
     axios.get(base)
       .then((resp) => {
         resp.data.query.results.root.stations.station.forEach((obj) => {
