@@ -19,9 +19,11 @@ export default class Main extends React.Component {
     super(props);
     this.state = {
       locationTrue: false,
-      idToken: false
+      idToken: false,
+      deployedWidgets: [],
+      profile: null
     };
-    this.state.widgets = {
+    this.widgets = {
       weather: {
         id: 'weather',
         name: 'Weather',
@@ -48,8 +50,6 @@ export default class Main extends React.Component {
         makeFunction: this.makeNotepad
       }
     };
-    // deployed widgets are pushed in this array for rendering
-    this.state.deployedWidgets = [];
 
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
@@ -61,22 +61,54 @@ export default class Main extends React.Component {
     this.onLogout = this.onLogout.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.save = this.save.bind(this);
+    this.getLayoutsAndState = this.getLayoutsAndState.bind(this);
+    this.logLayouts = this.logLayouts.bind(this);
+    this.getLayouts = this.getLayouts.bind(this);
 
     // saving state layout
-    this.defaultLayout = [
-      {i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-      // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
-      {i: 'b', x: 0, y: 0, w: 3, h: 3},
-      {i: 'c', x: 0, y: 0, w: 3, h: 3},
-      {i: 'd', x: 0, y: 0, w: 3, h: 3},
-      {i: 'e', x: 0, y: 0, w: 3, h: 3},
-      {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    ];
-
-    this.layout = this.layout || this.defaultLayout;
-
-    // this.state.layout = this.state.layout || this.state.defaultLayout;
-
+    this.defaultLayouts = {
+      lg: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+        {i: 'b', x: 0, y: 0, w: 3, h: 3},
+        {i: 'c', x: 0, y: 0, w: 3, h: 3},
+        {i: 'd', x: 0, y: 0, w: 3, h: 3},
+        {i: 'e', x: 0, y: 0, w: 3, h: 3},
+        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+      ],
+      md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+        {i: 'b', x: 0, y: 0, w: 3, h: 3},
+        {i: 'c', x: 0, y: 0, w: 3, h: 3},
+        {i: 'd', x: 0, y: 0, w: 3, h: 3},
+        {i: 'e', x: 0, y: 0, w: 3, h: 3},
+        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+      ],
+      sm: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+        {i: 'b', x: 0, y: 0, w: 3, h: 3},
+        {i: 'c', x: 0, y: 0, w: 3, h: 3},
+        {i: 'd', x: 0, y: 0, w: 3, h: 3},
+        {i: 'e', x: 0, y: 0, w: 3, h: 3},
+        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+      ],
+      xs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+        {i: 'b', x: 0, y: 0, w: 3, h: 3},
+        {i: 'c', x: 0, y: 0, w: 3, h: 3},
+        {i: 'd', x: 0, y: 0, w: 3, h: 3},
+        {i: 'e', x: 0, y: 0, w: 3, h: 3},
+        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+      ],
+      xxs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
+        {i: 'b', x: 0, y: 0, w: 3, h: 3},
+        {i: 'c', x: 0, y: 0, w: 3, h: 3},
+        {i: 'd', x: 0, y: 0, w: 3, h: 3},
+        {i: 'e', x: 0, y: 0, w: 3, h: 3},
+        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+      ]
+    };
+    this.getLayouts();
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
       notes: []
@@ -96,6 +128,17 @@ export default class Main extends React.Component {
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
     this.setState({idToken: this.getIdToken()});
   }
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition( (position) => {
+        let lat = position.coords.latitude;
+        let lng = position.coords.longitude;
+        this.setState({
+          locationTrue: [lat, lng]
+        });
+      });
+    }
+  }
   getIdToken() {
     let idToken = localStorage.getItem('userToken');
     let authHash = this.lock.parseHash(window.location.hash);
@@ -111,16 +154,13 @@ export default class Main extends React.Component {
     }
     return idToken;
   }
-  componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition( (position) => {
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        this.setState({
-          locationTrue: [lat, lng]
-        });
-      });
+  getLayouts() {
+    let layouts = localStorage.getItem('layouts');
+    if(layouts) {
+      layouts = JSON.parse(layouts);
+      return layouts;
     }
+    return this.defaultLayouts;
   }
   handleClick(input) {
     let deployed = false;
@@ -135,19 +175,15 @@ export default class Main extends React.Component {
       })});
     }
     else {
-      // console.log("Deploying", this.state.widgets[input].name);
-      this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.state.widgets[input])});
+      this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.widgets[input])});
     }
   }
-  handleLayoutChange(layout) {
-    //this.setState({layout:layout});
-    console.log("this", this);
-    console.log("layout change fired, this.state.layout", this.state, "argument layout: ", layout);
-  }
-  updateStateOnFirebase(someStateObject) {
-    if(someStateObject.name="Bart") {
-      // do the firebase thing that'll update teh bart state on firebase
+  handleLayoutChange(currentLayout, allLayouts) {
+    if(currentLayout && allLayouts){
+      console.log('currentLayout and allLayouts', currentLayout, allLayouts);
+      localStorage.setItem('layouts', JSON.stringify(allLayouts));
     }
+    console.log("handleLayoutChange", localStorage.getItem('layouts'));
   }
   makeBart(context) {
     return <div className="drag" key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
@@ -156,35 +192,58 @@ export default class Main extends React.Component {
     </div>
   }
   makeWeather(context) {
-    // return <Weather location={ context.state.locationTrue } />;
     return <div className="drag" key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#ADD8E6"}}>DRAG ME</div>
       <Weather location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
-    // return <Nearby location={ context.state.locationTrue } />
     return <div className="drag" key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#FFB6C1"}}>DRAG ME</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
-    // return <Movies location={ context.state.locationTrue } />
     return <div className="drag" key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#FFA07A"}}>DRAG ME</div>
       <Movies location={context.state.locationTrue} />
     </div>
   }
   onLogin(userID, profile) {
-    ref.child(`users/${userID}`).set(profile);
+    ref.child(`users/${userID}`).update(profile);
+    this.setState({profile: profile});
+    this.getLayoutsAndState();
+  }
+  getLayoutsAndState(){
+    ref.child(`users/${this.state.profile.user_id}`).on('value', (snapshot) => {
+      if(!snapshot.val().layoutsAndState){
+        this.save();
+      }
+      else {
+        let layoutsAndState = JSON.parse(snapshot.val().layoutsAndState);
+        localStorage.setItem('layouts', JSON.stringify(layoutsAndState.layouts));
+        this.setState(layoutsAndState.state);
+        console.log('set the layout and state, layout: ', layoutsAndState.layouts, 'this.state: ', this.state);
+      }
+      // console.log("snapshot.val()", snapshot.val());
+      // console.log("layoutAndState", );
+    });
   }
   onLogout() {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('layouts');
+    this.setState({profile: null});
     window.location.href= "/";
   }
   save() {
-    ref.set({state: this.state}, (error) => {
+    let layouts = this.getLayouts();
+    let layoutsAndState = {
+      layouts: layouts,
+      state: this.state
+    };
+    console.log("saving layouts and state: ", layoutsAndState);
+    layoutsAndState = JSON.stringify(layoutsAndState);
+    ref.child(`users/${this.state.profile.user_id}`).update({layoutsAndState: layoutsAndState}, (error) => {
       if (error) {
         console.log('Synchronization failed');
       }
@@ -194,7 +253,6 @@ export default class Main extends React.Component {
     });
   }
   makeNotepad(context) {
-    // return <Movies location={ context.state.locationTrue } />
     return <div className="drag" key={'f'} style={{border: "1px solid green", overflow: "auto"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#90EE90"}}>DRAG ME</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
@@ -203,25 +261,34 @@ export default class Main extends React.Component {
   handleNPstate(statefromNP) {
     this.setState({notepad: statefromNP});
   }
+  logLayouts() {
+    console.log("this.layout", this.getLayouts());
+    this.forceUpdate();
+  }
   render() {
     // will move to state later
     // console.log("NOTEPAD STATE-RENDER: ", this.state.notepad);
     let widgets = [];
     _.each(this.state.deployedWidgets, (widget) => {
+      if(!widget.makeFunction) {
+        widget.makeFunction = this.widgets[widget.id].makeFunction;
+      }
       widgets.push(widget.makeFunction(this));
     });
 
     if (widgets.length < 1) {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
     }
+    let layouts = this.getLayouts();
     return (
       <div className="container-fluid">
-        <NavBar lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.state.widgets} handleClick={ this.handleClick } />
-        {/*<div>
-          <button onClick={this.saveState}>Save</button>
-        </div>*/}
+        <NavBar profile={this.state.profile} lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.widgets} handleClick={ this.handleClick } />
+        <div>
+          <button onClick={this.save}>Save</button>
+          <button onClick={this.logLayout}>Layout</button>
+        </div>
         <div className="container-fluid">
-          <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+          <ResponsiveReactGridLayout className="layout" layouts={layouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
       cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
             {widgets}
           </ResponsiveReactGridLayout>
