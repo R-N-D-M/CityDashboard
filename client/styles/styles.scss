@@ -12,30 +12,13 @@ a:hover {
 }
 
 body {
-   margin: 0;
-   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-   font-size: 14px;
-   line-height: 20px;
-   color: #333333;
-   background: #A9D0F5 url("http://i43.tinypic.com/fcmjv4.png") repeat-x fixed center bottom;
-   animation: animatedBackground 40s linear infinite;
-   -ms-animation: animatedBackground 40s linear infinite;
-   -moz-animation: animatedBackground 40s linear infinite;
-   -webkit-animation: animatedBackground 40s linear infinite;
+    background-color: #ffffff;
 }
-@-keyframes animatedBackground {
-  from { background-position: center bottom; }
-  to { background-position: 100% bottom; }
-}
-@-webkit-keyframes animatedBackground {
-    from { background-position: center bottom; }
-    to { background-position: 100% bottom; }
-}
-@-ms-keyframes animatedBackground {
-    from { background-position: center bottom; }
-    to { background-position: 100% 0; }
-}
-@-moz-keyframes animatedBackground {
-    from { background-position: center bottom; }
-    to { background-position: 100% bottom; }
+
+.particles-js-canvas-el {
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1
 }

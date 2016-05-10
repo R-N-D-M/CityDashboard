@@ -85,8 +85,6 @@ export default class Weather extends React.Component {
           <div className="maxTemp">High: {Math.round(((this.state.temp_max - 273.15)*9/5)+32) + '°' + 'F'}</div>
           <div className="minTemp">Low: {Math.round(((this.state.temp_min - 273.15)*9/5)+32) + '°' + 'F'}</div>
           <div className="humidity">Humidity: {this.state.humidity + '%'}</div>
-          <div className="pressure">Pressure: {this.state.pressure}</div>
-          <div className="winddegree">Wind: {this.state.winddeg + '°'}</div>
           <div className="windspeed">Wind Speed: {this.state.windspeed + 'mph'}</div>
         </div>
       );
