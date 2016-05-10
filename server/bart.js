@@ -72,20 +72,21 @@ var getNextDeparture = function(originStation, request, response){
       resp.data.query.results.root.station.etd.forEach((obj) => {
         console.log('line 71: obj.estimate', obj.estimate);
         // console.log('line 74: obj is: ', obj);
-        console.log('line 75: obj.estimate.length', obj.estimate.length);
         obj.estimate = Array.isArray(obj.estimate) ? obj.estimate : [obj.estimate];
+        console.log('line 76: obj.estimate', obj.estimate);
+        console.log('line 77: obj.estimate.length', obj.estimate.length);
         var trainObj = {
           'destination': obj.destination,
           'time': obj.estimate[0].minutes,
           'direction': obj.estimate[0].direction,
           'platform': obj.estimate[0].platform
         }
-        console.log('line 82: trainObj is: ', trainObj);
+        console.log('line 84: trainObj is: ', trainObj);
         deptArr.push(trainObj);
         trainData.originStation = originStation;
         trainData.deptArr = deptArr;
       });
-      console.log('line 87: trainData', trainData);
+      console.log('line 89: trainData', trainData);
       sendNextDeparture(trainData, request, response);
     })
     .catch((response) => {

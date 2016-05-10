@@ -34,7 +34,7 @@ class Bart extends React.Component {
       })
       .catch( (response) => {
         console.log("Error getting closest station from bart: ", response);
-        // this.getClosestStation();
+        this.getClosestStation();
       });
   }
 
@@ -50,30 +50,18 @@ class Bart extends React.Component {
           //   <span className="times">Minutes Until: {trains.time} </span>
           // </div>
 
-  render() {
+render() {
     let TrainsData;
     let that = this;
     if(that.state.nextTrains.length > 0){
       TrainsData = that.state.nextTrains.map((trains) => {
         return (
-          <tbody>
-            <tr>
-              <th>Destinations: </th>
-              <th>{trains.destination} </th>
-            </tr>
-            <tr>
-              <th>Direction: </th>
-              <th>{trains.direction} </th>
-            </tr>
-            <tr>
-              <th>Platform #: </th>
-              <th>{trains.platform} </th>
-            </tr>
-            <tr>
-              <th>Minutes Until: </th>
-              <th>{trains.time} </th>
-            </tr>
-          </tbody>  
+          <tr>
+            <th>{trains.destination}</th>
+            <th>{trains.direction}</th>
+            <th>{trains.platform}</th>
+            <th>{trains.time}</th>
+          </tr>
         );
       });
     }
@@ -85,10 +73,18 @@ class Bart extends React.Component {
       );
     } else {
       return (
-         <div>
+         <div style={{ overflow:"auto" }}>
           <div>Departing from: {this.state.originStation}</div>
           <div className="TrainsData">
           <table>
+            <tbody>
+              <tr>
+                <th>Destinations: </th>
+                <th>Direction: </th>
+                <th>Platform #: </th>
+                <th>Minutes Until: </th>
+              </tr>
+            </tbody>
             {TrainsData}
           </table>
           </div>
