@@ -6,7 +6,7 @@ import Main from './main';
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
-     this.state = {profile: null};
+     this.state = {profile: this.props.profile || null};
      this.showLock = this.showLock.bind(this);
   }
   showLock() {
