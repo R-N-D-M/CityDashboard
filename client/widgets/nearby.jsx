@@ -17,6 +17,34 @@ class Nearby extends React.Component {
     if(this.state.locationTrue) {
       this.startMap();
     }
+
+    // detect height change and change map height accordingly
+    let onElementHeightChange = (elm, callback) => {
+      let lastHeight = elm.clientHeight, newHeight;
+      (function run() {
+        newHeight = elm.clientHeight;
+        if( lastHeight != newHeight ) callback();
+        lastHeight = newHeight;
+
+        if( elm.onElementHeightChangeTimer ) clearTimeout(elm.onElementHeightChangeTimer);
+        elm.onElementHeightChangeTimer = setTimeout(run, 200);
+      })();
+    }
+
+    // heighter listener
+    onElementHeightChange(document.getElementById('nearbycontainer'), () => {
+      let height = document.getElementById('nearbycontainer').clientHeight;
+      // console.log('nearbycontainer height changed', height);
+      // select element height is 25px, the dragme height is 24px
+      document.getElementById('map').style.height = "" + (height-25-24) +"px"
+      let mapheight = document.getElementById('map').style.height;
+      // console.log('map height changed', mapheight);
+    });
+
+    // hacky way to just trigger to resize event to get rid of the "100%" map height
+    let tempheight = document.getElementById('nearbycontainer').clientHeight;
+    document.getElementById('nearbycontainer').style.height = (tempheight + 1).toString() + "px";
+    document.getElementById('nearbycontainer').style.height = (tempheight - 1).toString() + "px";
   }
   componentWillReceiveProps(nextProps) {
     console.log("Nearby component received prop change!");
@@ -68,8 +96,6 @@ class Nearby extends React.Component {
       let currentMarkers = this.state.markers.slice();
       currentMarkers.push(marker);
       this.setState({markers: currentMarkers});
-
-
 
       // listener for markers clicked
       // google.maps.event.addListener(marker, 'click', function() {
@@ -208,10 +234,11 @@ class Nearby extends React.Component {
   startMap() {
     let map;
     let infowindow;
+    let start;
     infowindow = new google.maps.InfoWindow();
 
     let initMap = () => {
-      let start = {
+      start = {
         lat: this.state.locationTrue[0],
         lng: this.state.locationTrue[1]
       };
@@ -307,30 +334,31 @@ class Nearby extends React.Component {
     	secondChild.id = 'you_location_img';
     	firstChild.appendChild(secondChild);
 
-    	google.maps.event.addListener(map, 'dragend', function() {
-    		$('#you_location_img').css('background-position', '0px 0px');
-    	});
+    	// google.maps.event.addListener(map, 'dragend', function() {
+    	// 	$('#you_location_img').css('background-position', '0px 0px');
+    	// });
 
     	firstChild.addEventListener('click', function() {
-    		var imgX = '0';
-    		var animationInterval = setInterval(function(){
-    			if(imgX == '-18') imgX = '0';
-    			else imgX = '-18';
-    			$('#you_location_img').css('background-position', imgX+'px 0px');
-    		}, 500);
-    		if(navigator.geolocation) {
-    			navigator.geolocation.getCurrentPosition(function(position) {
-    				var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    				marker.setPosition(latlng);
-    				map.setCenter(latlng);
-    				clearInterval(animationInterval);
-    				$('#you_location_img').css('background-position', '-144px 0px');
-    			});
-    		}
-    		else{
-    			clearInterval(animationInterval);
-    			$('#you_location_img').css('background-position', '0px 0px');
-    		}
+    		// var imgX = '0';
+    		// var animationInterval = setInterval(function(){
+    		// 	if(imgX == '-18') imgX = '0';
+    		// 	else imgX = '-18';
+    		// 	$('#you_location_img').css('background-position', imgX+'px 0px');
+    		// }, 500);
+    		// if(navigator.geolocation) {
+    		// 	navigator.geolocation.getCurrentPosition(function(position) {
+    		// 		var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    		// 		marker.setPosition(latlng);
+    		// 		map.setCenter(latlng);
+    		// 		clearInterval(animationInterval);
+    		// 		$('#you_location_img').css('background-position', '-144px 0px');
+    		// 	});
+    		// }
+    		// else{
+          map.setCenter(start);
+    			// clearInterval(animationInterval);
+    			// $('#you_location_img').css('background-position', '0px 0px');
+    		// }
     	});
 
     	controlDiv.index = 1;
@@ -353,25 +381,46 @@ class Nearby extends React.Component {
       // overflow: "scroll"
       // width: "100%",
       // height: "100%"
+
+      // display: "WebkitFlex",
+      // display: "flex",
+      // WebkitFlexDirection: "column",
+      // flexDirection: "column",
+      // WebkitAlignItems: "flex-start",
+      // alignItems: "flex-start",
     };
     let mapStyle = {
       height: "100%",
       width: "100%",
-      border: "1px solid black"
+      // border: "1px solid black",
+      // marginTop: "25px"
+    };
+
+    let selectStyle = {
+      width: "100%",
+      // position: "absolute",
+      zIndex: "1",
+      height: "25px",
+      WebkitAppearance: "none",
+      MozAppearance: "none",
+      appearance: "none",
+      WebkitBorderRadius: "0",  // Safari 3-4, iOS 1-3.2, Android 1.6-
+      MozBorderRadius: "0",  // Firefox 1-3.6
+      borderRadius: "0"  //Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+
     };
 
     if(this.state.locationTrue) {
       return (
         <div style={this.state.canPush ? _.extend(_.clone(mainStyle), showStyle) : _.extend(_.clone(mainStyle), showStyle)}>
-          <select style={{width: "100%", position: "absolute", zIndex: "1"}} onChange={this.handleSelectChange.bind(this)}>
-            <option disabled selected value> -- Select Category -- </option>
-            <option value="bar">Bars</option>
-            <option value="restaurant">Restaurants</option>
-            <option value="gym">Gyms</option>
-            <option value="cafe">Cafés</option>
-            <option value="bakery">Bakeries</option>
-          </select>
-          <div style={mapStyle} id="map"></div>
+            <select style={selectStyle} onChange={this.handleSelectChange.bind(this)}>
+              <option disabled selected value> -- Select Category -- </option>
+              <option value="bar">Bars</option>
+              <option value="restaurant">Restaurants</option>
+              <option value="gym">Gyms</option>
+              <option value="cafe">Cafés</option>
+              <option value="bakery">Bakeries</option>
+            </select>
+            <div style={mapStyle} id="map"></div>
         </div>
       );
     } else {

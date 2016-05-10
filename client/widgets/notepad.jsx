@@ -123,6 +123,7 @@ class NotesList extends React.Component {
     let count = 0;
     let notes = this.props.notepad.notes;
     let selectedId = this.props.notepad.selectedId;
+    
     // console.log("selected id: ", selectedId);
 
     let textStyle = {
