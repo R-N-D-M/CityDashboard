@@ -108,6 +108,7 @@ export default class Main extends React.Component {
         {i: 'f', x: 0, y: 0, w: 3, h: 3}
       ]
     };
+    this.state.tempLayouts = this.defaultLayouts;
     this.getLayouts();
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
@@ -183,7 +184,7 @@ export default class Main extends React.Component {
       console.log('currentLayout and allLayouts', currentLayout, allLayouts);
       localStorage.setItem('layouts', JSON.stringify(allLayouts));
     }
-    console.log("handleLayoutChange", localStorage.getItem('layouts'));
+    // console.log("handleLayoutChange", localStorage.getItem('layouts'));
   }
   makeBart(context) {
     return <div className="drag" key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
@@ -223,8 +224,14 @@ export default class Main extends React.Component {
         let layoutsAndState = JSON.parse(snapshot.val().layoutsAndState);
         localStorage.setItem('layouts', JSON.stringify(layoutsAndState.layouts));
         this.setState(layoutsAndState.state);
-        console.log('set the layout and state, layout: ', layoutsAndState.layouts, 'this.state: ', this.state);
+        // console.log('set the layout and state, layout: ', layoutsAndState.layouts, 'this.state: ', this.state);
+        // console.log("before loaded, layout state", this.state.tempLayouts);
+        this.setState({loadedLayouts: layoutsAndState.layouts}, () => {
+          // console.log("this state loaded layouts ", this.state.loadedLayouts);
+          this.setState({tempLayouts:this.state.loadedLayouts});
+        });
       }
+
       // console.log("snapshot.val()", snapshot.val());
       // console.log("layoutAndState", );
     });
@@ -280,6 +287,8 @@ export default class Main extends React.Component {
       widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
     }
     let layouts = this.getLayouts();
+    // console.log("WIDGETS LENGTH: ", widgets.length)
+    // console.log("render state templayouts", this.state.tempLayouts);
     return (
       <div className="container-fluid">
         <NavBar profile={this.state.profile} lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.widgets} handleClick={ this.handleClick } />
@@ -288,7 +297,7 @@ export default class Main extends React.Component {
           <button onClick={this.logLayout}>Layout</button>
         </div>
         <div className="container-fluid">
-          <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={335} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+          <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
       cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
             {widgets}
           </ResponsiveReactGridLayout>
