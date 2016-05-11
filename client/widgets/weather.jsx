@@ -50,11 +50,7 @@ export default class Weather extends React.Component {
           description: response.data.description,
           icon: response.data.icon,
           temp: response.data.temp,
-          temp_max: response.data.temp_max,
-          temp_min: response.data.temp_min,
           humidity: response.data.humidity,
-          pressure: response.data.pressure,
-          winddeg: response.data.winddeg,
           windspeed: response.data.windspeed
         });
         // window.localstorage.weather = this.state;
