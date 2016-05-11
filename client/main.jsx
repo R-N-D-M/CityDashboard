@@ -8,7 +8,7 @@ import Bart from './widgets/bart';
 import Nearby from './widgets/nearby';
 import Movies from './widgets/movies';
 import Notepad from './widgets/notepad';
-
+//6gckbwqssxybn76ccsu56nd6
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 let WidthProvider = ReactGridLayout.WidthProvider;
 let ResponsiveReactGridLayout = ReactGridLayout.Responsive;
@@ -187,25 +187,25 @@ export default class Main extends React.Component {
     // console.log("handleLayoutChange", localStorage.getItem('layouts'));
   }
   makeBart(context) {
-    return <div className="drag" key={'b'} style={{border: "1px solid red", overflow: "hidden"}}>
+    return <div className="drag" key={'b'} style={{border: "solid", borderColor: '#373a3c', overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#F08080"}}>DRAG ME</div>
       <Bart location={context.state.locationTrue} />
     </div>
   }
   makeWeather(context) {
-    return <div className="drag" key={'c'} style={{border: "1px solid blue", overflow: "hidden"}}>
+    return <div className="drag" key={'c'} style={{border: "solid", borderColor: '#373a3c', overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#ADD8E6"}}>DRAG ME</div>
       <Weather location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag" key={'d'} style={{border: "1px solid pink", overflow: "hidden"}}>
+    return <div id={'nearbycontainer'} className="drag" key={'d'} style={{border: "solid", borderColor: '#373a3c', overflow: "hidden"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#FFB6C1"}}>DRAG ME</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
-    return <div className="drag" key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
+    return <div className="drag" key={'e'} style={{border: "solid", borderColor: '#373a3c', overflow: "hidden"}}>
       <Movies location={context.state.locationTrue} />
     </div>
   }
@@ -259,7 +259,7 @@ export default class Main extends React.Component {
     });
   }
   makeNotepad(context) {
-    return <div className="drag" key={'f'} style={{border: "1px solid green", overflow: "auto"}}>
+    return <div className="drag" key={'f'} style={{border: "solid", borderColor: '#373a3c', overflow: "auto"}}>
       <div className="drag" style={{width:"100%", backgroundColor: "#90EE90"}}>DRAG ME</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
     </div>
