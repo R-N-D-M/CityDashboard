@@ -54,17 +54,20 @@ var getListOfStations = function(request, response) {
       })
       .catch((response) => {
         if (response instanceof Error){
-          console.log('Error: ', response.message);
+          console.log('error: response', response);
         } 
       });
   }
 
-var getNextDeparture = function(station, request, response){
-  var base = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%27http%3A%2F%2Fapi.bart.gov%2Fapi%2Fetd.aspx%3Fcmd%3Detd%26orig%3D' + station.abbr + '%26key%3DMW9S-E7SL-26DU-VV8V%27&format=json';
+var getNextDeparture = function(originStation, request, response){
+  var base = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%27http%3A%2F%2Fapi.bart.gov%2Fapi%2Fetd.aspx%3Fcmd%3Detd%26orig%3D' + originStation.abbr + '%26key%3DMW9S-E7SL-26DU-VV8V%27&format=json';
+  var trainData = {};
   var deptArr = [];
   axios.get(base)
     .then((resp) => {
       resp.data.query.results.root.station.etd.forEach((obj) => {
+        // line below accounts for 'sometimes' case of BART API sending back not an array
+        obj.estimate = Array.isArray(obj.estimate) ? obj.estimate : [obj.estimate];
         var trainObj = {
           'destination': obj.destination,
           'time': obj.estimate[0].minutes,
@@ -72,12 +75,13 @@ var getNextDeparture = function(station, request, response){
           'platform': obj.estimate[0].platform
         }
         deptArr.push(trainObj);
+        trainData.originStation = originStation;
+        trainData.deptArr = deptArr;
       });
-      sendNextDeparture(deptArr, request, response);
+      sendNextDeparture(trainData, request, response);
     })
     .catch((response) => {
       if (response instanceof Error){
-        console.log('Error: ', response.message);
       } 
     });
   };

@@ -6,7 +6,10 @@ class Bart extends React.Component {
     super(props);
     this.state = {
       locationTrue: this.props.location,
-      nextTrains: []
+      nextTrains: [],
+      originStation: '',
+      imgUrl: '/assets/fail.jpg',
+      error: false
     };
   }
 
@@ -26,11 +29,15 @@ class Bart extends React.Component {
     axios.post(url, dataToSend)
       .then( (response) => {
         this.setState({
-          nextTrains: response.data
+          nextTrains: response.data.deptArr,
+          originStation: response.data.originStation.name,
+          error: false
         });
       })
       .catch( (response) => {
         console.log("Error getting closest station from bart: ", response);
+        this.setState({error: true});
+        this.getClosestStation();
       });
   }
 
@@ -40,20 +47,28 @@ class Bart extends React.Component {
     }
   }
 
-  render() {
+
+render() {
     let TrainsData;
     let that = this;
     if(that.state.nextTrains.length > 0){
       TrainsData = that.state.nextTrains.map((trains) => {
         return (
-          <div>
-            <span className="destinations">Destination: {trains.destination} </span>
-            <span className="directions">Direction: {trains.direction} </span>
-            <span className="platforms">Platform #: {trains.platform} </span>
-            <span className="times">Minutes Until: {trains.time} </span>
-          </div>
+          <tr>
+            <td>{trains.destination} </td>
+            <td>{trains.direction} </td>
+            <td>{trains.platform} </td>
+            <td>{trains.time} </td>
+          </tr>
         );
       });
+    }
+    if (this.state.error === true){
+      return (
+        <div>
+          <img id='fail' src={this.state.imgUrl} style={{width: '100%'}}/>
+        </div>
+      );
     }
     if (!this.state.locationTrue) {
       return (
@@ -64,8 +79,20 @@ class Bart extends React.Component {
     } else {
       return (
          <div>
-          <p>{this.state.myValue}</p>
-          <div className="TrainsData">{TrainsData}</div>
+          <div>Departing from: {this.state.originStation}</div>
+          <div className="TrainsData" style={{ overflowX:"auto" }}>
+          <table>
+            <tbody>
+              <tr>
+                <th style={{paddingRight:'50px'}}>Destinations: </th>
+                <th style={{paddingRight:'20px'}}>Direction: </th>
+                <th style={{paddingRight:'20px'}}>Platform #: </th>
+                <th>Minutes Until: </th>
+              </tr>
+            {TrainsData}
+            </tbody>
+          </table>
+          </div>
         </div>
       );
     }
