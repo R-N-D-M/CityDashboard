@@ -55,10 +55,10 @@ render() {
       TrainsData = that.state.nextTrains.map((trains) => {
         return (
           <tr>
-            <th>{trains.destination} </th>
-            <th>{trains.direction} </th>
-            <th>{trains.platform} </th>
-            <th>{trains.time} </th>
+            <td>{trains.destination} </td>
+            <td>{trains.direction} </td>
+            <td>{trains.platform} </td>
+            <td>{trains.time} </td>
           </tr>
         );
       });
@@ -78,19 +78,19 @@ render() {
       );
     } else {
       return (
-         <div style={{ overflow:"auto" }}>
+         <div>
           <div>Departing from: {this.state.originStation}</div>
-          <div className="TrainsData">
+          <div className="TrainsData" style={{ overflowX:"auto" }}>
           <table>
             <tbody>
               <tr>
-                <th>Destinations: </th>
-                <th>Direction: </th>
-                <th>Platform #: </th>
+                <th style={{paddingRight:'50px'}}>Destinations: </th>
+                <th style={{paddingRight:'20px'}}>Direction: </th>
+                <th style={{paddingRight:'20px'}}>Platform #: </th>
                 <th>Minutes Until: </th>
               </tr>
-            </tbody>
             {TrainsData}
+            </tbody>
           </table>
           </div>
         </div>
