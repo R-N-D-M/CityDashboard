@@ -28,10 +28,10 @@ class Bart extends React.Component {
     };
     axios.post(url, dataToSend)
       .then( (response) => {
-        console.log("line 29: response", response);
         this.setState({
           nextTrains: response.data.deptArr,
-          originStation: response.data.originStation.name
+          originStation: response.data.originStation.name,
+          error: false
         });
       })
       .catch( (response) => {
