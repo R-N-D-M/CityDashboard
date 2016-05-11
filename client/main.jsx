@@ -42,7 +42,7 @@ export default class Main extends React.Component {
       movies: {
         id: 'movies',
         name: 'Movies',
-        // makeFunction: this.makeMovies
+        makeFunction: this.makeMovies
       },
       notepad: {
         id: 'notepad',
@@ -288,7 +288,7 @@ export default class Main extends React.Component {
           <button onClick={this.logLayout}>Layout</button>
         </div>
         <div className="container-fluid">
-          <ResponsiveReactGridLayout className="layout" layouts={layouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
+          <ResponsiveReactGridLayout className="layout" layout={this.state.layout} onLayoutChange={this.handleLayoutChange} rowHeight={335} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
       cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
             {widgets}
           </ResponsiveReactGridLayout>
