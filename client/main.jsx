@@ -17,12 +17,6 @@ ResponsiveReactGridLayout = WidthProvider(ResponsiveReactGridLayout);
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      locationTrue: false,
-      idToken: false,
-      deployedWidgets: [],
-      profile: null
-    };
     this.widgets = {
       weather: {
         id: 'weather',
@@ -62,7 +56,6 @@ export default class Main extends React.Component {
     this.onLogin = this.onLogin.bind(this);
     this.save = this.save.bind(this);
     this.getLayoutsAndState = this.getLayoutsAndState.bind(this);
-    this.logLayouts = this.logLayouts.bind(this);
     this.getLayouts = this.getLayouts.bind(this);
 
     // saving state layout
@@ -109,12 +102,17 @@ export default class Main extends React.Component {
       ]
     };
     this.state.tempLayouts = this.defaultLayouts;
-    this.getLayouts();
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
       notes: []
     };
-
+    this.state = {
+      locationTrue: false,
+      idToken: false,
+      deployedWidgets: [],
+      profile: null,
+      layouts: this.getLayouts()
+    };
     // set notepad here
     this.state.notepad = this.state.notepad || this.defaultNotepad;
 
@@ -124,6 +122,7 @@ export default class Main extends React.Component {
 
     // handleNPstate transfers the state of the child Notepad to main component
     this.handleNPstate = this.handleNPstate.bind(this);
+
   }
   componentWillMount() {
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
@@ -181,10 +180,13 @@ export default class Main extends React.Component {
   }
   handleLayoutChange(currentLayout, allLayouts) {
     if(currentLayout && allLayouts){
-      console.log('currentLayout and allLayouts', currentLayout, allLayouts);
+      // console.log('HANDLE LAYOUT CHANGE: currentLayout and allLayouts', currentLayout, allLayouts);
       localStorage.setItem('layouts', JSON.stringify(allLayouts));
+      this.setState({layouts: allLayouts});
     }
-    // console.log("handleLayoutChange", localStorage.getItem('layouts'));
+    else {
+      // console.log("handleLayoutChange", localStorage.getItem('layouts'));
+    }
   }
   makeBart(context) {
     return <div className="drag" key={'b'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
@@ -247,7 +249,7 @@ export default class Main extends React.Component {
       layouts: layouts,
       state: this.state
     };
-    console.log("saving layouts and state: ", layoutsAndState);
+    // console.log("saving layouts and state: ", layoutsAndState);
     layoutsAndState = JSON.stringify(layoutsAndState);
     ref.child(`users/${this.state.profile.user_id}`).update({layoutsAndState: layoutsAndState}, (error) => {
       if (error) {
@@ -266,10 +268,6 @@ export default class Main extends React.Component {
   }
   handleNPstate(statefromNP) {
     this.setState({notepad: statefromNP});
-  }
-  logLayouts() {
-    console.log("this.layout", this.getLayouts());
-    this.forceUpdate();
   }
   render() {
     // will move to state later
@@ -291,10 +289,6 @@ export default class Main extends React.Component {
     return (
       <div className="container-fluid">
         <NavBar profile={this.state.profile} lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.widgets} handleClick={ this.handleClick } />
-        <div>
-          <button onClick={this.save}>Save</button>
-          <button onClick={this.logLayout}>Layout</button>
-        </div>
         <div className="container-fluid">
           <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
       cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
