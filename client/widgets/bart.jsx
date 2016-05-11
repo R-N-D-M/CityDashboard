@@ -35,7 +35,7 @@ class Bart extends React.Component {
         });
       })
       .catch( (response) => {
-        console.log("Error getting closest station from bart: ", response);
+        console.log("Error getting closest station from BART: ", response);
         this.setState({error: true});
         this.getClosestStation();
       });
@@ -43,7 +43,7 @@ class Bart extends React.Component {
 
   componentDidMount() {
     if(this.state.locationTrue) {
-      this.getClosestStation();
+      setInterval(this.getClosestStation(), 60000);
     }
   }
 
