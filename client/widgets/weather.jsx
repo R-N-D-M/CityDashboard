@@ -82,8 +82,6 @@ export default class Weather extends React.Component {
           <div className="city">{this.state.city}</div>
           <div className="description">Weather: {this.state.description} <img className="weathericon" src={iconURL}/></div>
           <div className="currentTemp">Current Temperature: {Math.round(((this.state.temp - 273.15)*9/5)+32) + '°' + 'F'}</div>
-          <div className="maxTemp">High: {Math.round(((this.state.temp_max - 273.15)*9/5)+32) + '°' + 'F'}</div>
-          <div className="minTemp">Low: {Math.round(((this.state.temp_min - 273.15)*9/5)+32) + '°' + 'F'}</div>
           <div className="humidity">Humidity: {this.state.humidity + '%'}</div>
           <div className="windspeed">Wind Speed: {this.state.windspeed + 'mph'}</div>
         </div>
