@@ -1,9 +1,11 @@
-// import React from 'react';
-// import { mount, shallow } from 'enzyme';
-// import {expect} from 'chai';
+import React from 'react';
+import { mount, shallow } from 'enzyme';
+import {expect} from 'chai';
+import {ref} from '../client/helpers/constants';
+import NavBar from '../client/navBar';
 
+import Main from '../client/main';
 
-// import Main from '../client/main';
 // // import Weather from '../client/weather';
 
 // import ReactGridLayout from 'react-grid-layout';

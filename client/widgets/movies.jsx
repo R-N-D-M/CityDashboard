@@ -1,12 +1,14 @@
 import React from 'react';
 import Axios from 'axios';
+import Moment from 'moment';
+//qk93ft2mkdfavw8abjr4yy9b
 
 class Movies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       locationTrue: this.props.location,
-      response: 'no movie data'
+      response: 'Getting Your Location, Please Wait'
     };
   }
   componentWillMount() {
@@ -41,16 +43,20 @@ class Movies extends React.Component {
           let movieAndShowtimes = response.data[theatreName];
           let eachMovie = movieAndShowtimes.map((movie, index) => (
             <div key={index}>
-              <div>{movie.title}</div>
-              <div>{movie.showtimes}</div>
+              <div style={{fontWeight: 'bold'}}>{movie.title}</div>
+              <div><span style={{fontWeight: 'bold'}}>Showtimes:</span> {movie.showtimes.map((time) => {
+                return Moment(time).format("h:mma ")
+              })}</div>
             </div>
           ));
           return (
           <div key={theatreIndex}>
-            <div>{theatreName}</div>
-            {eachMovie}
-          </div>)
-      })
+            <div style={{fontSize: 16, fontWeight: 'bold',  borderBottom: '1px solid #000', paddingBottom: '2px'}}>{theatreName}</div>
+            <div>{eachMovie}</div>
+            <br/>
+          </div>
+          )
+        })
       this.setState({
         response: res
       });
@@ -62,10 +68,13 @@ class Movies extends React.Component {
   render() {
     if(this.state.locationTrue) {
       return (
-        <div style={{overflowY: 'scroll'}}>
-          {this.state.response}
+        <div className='drag' style={{overflowY: 'scroll', color: 'black'}}>
+          <div className="card card-block drag" style={{backgroundImage: 'url("http://www.designbolts.com/wp-content/uploads/2013/02/Rough-Grey-Tilable-Pattern-For-Website-Background.jpg")'}}>
+            <h3 className="card-title drag" style={{textAlign: 'center', cursor: 'move'}}>Movies Near You</h3>
+            <div className="card-text drag">{this.state.response}</div>
+          </div>
         </div>
-      );
+      )
     }
     else {
       return (

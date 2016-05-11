@@ -206,7 +206,6 @@ export default class Main extends React.Component {
   }
   makeMovies(context) {
     return <div className="drag" key={'e'} style={{border: "1px solid orange", overflow: "hidden"}}>
-      <div className="drag" style={{width:"100%", backgroundColor: "#FFA07A"}}>DRAG ME</div>
       <Movies location={context.state.locationTrue} />
     </div>
   }

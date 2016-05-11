@@ -10,3 +10,15 @@ a {
 a:hover {
   text-decoration: none;
 }
+
+body {
+    background-color: #ffffff;
+}
+
+.particles-js-canvas-el {
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1
+}
