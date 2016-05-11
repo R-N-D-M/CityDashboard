@@ -29,7 +29,6 @@ var getListOfStations = function(request, response) {
     var long1 = request.body.latLng[1];
     var base = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%27http%3A%2F%2Fapi.bart.gov%2Fapi%2Fstn.aspx%3Fcmd%3Dstns%26key%3DMW9S-E7SL-26DU-VV8V%27&format=json&diagnostics=true&callback=';
     var stationArray = [];
-    console.log("line 32");
     axios.get(base)
       .then((resp) => {
         resp.data.query.results.root.stations.station.forEach((obj) => {
@@ -48,16 +47,13 @@ var getListOfStations = function(request, response) {
           stationArray.push(BARTobj);
         });
         var closestStation = getClosestStation(stationArray);
-        console.log('closestStation: ', closestStation);
         return closestStation;
       })
       .then((closestStation) => {
-        console.log('line 54: got this far');
         getNextDeparture(closestStation, request, response);
       })
       .catch((response) => {
         if (response instanceof Error){
-          console.log('line 58: Error: ', response.message);
           console.log('error: response', response);
         } 
       });
@@ -67,27 +63,21 @@ var getNextDeparture = function(originStation, request, response){
   var base = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%27http%3A%2F%2Fapi.bart.gov%2Fapi%2Fetd.aspx%3Fcmd%3Detd%26orig%3D' + originStation.abbr + '%26key%3DMW9S-E7SL-26DU-VV8V%27&format=json';
   var trainData = {};
   var deptArr = [];
-  console.log('line 69: got this far');
   axios.get(base)
     .then((resp) => {
       resp.data.query.results.root.station.etd.forEach((obj) => {
-        console.log('line 71: obj.estimate', obj.estimate);
-        // console.log('line 74: obj is: ', obj);
+        // line below accounts for 'sometimes' case of BART API sending back not an array
         obj.estimate = Array.isArray(obj.estimate) ? obj.estimate : [obj.estimate];
-        console.log('line 76: obj.estimate', obj.estimate);
-        console.log('line 77: obj.estimate.length', obj.estimate.length);
         var trainObj = {
           'destination': obj.destination,
           'time': obj.estimate[0].minutes,
           'direction': obj.estimate[0].direction,
           'platform': obj.estimate[0].platform
         }
-        console.log('line 84: trainObj is: ', trainObj);
         deptArr.push(trainObj);
         trainData.originStation = originStation;
         trainData.deptArr = deptArr;
       });
-      console.log('line 89: trainData', trainData);
       sendNextDeparture(trainData, request, response);
     })
     .catch((response) => {
