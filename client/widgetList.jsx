@@ -16,7 +16,7 @@ export default class WidgetList extends React.Component {
       widgetListItems.push(<WidgetListItem id='' name='No Widgets Loaded' deployed='true' />);
     }
     return (
-      <div className="nav-item active pull-xs-right dropdown">
+      <div style={{paddingLeft: '5px'}} className="nav-item active pull-xs-right dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="widgetList" data-toggle="dropdown">
             Widgets
           </button>
