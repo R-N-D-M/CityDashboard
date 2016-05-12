@@ -1,26 +1,26 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount, shallow,render } from 'enzyme';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import Axios from 'axios';
 import Bart from '../client/widgets/bart';
+
 describe('<Bart />', () => {
-  
   it('should have a div in the component to display the next trains leaving', () => {
     const wrapper = shallow(<Bart />);
     expect(wrapper.find('div')).to.have.length(1);
   });
-  it('should have a destinations className in div wrapper', () => {
+  it('should have a card className in div wrapper', () => {
     const wrapper = shallow(<Bart />);
-    expect(wrapper.find('.destinations')).to.exist;
+    expect(wrapper.find('.card')).to.exist;
   });
-  it('should have a directions className in div wrapper', () => {
+  it('should have a card-header className in div wrapper', () => {
     const wrapper = shallow(<Bart />);
-    expect(wrapper.find('.directions')).to.exist;
+    expect(wrapper.find('.card-header')).to.exist;
   });
-  it('should have a platforms className in div wrapper', () => {
+  it('should have a table tag', () => {
     const wrapper = shallow(<Bart />);
-    expect(wrapper.find('.platforms')).to.exist;
+    expect(wrapper.find('table')).to.exist;
   });
   it('should have a times className in div wrapper', () => {
     const wrapper = shallow(<Bart />);
@@ -31,6 +31,7 @@ describe('<Bart />', () => {
     expect(wrapper.props().locationTrue).to.be.defined;
   });
 });
+
 describe('<Bart />', () => {
   it('should mount <Bart /> component', () => {
   const willMount = sinon.spy();
