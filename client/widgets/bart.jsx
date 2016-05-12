@@ -41,11 +41,14 @@ class Bart extends React.Component {
   }
 
   getClosestStation() {
+    if (this.isUnnmount){
+      return;
+    }
     let url = '/bart';
     let dataToSend = {
       latLng: this.state.locationTrue
     };
-    axios.post(url, dataToSend)
+    this.pollTimer = setTimeout(axios.post(url, dataToSend)
       .then( (response) => {
         this.setState({
           nextTrains: response.data.deptArr,
@@ -57,24 +60,26 @@ class Bart extends React.Component {
       .catch( (response) => {
         console.log("Error getting closest station from BART: ", response);
         this.setState({error: true});
-        setTimeout(() => {
+        this.retryTimer =  setTimeout(() => {
           this.getClosestStation();
         }, 500);
-      });
+      }), 60000)
   }
 
   componentDidMount() {
     if(this.state.locationTrue) {
       this.getClosestStation()
     }
+    this.pollTimer = setTimeout(this.getClosestStation, 60000);
   }
 
   componentWillMount(){
-    setInterval(this.getClosestStation, 60000);  
+    setTimeout(this.getClosestStation, 60000);  
   }
 
   componentWillUnmount(){
-    this.timer = setInterval(clearInterval(this.timer));
+    clearTimeout(this.retryTimer);
+    clearTimeout(this.pollTimer);
     this.isUnmounted = true;
   }
 
@@ -112,7 +117,6 @@ class Bart extends React.Component {
             <div className='card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
             <div className='TrainsData'>
               <table className='table table-sm table-responsive table-striped'>
-                <tbody>
                   <thead className='thead-default'>
                     <tr>
                       <th style={{paddingRight:'50px'}}>Destinations: </th>
@@ -121,6 +125,7 @@ class Bart extends React.Component {
                       <th>Minutes Until: </th>
                     </tr>
                   </thead>
+                <tbody>
                 {TrainsData}
                 </tbody>
               </table>
