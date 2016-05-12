@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow, render } from 'enzyme';
+import { mount, shallow,render } from 'enzyme';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import Axios from 'axios';
@@ -18,9 +18,13 @@ describe('<Bart />', () => {
     const wrapper = shallow(<Bart />);
     expect(wrapper.find('.card-header')).to.exist;
   });
-  it('should have a table', () => {
+  it('should have a table tag', () => {
     const wrapper = shallow(<Bart />);
-    expect(wrapper.find('table')).to.have.tagName('table');
+    expect(wrapper.find('table')).to.exist;
+  });
+  it('should have a times className in div wrapper', () => {
+    const wrapper = shallow(<Bart />);
+    expect(wrapper.find('.times')).to.exist;
   });
   it('should receive props from main', () => {
     const wrapper = shallow(<Bart />); 
