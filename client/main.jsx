@@ -8,7 +8,6 @@ import Bart from './widgets/bart';
 import Nearby from './widgets/nearby';
 import Movies from './widgets/movies';
 import Notepad from './widgets/notepad';
-//6gckbwqssxybn76ccsu56nd6
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 let WidthProvider = ReactGridLayout.WidthProvider;
 let ResponsiveReactGridLayout = ReactGridLayout.Responsive;
@@ -21,7 +20,8 @@ export default class Main extends React.Component {
       locationTrue: false,
       idToken: false,
       deployedWidgets: [],
-      profile: null
+      profile: null,
+      layouts: this.getLayouts()
     };
     this.widgets = {
       weather: {
@@ -51,6 +51,7 @@ export default class Main extends React.Component {
       }
     };
 
+    this.autoSave = this.autoSave.bind(this);
     this.makeBart = this.makeBart.bind(this);
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
@@ -62,7 +63,6 @@ export default class Main extends React.Component {
     this.onLogin = this.onLogin.bind(this);
     this.save = this.save.bind(this);
     this.getLayoutsAndState = this.getLayoutsAndState.bind(this);
-    this.logLayouts = this.logLayouts.bind(this);
     this.getLayouts = this.getLayouts.bind(this);
 
     // saving state layout
@@ -109,12 +109,10 @@ export default class Main extends React.Component {
       ]
     };
     this.state.tempLayouts = this.defaultLayouts;
-    this.getLayouts();
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
       notes: []
     };
-
     // set notepad here
     this.state.notepad = this.state.notepad || this.defaultNotepad;
 
@@ -124,6 +122,10 @@ export default class Main extends React.Component {
 
     // handleNPstate transfers the state of the child Notepad to main component
     this.handleNPstate = this.handleNPstate.bind(this);
+
+  }
+  autoSave() {
+    setInterval(this.save, 7000);
   }
   componentWillMount() {
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
@@ -139,6 +141,7 @@ export default class Main extends React.Component {
         });
       });
     }
+    this.autoSave();
   }
   getIdToken() {
     let idToken = localStorage.getItem('userToken');
@@ -163,6 +166,24 @@ export default class Main extends React.Component {
     }
     return this.defaultLayouts;
   }
+  getLayoutsAndState(){
+    ref.child(`users/${this.state.profile.user_id}`).on('value', (snapshot) => {
+      if(!snapshot.val().layoutsAndState){
+        // this.save();
+      }
+      else {
+        let layoutsAndState = JSON.parse(snapshot.val().layoutsAndState);
+        localStorage.setItem('layouts', JSON.stringify(layoutsAndState.layouts));
+        this.setState(layoutsAndState.state);
+        // console.log('set the layout and state, layout: ', layoutsAndState.layouts, 'this.state: ', this.state);
+        // console.log("before loaded, layout state", this.state.tempLayouts);
+        this.setState({loadedLayouts: layoutsAndState.layouts}, () => {
+          // console.log("this state loaded layouts ", this.state.loadedLayouts);
+          this.setState({tempLayouts:this.state.loadedLayouts});
+        });
+      }
+    });
+  }
   handleClick(input) {
     let deployed = false;
     for(let i = 0; i < this.state.deployedWidgets.length; i++){
@@ -181,10 +202,13 @@ export default class Main extends React.Component {
   }
   handleLayoutChange(currentLayout, allLayouts) {
     if(currentLayout && allLayouts){
-      console.log('currentLayout and allLayouts', currentLayout, allLayouts);
+      // console.log('HANDLE LAYOUT CHANGE: currentLayout and allLayouts', currentLayout, allLayouts);
       localStorage.setItem('layouts', JSON.stringify(allLayouts));
+      this.setState({layouts: allLayouts});
     }
-    // console.log("handleLayoutChange", localStorage.getItem('layouts'));
+  }
+  handleNPstate(statefromNP) {
+    this.setState({notepad: statefromNP});
   }
   makeBart(context) {
     return <div className="drag" key={'b'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
@@ -192,10 +216,9 @@ export default class Main extends React.Component {
       <Bart location={context.state.locationTrue} />
     </div>
   }
-  makeWeather(context) {
-    return <div className="drag" key={'c'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
-      <div className="drag" style={{width:"100%", backgroundColor: "#ADD8E6"}}>DRAG ME</div>
-      <Weather location={context.state.locationTrue} />
+  makeMovies(context) {
+    return <div className="drag" key={'e'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
+      <Movies location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
@@ -204,9 +227,16 @@ export default class Main extends React.Component {
       <Nearby location={context.state.locationTrue} />
     </div>
   }
-  makeMovies(context) {
-    return <div className="drag" key={'e'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
-      <Movies location={context.state.locationTrue} />
+  makeNotepad(context) {
+    return <div className="drag" key={'f'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "auto"}}>
+      <div className="drag" style={{width:"100%", backgroundColor: "#90EE90"}}>DRAG ME</div>
+      <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
+    </div>
+  }
+  makeWeather(context) {
+    return <div className="drag" key={'c'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
+      <div className="drag" style={{width:"100%", backgroundColor: "#ADD8E6"}}>DRAG ME</div>
+      <Weather location={context.state.locationTrue} />
     </div>
   }
   onLogin(userID, profile) {
@@ -214,62 +244,30 @@ export default class Main extends React.Component {
     this.setState({profile: profile});
     this.getLayoutsAndState();
   }
-  getLayoutsAndState(){
-    ref.child(`users/${this.state.profile.user_id}`).on('value', (snapshot) => {
-      if(!snapshot.val().layoutsAndState){
-        this.save();
-      }
-      else {
-        let layoutsAndState = JSON.parse(snapshot.val().layoutsAndState);
-        localStorage.setItem('layouts', JSON.stringify(layoutsAndState.layouts));
-        this.setState(layoutsAndState.state);
-        // console.log('set the layout and state, layout: ', layoutsAndState.layouts, 'this.state: ', this.state);
-        // console.log("before loaded, layout state", this.state.tempLayouts);
-        this.setState({loadedLayouts: layoutsAndState.layouts}, () => {
-          // console.log("this state loaded layouts ", this.state.loadedLayouts);
-          this.setState({tempLayouts:this.state.loadedLayouts});
-        });
-      }
-
-      // console.log("snapshot.val()", snapshot.val());
-      // console.log("layoutAndState", );
-    });
-  }
   onLogout() {
+    // Clear local storage and refresh page
     localStorage.removeItem('userToken');
     localStorage.removeItem('layouts');
     this.setState({profile: null});
     window.location.href= "/";
   }
   save() {
-    let layouts = this.getLayouts();
-    let layoutsAndState = {
-      layouts: layouts,
-      state: this.state
-    };
-    console.log("saving layouts and state: ", layoutsAndState);
-    layoutsAndState = JSON.stringify(layoutsAndState);
-    ref.child(`users/${this.state.profile.user_id}`).update({layoutsAndState: layoutsAndState}, (error) => {
-      if (error) {
-        console.log('Synchronization failed');
-      }
-      else {
-        console.log('Synchronization succeeded');
-      }
-    });
-  }
-  makeNotepad(context) {
-    return <div className="drag" key={'f'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "auto"}}>
-      <div className="drag" style={{width:"100%", backgroundColor: "#90EE90"}}>DRAG ME</div>
-      <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
-    </div>
-  }
-  handleNPstate(statefromNP) {
-    this.setState({notepad: statefromNP});
-  }
-  logLayouts() {
-    console.log("this.layout", this.getLayouts());
-    this.forceUpdate();
+    if(this.state.profile) {
+      let layouts = this.getLayouts();
+      let layoutsAndState = {
+        layouts: layouts,
+        state: this.state
+      };
+      layoutsAndState = JSON.stringify(layoutsAndState);
+      ref.child(`users/${this.state.profile.user_id}`).update({layoutsAndState: layoutsAndState}, (error) => {
+        if (error) {
+          console.log('Save failed');
+        }
+        else {
+          console.log('Save succeeded');
+        }
+      });
+    }
   }
   render() {
     // will move to state later
@@ -291,10 +289,6 @@ export default class Main extends React.Component {
     return (
       <div className="container-fluid">
         <NavBar profile={this.state.profile} lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.widgets} handleClick={ this.handleClick } />
-        <div>
-          <button onClick={this.save}>Save</button>
-          <button onClick={this.logLayout}>Layout</button>
-        </div>
         <div className="container-fluid">
           <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
       cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>

@@ -47,7 +47,7 @@ class Nearby extends React.Component {
     document.getElementById('nearbycontainer').style.height = (tempheight - 1).toString() + "px";
   }
   componentWillReceiveProps(nextProps) {
-    console.log("Nearby component received prop change!");
+    // console.log("Nearby component received prop change!");
     if(nextProps && nextProps.location && nextProps.location[0] != this.state.locationTrue[0] && nextProps.location[1] != this.state.locationTrue[1]) {
       this.setState({locationTrue: nextProps.location, canPush: true, locationLoaded: true}, () => {
         // this.getWeather();
