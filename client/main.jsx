@@ -230,7 +230,7 @@ export default class Main extends React.Component {
   }
   makeWeather(context) {
     return <div className="drag" key={'c'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
-      <div className="drag" style={{width:"100%", backgroundColor: "#ADD8E6"}}>DRAG ME</div>
+      <div className="drag widget" style={{width:"100%", backgroundColor: "#ADD8E6"}}>Weather</div>
       <Weather location={context.state.locationTrue} />
     </div>
   }
@@ -278,7 +278,8 @@ export default class Main extends React.Component {
       mainContainer = (
         <div key={'a'} className="welcomeMessage jumbotron" style={{textAlign: 'center'}}>
           <h1 style={{opacity: '0.9'}} className="display-1">Welcome to CityDashboard!</h1>
-        <h1 style={{fontSize: '30px'}} className="display-4">Go Ahead and Check Out The Widgets in the Menu on The Right</h1>
+          <hr class="m-y-2"></hr>
+          <h1 style={{fontSize: '30px'}} className="display-4">Go Ahead and Check Out The Widgets in The Menu on The Right</h1>
         </div>
       );
     }

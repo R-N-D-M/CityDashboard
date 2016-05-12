@@ -38,9 +38,9 @@ export default class NavBar extends React.Component {
           <h1 className="navbar-brand">City Dashboard - San Francisco</h1>
           <div className="nav navbar-nav">
             <WidgetList widgets={this.props.widgets} handleClick={ this.props.handleClick } />
-          </div>
-          <div className="btn btn-secondary nav-item active pull-xs-right">
-            <a onClick={loginLogoutAction}>{loginLogout}</a>
+            <div className="btn btn-secondary nav-item pull-xs-right">
+              <a onClick={loginLogoutAction}>{loginLogout}</a>
+            </div>
           </div>
         </nav>
       )
