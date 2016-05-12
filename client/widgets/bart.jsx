@@ -114,6 +114,9 @@ class Bart extends React.Component {
       } else {
         return (
           <div className='card'>
+            <div className='closeButton'>
+              <button type='button' className='btn-close' style={{float:'right'}}>&#x274C;</button>
+            </div>
             <div className='card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
             <div className='TrainsData'>
               <table className='table table-sm table-responsive table-striped'>
