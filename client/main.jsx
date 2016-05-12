@@ -67,16 +67,14 @@ export default class Main extends React.Component {
 
     // saving state layout
     this.defaultLayouts = {
-      lg: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+      lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
+        {i: 'b', x: 0, y: 0, w: 1, h: 1},
+        {i: 'c', x: 0, y: 0, w: 1, h: 1},
+        {i: 'd', x: 0, y: 0, w: 1, h: 1},
+        {i: 'e', x: 0, y: 0, w: 1, h: 1},
+        {i: 'f', x: 0, y: 0, w: 1, h: 1}
       ],
       md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
         {i: 'b', x: 0, y: 0, w: 3, h: 3},
         {i: 'c', x: 0, y: 0, w: 3, h: 3},
         {i: 'd', x: 0, y: 0, w: 3, h: 3},
@@ -84,7 +82,6 @@ export default class Main extends React.Component {
         {i: 'f', x: 0, y: 0, w: 3, h: 3}
       ],
       sm: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
         {i: 'b', x: 0, y: 0, w: 3, h: 3},
         {i: 'c', x: 0, y: 0, w: 3, h: 3},
         {i: 'd', x: 0, y: 0, w: 3, h: 3},
@@ -92,7 +89,6 @@ export default class Main extends React.Component {
         {i: 'f', x: 0, y: 0, w: 3, h: 3}
       ],
       xs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
         {i: 'b', x: 0, y: 0, w: 3, h: 3},
         {i: 'c', x: 0, y: 0, w: 3, h: 3},
         {i: 'd', x: 0, y: 0, w: 3, h: 3},
@@ -100,7 +96,6 @@ export default class Main extends React.Component {
         {i: 'f', x: 0, y: 0, w: 3, h: 3}
       ],
       xxs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        // {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 4, maxW: 8},
         {i: 'b', x: 0, y: 0, w: 3, h: 3},
         {i: 'c', x: 0, y: 0, w: 3, h: 3},
         {i: 'd', x: 0, y: 0, w: 3, h: 3},
@@ -270,8 +265,6 @@ export default class Main extends React.Component {
     }
   }
   render() {
-    // will move to state later
-    // console.log("NOTEPAD STATE-RENDER: ", this.state.notepad);
     let widgets = [];
     _.each(this.state.deployedWidgets, (widget) => {
       if(!widget.makeFunction) {
@@ -279,21 +272,29 @@ export default class Main extends React.Component {
       }
       widgets.push(widget.makeFunction(this));
     });
-
-    if (widgets.length < 1) {
-      widgets = <div key={'a'} style={{border: "1px solid red", display: "none"}}>a</div>;
-    }
+    let mainContainer;
     let layouts = this.getLayouts();
-    // console.log("WIDGETS LENGTH: ", widgets.length)
-    // console.log("render state templayouts", this.state.tempLayouts);
+    if (widgets.length < 1) {
+      mainContainer = (
+        <div key={'a'} className="welcomeMessage jumbotron" style={{textAlign: 'center'}}>
+          <h1 style={{opacity: '0.9'}} className="display-1">Welcome to CityDashboard!</h1>
+        <h1 style={{fontSize: '30px'}} className="display-4">Go Ahead and Check Out The Widgets in the Menu on The Right</h1>
+        </div>
+      );
+    }
+    else {
+      mainContainer = (
+        <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
+            cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} draggableHandle={'.drag'}>
+            {widgets}
+        </ResponsiveReactGridLayout>
+      );
+    }
     return (
       <div className="container-fluid">
         <NavBar profile={this.state.profile} lock={this.lock} idToken={this.state.idToken} style={{paddingLeft: '0px', marginLeft: '0px'}} onLogin={this.onLogin} onLogout={this.onLogout} widgets={this.widgets} handleClick={ this.handleClick } />
         <div className="container-fluid">
-          <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
-      cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} style={{border: "1px solid black"}} draggableHandle={'.drag'}>
-            {widgets}
-          </ResponsiveReactGridLayout>
+          {mainContainer}
         </div>
       </div>
     );
