@@ -23,6 +23,10 @@ class Bart extends React.Component {
     }
   }
   
+  handleClose(id){
+    this.props.handleClose(id);
+  }
+
   timeStamp() {
   // Create a date object with the current time
     let now = new Date();
@@ -115,7 +119,7 @@ class Bart extends React.Component {
         return (
           <div className='card'>
             <div className='closeButton'>
-              <button type='button' className='btn-close' style={{float:'right'}}>&#x274C;</button>
+              <button type='button' className='btn-close' style={{float:'right'}} onClick={()=>{}}>&#x274C;</button>
             </div>
             <div className='card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
             <div className='TrainsData'>
