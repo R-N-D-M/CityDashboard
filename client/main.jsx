@@ -17,6 +17,13 @@ ResponsiveReactGridLayout = WidthProvider(ResponsiveReactGridLayout);
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      locationTrue: false,
+      idToken: false,
+      deployedWidgets: [],
+      profile: null,
+      layouts: this.getLayouts()
+    };
     this.widgets = {
       weather: {
         id: 'weather',
@@ -105,13 +112,6 @@ export default class Main extends React.Component {
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
       notes: []
-    };
-    this.state = {
-      locationTrue: false,
-      idToken: false,
-      deployedWidgets: [],
-      profile: null,
-      layouts: this.getLayouts()
     };
     // set notepad here
     this.state.notepad = this.state.notepad || this.defaultNotepad;
