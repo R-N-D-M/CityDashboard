@@ -108,7 +108,7 @@ class Bart extends React.Component {
         );
       } else {
         return (
-          <div claaName='card'>
+          <div className='card'>
             <div className='card-header text-xs-center'>Departing from: {this.state.originStation}</div>
             <div className='TrainsData'>
               <table className='table table-sm table-responsive table-striped'>
