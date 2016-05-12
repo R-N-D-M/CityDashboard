@@ -31,7 +31,7 @@ export default class Main extends React.Component {
       },
       bart: {
         id: 'bart',
-        name: 'Bart',
+        name: 'B.A.R.T.',
         makeFunction: this.makeBart
       },
       nearby: {
