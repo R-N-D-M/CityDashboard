@@ -173,14 +173,21 @@ class NoteSummary extends React.Component {
     let content = note.content;
     if (!content) content = '-- Awaiting Input --';
 
+    let buttonStyle = {
+      height: "24px",
+      width: "24px",
+      position:"absolute",
+      right:"0",
+      textAlign: "center"
+    };
+
     return (
       <div className="note-summary" style={{width:"100%", borderTop: "solid 1px gray"}}>
         <div className="note-summary-innerwrapper" style={{width:"100%"}}>
           <button
+            className='close-button'
             aria-label="Delete Note"
-            style={{position:"absolute", right:"0"}} onClick={()=>{this.props.handleDelete(note.id)}}>
-            &#x274C;
-          </button>
+            style={buttonStyle} onClick={()=>{this.props.handleDelete(note.id)}}>&times;</button>
           <pre style = {this.props.textStyle}
             onClick={()=>{this.props.handleClick(note.id)}}>
             {'\n' + content}
