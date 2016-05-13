@@ -228,7 +228,7 @@ export default class Main extends React.Component {
     </div>
   }
   makeNotepad(context) {
-    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 3, h:3}} style={{overflow: "hidden", backgroundImage: 'url("http://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood5.jpg")'}}>
+    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 3, h:3, minW: 3, minH: 3}} style={{overflow: "hidden", backgroundImage: 'url("http://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood5.jpg")'}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Notepad</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
     </div>

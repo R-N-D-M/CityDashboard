@@ -97,11 +97,12 @@ class Notepad extends React.Component {
           </div>
         </div>
         <br />
-          <div>
-            <button onClick={this.onAddNote.bind(this)}>Add Note</button>
-          </div>
           <div style={{textAlign: "center"}}>
-            {editor}
+            <div>
+              <button onClick={this.onAddNote.bind(this)}>Add Note</button>
+              <br />
+              {editor}
+            </div>
           </div>
       </div>
     );
