@@ -71,10 +71,11 @@ export default class Weather extends React.Component {
 
     if(this.state.locationTrue){
       return (
-        <div className="card stylish-card hoverable card card-block card text-xs-center" style={{backgroundColor: '#373a3c',overflowY: 'scroll'}}>
+        <div className="card stylish-card hoverable card card-block card text-xs-center" style={{backgroundColor: '#373a3c',overflowY: 'scroll', height: '100%'}}>
           <div className='card-text' className="city" style={{fontSize: '125%',fontWeight: 'bold', color: '#eceeef',textShadow: 'black'}}>{this.state.city}</div>
-          <div className='card-text' className="currentTemp" style={{color: '#eceeef', textShadow: 'black', fontSize: '250%', textDecoration: 'underline overline'}}>{Math.round(((this.state.temp - 273.15)*9/5)+32) + '°' + 'F'}</div>
-          <div className='card-text' className="description" style={{fontWeight: 'bold', color:'#eceeef', textShadow: 'black',textTransform: 'capitalize'}}>{this.state.description}<div style={{width:'2em', height:'1.4em', verticleAlign: 'middle', marginLeft: '0em', display: 'inline-block', overflow:'hidden', backgroundPosition: 'center', position: 'absolute', marginTop: '3px', backgroundImage: 'url('+iconURL+')'}}></div></div>
+          <div style={{marginBottom: '-20px', marginTop: '-10px'}}><img src={iconURL} style={{width: '100%', width: '25%'}}/></div>
+          <div className='card-text' className="currentTemp" style={{color: '#eceeef', textShadow: 'black', fontSize: '250%', textDecoration: 'underline overline', marginTop: '5px'}}>{Math.round(((this.state.temp - 273.15)*9/5)+32) + '°' + 'F'}</div>
+          <div className='card-text' className="description" style={{fontWeight: 'bold', color:'#eceeef', textShadow: 'black',textTransform: 'capitalize'}}>{this.state.description}</div>
           <div className='card-text' className="humidity" style={{fontWeight: 'bold', color:'#eceeef', textShadow: 'black'}}>Humidity: {this.state.humidity + '%'}</div>
           <div className='card-text' className="windspeed" style={{fontWeight: 'bold', color: '#eceeef', textShadow: 'black'}}>Wind Speed: {this.state.windspeed + 'mph'}</div>
         </div>
