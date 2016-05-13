@@ -211,31 +211,30 @@ export default class Main extends React.Component {
     this.setState({notepad: statefromNP});
   }
   makeBart(context) {
-<<<<<<< f9035194b6d895a215a38c429b5121d229da4897
-    return <div className="drag widget card" key={'b'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:1}}>
+    return <div className="drag widget card" key={'b'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>BART</div>
       <Bart location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
-    return <div className="drag widget card" key={'e'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:1}}>
+    return <div className="drag widget card" key={'e'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <Movies location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:1}}>
+    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Nearby</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeNotepad(context) {
-    return <div className="drag widget card" key={'f'} >
-      <div className="drag widgetHeader card-header" style={{width:"100%"}} _grid={{x: 0, y: 0, w: 2, h:1}}>Notepad</div>
+    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 3, h:3}} style={{overflow: "hidden", backgroundImage: 'url("http://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood5.jpg")'}}>
+      <div className="drag widgetHeader card-header" style={{width:"100%"}}>Notepad</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
     </div>
   }
   makeWeather(context) {
-    return <div className="drag widget card" key={'c'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:1}}>
+    return <div className="drag widget card" key={'c'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Weather</div>
       <Weather location={context.state.locationTrue} />
     </div>
@@ -291,7 +290,7 @@ export default class Main extends React.Component {
     }
     else {
       mainContainer = (
-        <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
+        <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={200} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
             cols={{lg: 6, md: 6, sm: 6, xs: 6, xxs: 6}} draggableHandle={'.drag'}>
             {widgets}
         </ResponsiveReactGridLayout>

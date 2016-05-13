@@ -81,15 +81,28 @@ class Notepad extends React.Component {
       editor = <NoteEditor note={selectedNote} onChange={this.onChangeNote.bind(this)}/>
     }
 
+    let notepadStyle = {
+      // backgroundImage: 'url("http://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood5.jpg")'
+      // width: "80%",
+      // align: "center"
+    };
+    // style={notepadStyle}
+
     return (
       <div id="notepad">
-        <NotesList notepad={notepad} handleClickFromNL={this.onSelectNote.bind(this)}
-        handleDelete={this.onDeleteNote.bind(this)} />
+        <div className="leather">
+          <div className="leather-stitch">
+            <NotesList notepad={notepad} handleClickFromNL={this.onSelectNote.bind(this)}
+            handleDelete={this.onDeleteNote.bind(this)} />
+          </div>
+        </div>
         <br />
           <div>
             <button onClick={this.onAddNote.bind(this)}>Add Note</button>
           </div>
-          {editor}
+          <div style={{textAlign: "center"}}>
+            {editor}
+          </div>
       </div>
     );
 
@@ -106,7 +119,7 @@ class NoteEditor extends React.Component {
   }
   render() {
     return (
-        <textarea rows={5} cols={34} value={this.props.note.content} onChange={this.onChange.bind(this)} style={{resize: "both"}} />
+        <textarea rows={8} cols={60} value={this.props.note.content} onChange={this.onChange.bind(this)} style={{resize: "both"}} />
     );
   }
 
@@ -140,7 +153,7 @@ class NotesList extends React.Component {
       wordWrap: "break-word"
     };
     return (
-      <div className="notes-list">
+      <div className="notes-list" style={{borderBottom: "solid 1px gray", backgroundColor: "#FFFACD", margin: "0 auto", width: "500px", height: "280px", overflowY: "scroll", backgroundImage: 'url("http://megandalbey.com/codepen/css-selectors/paper.jpg")'}}>
       {
         notes.map( (note) => {
           return (
@@ -176,9 +189,10 @@ class NoteSummary extends React.Component {
     let buttonStyle = {
       height: "24px",
       width: "24px",
-      position:"absolute",
-      right:"0",
-      textAlign: "center"
+      // position:"absolute",
+      // right:"0",
+      textAlign: "center",
+      float: "right"
     };
 
     return (
@@ -198,3 +212,22 @@ class NoteSummary extends React.Component {
   }
 
 }
+
+
+
+// {
+//   id: 1,
+//   content: "Hello, world!\nBoring.\nBoring.\nBoring."
+// },
+// {
+//   id: 2,
+//   content: "React is awesome.\nSeriously, it's the greatest."
+// },
+// {
+//   id: 3,
+//   content: "Robots are pretty cool.\nRobots are awesome, until they take over."
+// },
+// {
+//   id: 4,
+//   content: "Monkeys.\nWho doesn't love monkeys?"
+// }
