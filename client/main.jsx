@@ -292,7 +292,7 @@ export default class Main extends React.Component {
     else {
       mainContainer = (
         <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
-            cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} draggableHandle={'.drag'}>
+            cols={{lg: 6, md: 6, sm: 6, xs: 6, xxs: 6}} draggableHandle={'.drag'}>
             {widgets}
         </ResponsiveReactGridLayout>
       );
