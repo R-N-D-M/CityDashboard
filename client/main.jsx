@@ -218,9 +218,10 @@ export default class Main extends React.Component {
   makeMovies(context) {
     return <div className="drag widget card" key={'e'} style={{overflow: "hidden"}}>
       <Movies location={context.state.locationTrue} />
-
+      </div>
+  }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden"}}>
+    return <div id='nearbycontainer' className="drag widget card" key={'d'} style={{overflow: "hidden"}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Nearby</div>
       <Nearby location={context.state.locationTrue} />
     </div>
