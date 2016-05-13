@@ -181,16 +181,20 @@ export default class Main extends React.Component {
   }
   handleClick(input) {
     let deployed = false;
+    // search for widget in main.state.deployed widgets
     for(let i = 0; i < this.state.deployedWidgets.length; i++){
+      // if you find it, set deployed to true
       if(this.state.deployedWidgets[i].id === input) {
         deployed = true;
       }
     };
+    // if deployed, remove from main.state.deployedWidgets
     if(deployed) {
       this.setState({deployedWidgets: _.reject(this.state.deployedWidgets, (widget) => {
         return widget.id === input;
       })});
     }
+    // if not deployed, add to main.state.deployedWidgets
     else {
       this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.widgets[input])});
     }
