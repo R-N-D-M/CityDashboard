@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import Moment from 'moment';
 
 export default class Weather extends React.Component {
   constructor(props) {
@@ -10,11 +11,7 @@ export default class Weather extends React.Component {
       description: "No weather information yet.",
       icon: null,
       temp: "No weather information yet.",
-      temp_max: "No weather information yet.",
-      temp_min: "No weather information yet.",
       humidity: "No weather information yet.",
-      pressure: "No weather information yet.",
-      winddeg: "No weather information yet.",
       windspeed: "No weather information yet."
     };
   }
@@ -74,12 +71,12 @@ export default class Weather extends React.Component {
 
     if(this.state.locationTrue){
       return (
-        <div style={weatherStyle}>
-          <div className="city">{this.state.city}</div>
-          <div className="description">Weather: {this.state.description} <img className="weathericon" src={iconURL}/></div>
-          <div className="currentTemp">Current Temperature: {Math.round(((this.state.temp - 273.15)*9/5)+32) + '°' + 'F'}</div>
-          <div className="humidity">Humidity: {this.state.humidity + '%'}</div>
-          <div className="windspeed">Wind Speed: {this.state.windspeed + 'mph'}</div>
+        <div className="card stylish-card hoverable card card-block card text-xs-center" style={{backgroundColor: '#373a3c',overflowY: 'scroll'}}>
+          <div className='card-text' className="city" style={{fontSize: '125%',fontWeight: 'bold', color: '#eceeef',textShadow: 'black'}}>{this.state.city}</div>
+          <div className='card-text' className="currentTemp" style={{color: '#eceeef', textShadow: 'black', fontSize: '250%', textDecoration: 'underline overline'}}>{Math.round(((this.state.temp - 273.15)*9/5)+32) + '°' + 'F'}</div>
+          <div className='card-text' className="description" style={{fontWeight: 'bold', color:'#eceeef', textShadow: 'black',textTransform: 'capitalize'}}>{this.state.description}<div style={{width:'2em', height:'1.4em', verticleAlign: 'middle', marginLeft: '0em', display: 'inline-block', overflow:'hidden', backgroundPosition: 'center', position: 'absolute', marginTop: '3px', backgroundImage: 'url('+iconURL+')'}}></div></div>
+          <div className='card-text' className="humidity" style={{fontWeight: 'bold', color:'#eceeef', textShadow: 'black'}}>Humidity: {this.state.humidity + '%'}</div>
+          <div className='card-text' className="windspeed" style={{fontWeight: 'bold', color: '#eceeef', textShadow: 'black'}}>Wind Speed: {this.state.windspeed + 'mph'}</div>
         </div>
       );
     }
