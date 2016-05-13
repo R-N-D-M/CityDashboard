@@ -51,14 +51,14 @@ class Movies extends React.Component {
           ));
           return (
           <div key={theatreIndex}>
-            <div style={{fontSize: 16, fontWeight: 'bold',  borderBottom: '1px solid #000', paddingBottom: '2px'}}>{theatreName}</div>
+            <div style={{fontSize: 16, fontWeight: 'bold',  borderBottom: '1px solid #000', paddingBottom: '2px', textAlign: 'center'}}>{theatreName}</div>
             <div>{eachMovie}</div>
             <br/>
           </div>
           )
         })
       this.setState({
-        response: res
+        response: res.slice(0,2)
       });
     })
       .catch( (response) => {
@@ -70,7 +70,6 @@ class Movies extends React.Component {
       return (
         <div className='drag card' style={{overflowY: 'scroll', color: 'black'}}>
           <div className="card card-block drag" style={{backgroundImage: 'url("http://www.designbolts.com/wp-content/uploads/2013/02/Rough-Grey-Tilable-Pattern-For-Website-Background.jpg")'}}>
-            <h3 className="card-title drag" style={{textAlign: 'center', cursor: 'move'}}>Movies Near You</h3>
             <div className="card-text drag" style={{overflowY: 'scroll'}}>{this.state.response}</div>
           </div>
         </div>

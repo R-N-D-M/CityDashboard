@@ -11,7 +11,7 @@ var getMovies = function(request, response) {
   var date = new Date();
 
   var startDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
-  url = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=' + startDate + '&lat=' + latLng[0] + '&lng=' + latLng[1] + '&radius=0.5&units=mi&api_key=' + Movies_ID;
+  url = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=' + startDate + '&lat=' + latLng[0] + '&lng=' + latLng[1] + '&radius=10&units=mi&api_key=' + Movies_ID;
   // console.log('this is the url', url)
   axios.get(url)
     .then( (resp) => {
