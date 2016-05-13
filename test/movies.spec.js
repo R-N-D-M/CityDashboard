@@ -55,7 +55,7 @@ describe('<Movies />', () => {
 
   it('should have an initial response state',() => {
     const wrapper = mount(<Movies />);
-    expect(wrapper.state().response).to.equal('no movie data');
+    expect(wrapper.state().response).to.equal('Getting Your Location, Please Wait');
     wrapper.unmount();
   });
 });
