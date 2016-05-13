@@ -12,7 +12,7 @@ class Bart extends React.Component {
       error: false,
       lastUpdated: this.timeStamp()
     };
-    this.getClosestStation = this.getClosestStation.bind(this);
+  this.getClosestStation = this.getClosestStation.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,31 +28,23 @@ class Bart extends React.Component {
   }
 
   timeStamp() {
-  // Create a date object with the current time
     let now = new Date();
-  // Create an array with the current month, day and time
     let date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
-  // Create an array with the current hour, minute and second
     let time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
-  // If seconds and minutes are less than 10, add a zero
     for ( let i = 1; i < 3; i++ ) {
       if ( time[i] < 10 ) {
         time[i] = "0" + time[i];
       }
     }
-  // Return the formatted string
     return date.join("/") + " " + time.join(":");
   }
 
   getClosestStation() {
-    if (this.isUnnmount){
-      return;
-    }
-    let url = '/bart';
+    let url = '/bart'; console.log("this.props", this.props);
     let dataToSend = {
       latLng: this.state.locationTrue
     };
-    this.pollTimer = setTimeout(axios.post(url, dataToSend)
+    axios.post(url, dataToSend)
       .then( (response) => {
         this.setState({
           nextTrains: response.data.deptArr,
@@ -64,27 +56,23 @@ class Bart extends React.Component {
       .catch( (response) => {
         console.log("Error getting closest station from BART: ", response);
         this.setState({error: true});
-        this.retryTimer =  setTimeout(() => {
-          this.getClosestStation();
-        }, 500);
-      }), 60000)
+        this.getClosestStation();
+      });
   }
 
   componentDidMount() {
     if(this.state.locationTrue) {
       this.getClosestStation()
     }
-    this.pollTimer = setTimeout(this.getClosestStation, 60000);
   }
 
   componentWillMount(){
-    setTimeout(this.getClosestStation, 60000);
+    setInterval(this.getClosestStation, 60000);
   }
 
   componentWillUnmount(){
-    clearTimeout(this.retryTimer);
-    clearTimeout(this.pollTimer);
-    this.isUnmounted = true;
+    this.timer = setInterval(clearInterval(this.timer));   
+    this.isUnmounted = true;   
   }
 
   render() {
