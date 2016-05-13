@@ -68,11 +68,11 @@ export default class Main extends React.Component {
     // saving state layout
     this.defaultLayouts = {
       lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
-        {i: 'b', x: 0, y: 0, w: 2, h: 4, minH: 4, minW: 2},
-        {i: 'c', x: 0, y: 0, w: 2, h: 4, minH: 4, minW: 2},
-        {i: 'd', x: 0, y: 0, w: 2, h: 4, minH: 4, minW: 2},
-        {i: 'e', x: 0, y: 0, w: 2, h: 4, minH: 4, minW: 2},
-        {i: 'f', x: 0, y: 0, w: 2, h: 4, minH: 4, minW: 2}
+        {i: 'b', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
+        {i: 'c', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 2},
+        {i: 'd', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
+        {i: 'e', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
+        {i: 'f', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1}
       ],
       md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
         {i: 'b', x: 0, y: 0, w: 3, h: 3},
@@ -277,9 +277,9 @@ export default class Main extends React.Component {
     if (widgets.length < 1) {
       mainContainer = (
         <div key={'a'} className="welcomeMessage jumbotron" style={{textAlign: 'center'}}>
-          <h1 style={{opacity: '0.9'}} className="display-1">Welcome to CityDashboard!</h1>
-        <hr className="m-y-2"></hr>
-          <h1 style={{fontSize: '30px'}} className="display-4">Go Ahead and Check Out The Widgets in The Menu on The Right</h1>
+          <h1 style={{opacity: '0.9'}} className="display-1">CityDashboard</h1>
+          <hr className="m-y-2"></hr>
+          <h1 style={{fontSize: '30px'}} className="display-4">What's Happening in Your City?</h1>
         </div>
       );
     }
