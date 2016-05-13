@@ -106,7 +106,7 @@ class NoteEditor extends React.Component {
   }
   render() {
     return (
-        <textarea rows={5} cols={40} value={this.props.note.content} onChange={this.onChange.bind(this)} style={{resize: "both"}} />
+        <textarea rows={5} cols={34} value={this.props.note.content} onChange={this.onChange.bind(this)} style={{resize: "both"}} />
     );
   }
 
@@ -123,7 +123,7 @@ class NotesList extends React.Component {
     let count = 0;
     let notes = this.props.notepad.notes;
     let selectedId = this.props.notepad.selectedId;
-    
+
     // console.log("selected id: ", selectedId);
 
     let textStyle = {
@@ -140,7 +140,7 @@ class NotesList extends React.Component {
       wordWrap: "break-word"
     };
     return (
-      <div className="notes-list" style={{borderBottom: "solid 1px gray", backgroundColor: "#FFFACD"}}>
+      <div className="notes-list">
       {
         notes.map( (note) => {
           return (
@@ -191,22 +191,3 @@ class NoteSummary extends React.Component {
   }
 
 }
-
-
-
-// {
-//   id: 1,
-//   content: "Hello, world!\nBoring.\nBoring.\nBoring."
-// },
-// {
-//   id: 2,
-//   content: "React is awesome.\nSeriously, it's the greatest."
-// },
-// {
-//   id: 3,
-//   content: "Robots are pretty cool.\nRobots are awesome, until they take over."
-// },
-// {
-//   id: 4,
-//   content: "Monkeys.\nWho doesn't love monkeys?"
-// }

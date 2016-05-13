@@ -32,6 +32,14 @@ body {
 }
 
 .widget {
+  opacity: 1;
+}
+
+.widgetHeader {
+  background-color: #909090;
+  color: white;
+  text-align: center;
+  font-size: 20px;
   cursor: pointer;
   cursor: hand;
 }
