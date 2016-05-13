@@ -121,3 +121,49 @@ body {
   border-color: #0275d8;
   background-color: #d3d3d3;
 }
+
+.close-button {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.4;
+  filter: alpha(opacity=20);
+  text-decoration: none;
+  text-align: center;
+}
+
+// Notepad note-summary close button
+.close-button:hover {
+  color: #000000;
+  text-decoration: none;
+  opacity: 0.6;
+  filter: alpha(opacity=40);
+  cursor: pointer;
+}
+
+// Notepad Notelist's frame
+.leather {
+  // background: url('http://megandalbey.com/codepen/css-selectors/leather.jpg') #6b3a0d;
+  background: url('https://image.architonic.com/img_pro1-6/124/4341/simplay-2565-1-sq.jpg') #33342F;
+/*   width: 520px; */
+  padding: 5px;
+  margin: -5px auto 0px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(0, 0, 0, 0.3) -1px -1px 1px inset, rgba(255, 255, 255, 0.6) 1px 1px 2px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(0, 0, 0, 0.3) -1px -1px 1px inset, rgba(255, 255, 255, 0.6) 1px 1px 2px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px, rgba(0, 0, 0, 0.3) -1px -1px 1px inset, rgba(255, 255, 255, 0.2) 1px 1px 2px inset;
+}
+
+.leather-stitch {
+  border: 1px dashed hsla(44, 84%, 36%, .8);
+  padding: 7px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.2) 1px 1px 1px, rgba(0, 0, 0, 0.2) -1px -1px 1px, rgba(0, 0, 0, 0.3) -1px -1px 1px inset, rgba(255, 255, 255, 0.2) 1px 1px 2px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.2) 1px 1px 1px, rgba(0, 0, 0, 0.2) -1px -1px 1px, rgba(0, 0, 0, 0.3) -1px -1px 1px inset, rgba(255, 255, 255, 0.2) 1px 1px 2px inset;
+  box-shadow: rgba(255, 255, 255, 0.2) 1px 1px 1px, rgba(0, 0, 0, 0.2) -1px -1px 1px, rgba(0, 0, 0, 0.3) -1px -1px 1px inset, rgba(255, 255, 255, 0.2) 1px 1px 2px inset;
+}
+
+// Notepad paper

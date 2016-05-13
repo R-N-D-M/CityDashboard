@@ -66,44 +66,45 @@ export default class Main extends React.Component {
     this.getLayouts = this.getLayouts.bind(this);
 
     // saving state layout
-    this.defaultLayouts = {
-      lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
-        {i: 'b', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
-        {i: 'c', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 2},
-        {i: 'd', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
-        {i: 'e', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
-        {i: 'f', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1}
-      ],
-      md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
-      ],
-      sm: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
-      ],
-      xs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
-      ],
-      xxs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
-      ]
-    };
-    this.state.tempLayouts = this.defaultLayouts;
+    // this.defaultLayouts = {
+    //   lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
+    //     {i: 'b', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
+    //     {i: 'c', x: 0, y: 0, w: 2, h: 1, minW: 2, minH: 1},
+    //     {i: 'd', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
+    //     {i: 'e', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
+    //     {i: 'f', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1}
+    //   ],
+    //   md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
+    //   ],
+    //   sm: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
+    //   ],
+    //   xs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
+    //   ],
+    //   xxs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
+    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
+    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
+    //   ]
+    // };
+    // this.state.tempLayouts = this.defaultLayouts;
+
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
       notes: []
@@ -210,30 +211,30 @@ export default class Main extends React.Component {
     this.setState({notepad: statefromNP});
   }
   makeBart(context) {
-    return <div className="drag widget card" key={'b'} style={{overflow: "hidden"}}>
+    return <div className="drag widget card" key={'b'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>BART</div>
       <Bart location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
-    return <div className="drag widget card" key={'e'} style={{overflow: "hidden"}}>
+    return <div className="drag widget card" key={'e'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <Movies location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden"}}>
+    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Nearby</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeNotepad(context) {
-    return <div className="drag widget card" key={'f'} >
+    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 3, h:3, minW: 3, minH: 3}} style={{overflow: "hidden", backgroundImage: 'url("http://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood5.jpg")'}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Notepad</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
     </div>
   }
   makeWeather(context) {
-    return <div className="drag widget card" key={'c'} style={{overflow: "hidden"}}>
+    return <div className="drag widget card" key={'c'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Weather</div>
       <Weather location={context.state.locationTrue} />
     </div>
@@ -289,8 +290,8 @@ export default class Main extends React.Component {
     }
     else {
       mainContainer = (
-        <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={300} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
-            cols={{lg: 6, md: 6, sm: 6, xs: 3, xxs: 2}} draggableHandle={'.drag'}>
+        <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={200} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
+            cols={{lg: 6, md: 6, sm: 6, xs: 6, xxs: 6}} draggableHandle={'.drag'}>
             {widgets}
         </ResponsiveReactGridLayout>
       );
