@@ -68,11 +68,11 @@ export default class Main extends React.Component {
     // saving state layout
     this.defaultLayouts = {
       lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
-        {i: 'b', x: 0, y: 0, w: 1, h: 1},
-        {i: 'c', x: 0, y: 0, w: 1, h: 1},
-        {i: 'd', x: 0, y: 0, w: 1, h: 1},
-        {i: 'e', x: 0, y: 0, w: 1, h: 1},
-        {i: 'f', x: 0, y: 0, w: 1, h: 1}
+        {i: 'b', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
+        {i: 'c', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 2},
+        {i: 'd', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
+        {i: 'e', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
+        {i: 'f', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1}
       ],
       md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
         {i: 'b', x: 0, y: 0, w: 3, h: 3},
@@ -181,16 +181,20 @@ export default class Main extends React.Component {
   }
   handleClick(input) {
     let deployed = false;
+    // search for widget in main.state.deployed widgets
     for(let i = 0; i < this.state.deployedWidgets.length; i++){
+      // if you find it, set deployed to true
       if(this.state.deployedWidgets[i].id === input) {
         deployed = true;
       }
     };
+    // if deployed, remove from main.state.deployedWidgets
     if(deployed) {
       this.setState({deployedWidgets: _.reject(this.state.deployedWidgets, (widget) => {
         return widget.id === input;
       })});
     }
+    // if not deployed, add to main.state.deployedWidgets
     else {
       this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.widgets[input])});
     }
@@ -206,31 +210,31 @@ export default class Main extends React.Component {
     this.setState({notepad: statefromNP});
   }
   makeBart(context) {
-    return <div className="drag" key={'b'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
-      <div className="drag" style={{width:"100%", backgroundColor: "#F08080"}}>DRAG ME</div>
+    return <div className="drag widget card" key={'b'} style={{overflow: "hidden"}}>
+      <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>BART</div>
       <Bart location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
-    return <div className="drag" key={'e'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
+    return <div className="drag widget card" key={'e'} style={{overflow: "hidden"}}>
       <Movies location={context.state.locationTrue} />
     </div>
   }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag" key={'d'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
-      <div className="drag" style={{width:"100%", backgroundColor: "#FFB6C1"}}>DRAG ME</div>
+    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden"}}>
+      <div className="drag widgetHeader card-header" style={{width:"100%"}}>Nearby</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeNotepad(context) {
-    return <div className="drag" key={'f'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "auto"}}>
-      <div className="drag" style={{width:"100%", backgroundColor: "#90EE90"}}>DRAG ME</div>
+    return <div className="drag widget card" key={'f'} >
+      <div className="drag widgetHeader card-header" style={{width:"100%"}}>Notepad</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
     </div>
   }
   makeWeather(context) {
-    return <div className="drag" key={'c'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}>
-      <div className="drag widget" style={{width:"100%", backgroundColor: "#ADD8E6"}}>Weather</div>
+    return <div className="drag widget card" key={'c'} style={{overflow: "hidden"}}>
+      <div className="drag widgetHeader card-header" style={{width:"100%"}}>Weather</div>
       <Weather location={context.state.locationTrue} />
     </div>
   }
@@ -277,9 +281,9 @@ export default class Main extends React.Component {
     if (widgets.length < 1) {
       mainContainer = (
         <div key={'a'} className="welcomeMessage jumbotron" style={{textAlign: 'center'}}>
-          <h1 style={{opacity: '0.9'}} className="display-1">Welcome to CityDashboard!</h1>
-        <hr className="m-y-2"></hr>
-          <h1 style={{fontSize: '30px'}} className="display-4">Go Ahead and Check Out The Widgets in The Menu on The Right</h1>
+          <h1 style={{opacity: '0.9'}} className="display-1">CityDashboard</h1>
+          <hr className="m-y-2"></hr>
+          <h1 style={{fontSize: '30px'}} className="display-4">What's Happening in Your City?</h1>
         </div>
       );
     }

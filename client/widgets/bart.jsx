@@ -22,7 +22,7 @@ class Bart extends React.Component {
       });
     }
   }
-  
+
   handleClose(id){
     this.props.handleClose(id);
   }
@@ -78,7 +78,7 @@ class Bart extends React.Component {
   }
 
   componentWillMount(){
-    setTimeout(this.getClosestStation, 60000);  
+    setTimeout(this.getClosestStation, 60000);
   }
 
   componentWillUnmount(){
@@ -117,14 +117,14 @@ class Bart extends React.Component {
         );
       } else {
         return (
-          <div className='card'>
+          <div className='drag card widget'>
             <div className='closeButton'>
               <button type='button' className='btn-close' style={{float:'right'}} onClick={()=>{}}>&#x274C;</button>
             </div>
-            <div className='card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
-            <div className='TrainsData'>
-              <table className='table table-sm table-responsive table-striped'>
-                  <thead className='thead-default'>
+            <div className='drag card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
+            <div className='drag TrainsData'>
+              <table className='drag table table-sm table-responsive table-striped'>
+                  <thead className='drag thead-default'>
                     <tr>
                       <th style={{paddingRight:'50px'}}>Destinations: </th>
                       <th style={{paddingRight:'20px'}}>Direction: </th>
