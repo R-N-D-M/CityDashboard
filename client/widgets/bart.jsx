@@ -24,7 +24,13 @@ class Bart extends React.Component {
   }
 
   handleClose(id){
-    this.props.handleClose(id);
+    console.log("this.props: ", this.props);
+    for(var i = 0; i < this.props.deployed.length; i++){
+      if(this.props.deployed[i].id === 'bart'){
+        this.props.deployed.splice(i, 1);
+      }
+    }
+    //this.props.handleClose(id);
   }
 
   timeStamp() {
@@ -105,27 +111,27 @@ class Bart extends React.Component {
         );
       } else {
         return (
-          <div className='drag card widget'>
-            <div className='closeButton'>
-              <button type='button' className='btn-close' style={{float:'right'}} onClick={()=>{}}>&#x274C;</button>
-            </div>
-            <div className='drag card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
-            <div className='drag TrainsData'>
-              <table className='drag table table-sm table-responsive table-striped'>
-                  <thead className='drag thead-default'>
-                    <tr>
-                      <th style={{paddingRight:'50px'}}>Destinations: </th>
-                      <th style={{paddingRight:'20px'}}>Direction: </th>
-                      <th style={{paddingRight:'20px'}}>Platform #: </th>
-                      <th>Minutes Until: </th>
-                    </tr>
-                  </thead>
-                <tbody>
-                {TrainsData}
-                </tbody>
-              </table>
-              <div className='card-footer'>Last updated at: {this.state.lastUpdated}</div>
-            </div>
+            <div className='drag card widget'>
+              <div className='closeButton'>
+                <button type='button' className='btn-close' style={{float:'right'}} onClick={()=>{this.handleClose()}}>&#x274C;</button>
+              </div>
+              <div className='drag card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
+              <div className='drag TrainsData'>
+                <table style={{overflowY: 'scroll'}} className='drag table table-sm table-responsive table-striped'>
+                    <thead className='drag thead-default'>
+                      <tr>
+                        <th style={{paddingRight:'50px'}}>Destinations: </th>
+                        <th style={{paddingRight:'20px'}}>Direction: </th>
+                        <th style={{paddingRight:'20px'}}>Platform #: </th>
+                        <th>Minutes Until: </th>
+                      </tr>
+                    </thead>
+                  <tbody>
+                  {TrainsData}
+                  </tbody>
+                </table>
+                <div className='card-footer'>Last updated at: {this.state.lastUpdated}</div>
+              </div>
           </div>
         );
       }
