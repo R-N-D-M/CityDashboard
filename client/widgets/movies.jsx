@@ -69,7 +69,7 @@ class Movies extends React.Component {
     if(this.state.locationTrue) {
       return (
         <div className='drag card' style={{color: 'black', height: '100%', width:'100%'}}>
-            <div className="card card-block card-text drag" style={{overflowY: 'scroll', height: '100%', width:'100%', backgroundImage: 'url("http://www.designbolts.com/wp-content/uploads/2013/02/Rough-Grey-Tilable-Pattern-For-Website-Background.jpg")'}}>{this.state.response}</div>
+            <div className="card card-block card-text drag" style={{overflowY: 'auto', height: '100%', width:'100%', backgroundImage: 'url("http://www.designbolts.com/wp-content/uploads/2013/02/Rough-Grey-Tilable-Pattern-For-Website-Background.jpg")'}}>{this.state.response}</div>
         </div>
       )
     }

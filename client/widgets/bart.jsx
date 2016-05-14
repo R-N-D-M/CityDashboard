@@ -105,7 +105,7 @@ class Bart extends React.Component {
             <div className="drag card widget">
               <div className='drag card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
               <div className='drag TrainsData'>
-                <table style={{overflowY: 'scroll'}} className='drag table table-sm table-responsive table-striped'>
+                <table className='drag table table-sm table-striped'>
                     <thead className='drag thead-default'>
                       <tr>
                         <th style={{paddingRight:'50px'}}>Destinations: </th>
