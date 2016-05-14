@@ -221,7 +221,7 @@ export default class Main extends React.Component {
     </div>
   }
   makeMovies(context) {
-    return <div className="drag widget card" key={'e'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:2}}>
+    return <div className="drag widget card" key={'e'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:1}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>Movies</div>
       <Movies location={context.state.locationTrue} />
       </div>
