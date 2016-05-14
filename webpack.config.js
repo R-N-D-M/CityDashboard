@@ -32,6 +32,11 @@ module.exports = {
     {
       test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
       loader: 'imports?jQuery=jquery'
+    },
+    {
+      test: /\.(jpg|jpeg|gif|png|ico)$/,
+      exclude: /node_modules/,
+      loader:'file-loader?name=img/[path][name].[ext]&context=./app/images'
     }]
   },
   resolve: {

@@ -5,6 +5,8 @@ import Main from './main';
 
 require('./styles/styles.scss');
 
+require.context('../images', true, /^\.\//);
+
 const App = () => {
   return <Main />;
 }

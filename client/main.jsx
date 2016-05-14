@@ -56,6 +56,7 @@ export default class Main extends React.Component {
     this.makeNearby = this.makeNearby.bind(this);
     this.makeWeather = this.makeWeather.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.makeNotepad = this.makeNotepad.bind(this);
 
     this.handleLayoutChange = this.handleLayoutChange.bind(this);
@@ -180,25 +181,28 @@ export default class Main extends React.Component {
       }
     });
   }
-  handleClick(input) {
+  handleClick(widgetID) {
     let deployed = false;
     // search for widget in main.state.deployed widgets
     for(let i = 0; i < this.state.deployedWidgets.length; i++){
       // if you find it, set deployed to true
-      if(this.state.deployedWidgets[i].id === input) {
+      if(this.state.deployedWidgets[i].id === widgetID) {
         deployed = true;
       }
     };
     // if deployed, remove from main.state.deployedWidgets
     if(deployed) {
-      this.setState({deployedWidgets: _.reject(this.state.deployedWidgets, (widget) => {
-        return widget.id === input;
-      })});
+      this.handleClose(widgetID);
     }
     // if not deployed, add to main.state.deployedWidgets
     else {
-      this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.widgets[input])});
+      this.setState({deployedWidgets: this.state.deployedWidgets.concat(this.widgets[widgetID])});
     }
+  }
+  handleClose(widgetID) {
+    this.setState({deployedWidgets: _.reject(this.state.deployedWidgets, (widget) => {
+      return widget.id === widgetID;
+    })});
   }
   handleLayoutChange(currentLayout, allLayouts) {
     if(currentLayout && allLayouts){
@@ -213,7 +217,7 @@ export default class Main extends React.Component {
   makeBart(context) {
     return <div className="drag widget card" key={'b'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>BART</div>
-      <Bart deployed={context.state.deployedWidgets} location={context.state.locationTrue} />
+    <Bart deployed={context.state.deployedWidgets} location={context.state.locationTrue} handleClose={context.handleClose} />
     </div>
   }
   makeMovies(context) {
