@@ -181,7 +181,7 @@ export default class Main extends React.Component {
     this.setState({notepad: statefromNP});
   }
   makeBart(context) {
-    return <div className="drag widget card" key={'b'} style={{overflow: 'hidden', borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:2, minH: 2}}>
+    return <div className="drag widget card" key={'b'} style={{overflow: 'auto', borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 5, h: 4}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>BART</div>
     <Bart deployed={context.state.deployedWidgets} location={context.state.locationTrue} handleClose={context.handleClose} />
     </div>
