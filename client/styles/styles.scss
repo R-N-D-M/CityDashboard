@@ -54,6 +54,8 @@ body {
 .react-grid-item {
   transition: all 200ms ease;
   transition-property: left, top;
+  padding-bottom: 20px;
+
 }
 .react-grid-item.cssTransforms {
   transition-property: transform;
@@ -216,4 +218,8 @@ body {
   height: 30px;
   display: inline-block;
   overflow: hidden;
+}
+
+table {
+  overflow-y: scroll;
 }
