@@ -232,7 +232,7 @@ export default class Main extends React.Component {
     </div>
   }
   makeNotepad(context) {
-    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 3, h:3, minW: 3, minH: 3}} style={{overflow: "hidden", backgroundImage: 'url("http://paper-backgrounds.com/textureimages/2012/07/old-gray-concrete-wall-texture-hd-575x400.jpg")'}}>
+    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 2, h:3, minW: 2, minH: 2}} style={{overflow: "hidden", backgroundImage: 'url("http://paper-backgrounds.com/textureimages/2012/07/old-gray-concrete-wall-texture-hd-575x400.jpg")'}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Notepad</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
     </div>
