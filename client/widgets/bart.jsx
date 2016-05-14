@@ -10,7 +10,8 @@ class Bart extends React.Component {
       originStation: '',
       imgUrl: '/assets/fail.jpg',
       error: false,
-      lastUpdated: this.timeStamp()
+      lastUpdated: this.timeStamp(),
+      id: 'bart'
     };
   this.getClosestStation = this.getClosestStation.bind(this);
   }
@@ -20,14 +21,6 @@ class Bart extends React.Component {
       this.setState({locationTrue: nextProps.location}, () => {
         this.getClosestStation();
       });
-    }
-  }
-
-  handleClose(){
-    for(var i = 0; i < this.props.deployed.length; i++){
-      if(this.props.deployed[i].id === 'bart'){
-        this.props.deployed.splice(i, 1);
-      }
     }
   }
 
@@ -75,8 +68,8 @@ class Bart extends React.Component {
   }
 
   componentWillUnmount(){
-    this.timer = setInterval(clearInterval(this.timer));   
-    this.isUnmounted = true;   
+    this.timer = setInterval(clearInterval(this.timer));
+    this.isUnmounted = true;
   }
 
   render() {
@@ -111,7 +104,7 @@ class Bart extends React.Component {
         return (
             <div className='drag card widget'>
               <div className='closeButton'>
-                <button type='button' className='btn-close' style={{float:'right'}} onClick={()=>{this.handleClose()}}>&#x274C;</button>
+                <button type='button' className='btn-close' style={{float:'right'}} onClick={()=>{this.props.handleClose(this.state.id)}}>&#x274C;</button>
               </div>
               <div className='drag card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
               <div className='drag TrainsData'>
