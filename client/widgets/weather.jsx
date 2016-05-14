@@ -14,13 +14,19 @@ export default class Weather extends React.Component {
       humidity: "No weather information yet.",
       windspeed: "No weather information yet."
     };
+    this.getWeather = this.getWeather.bind(this);
   }
   componentWillMount() {
-    if(this.state.locationTrue) {
+    setInterval(this.getWeather,900000);
+  }
+  componentDidMount() {
+     if(this.state.locationTrue) {
       this.getWeather();
     }
   }
-  componentDidMount() {
+  componentWillUnmount() {
+    this.times = setInterval(clearInterval(this.timer));
+    this.unMounted = true;
   }
   componentWillReceiveProps(nextProps) {
     // console.log("Weather component received prop change!");
@@ -59,21 +65,13 @@ export default class Weather extends React.Component {
   }
   render() {
 
-    let weatherStyle = {
-        // width: "350px",
-        // height: '300px',
-        // border: "2px dotted green",
-        // margin: "8px",
-        // float: "left"
-      };
-
     let iconURL = this.state.icon ? "http://openweathermap.org/img/w/" + this.state.icon + ".png" : null;
 
     if(this.state.locationTrue){
       return (
-        <div className="card stylish-card hoverable card card-block card text-xs-center" style={{backgroundColor: '#373a3c',overflowY: 'scroll', height: '100%'}}>
+        <div className="card stylish-card hoverable card card-block card text-xs-center" style={{backgroundColor: '#373a3c',overflowY: 'scroll', height: '100%', width: '100%'}}>
           <div className='card-text' className="city" style={{fontSize: '125%',fontWeight: 'bold', color: '#eceeef',textShadow: 'black'}}>{this.state.city}</div>
-          <div style={{marginBottom: '-20px', marginTop: '-10px'}}><img src={iconURL} style={{width: '100%', width: '25%'}}/></div>
+          <div style={{marginBottom: '-20px', marginTop: '-10px'}}><img src={iconURL} style={{width: '22%'}}/></div>
           <div className='card-text' className="currentTemp" style={{color: '#eceeef', textShadow: 'black', fontSize: '250%', textDecoration: 'underline overline', marginTop: '5px'}}>{Math.round(((this.state.temp - 273.15)*9/5)+32) + '°' + 'F'}</div>
           <div className='card-text' className="description" style={{fontWeight: 'bold', color:'#eceeef', textShadow: 'black',textTransform: 'capitalize'}}>{this.state.description}</div>
           <div className='card-text' className="humidity" style={{fontWeight: 'bold', color:'#eceeef', textShadow: 'black'}}>Humidity: {this.state.humidity + '%'}</div>
@@ -83,7 +81,7 @@ export default class Weather extends React.Component {
     }
     else {
       return (
-        <div style={weatherStyle}>
+        <div>
           <p>Getting Your Location, Please Wait</p>
         </div>
       );
