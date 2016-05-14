@@ -75,7 +75,7 @@ class Movies extends React.Component {
     }
     else {
       return (
-        <div style={{ backgroundImage: 'url("http://www.designbolts.com/wp-content/uploads/2013/02/Rough-Grey-Tilable-Pattern-For-Website-Background.jpg")', height: '100%'}}>
+        <div style={{backgroundImage: 'url("http://www.designbolts.com/wp-content/uploads/2013/02/Rough-Grey-Tilable-Pattern-For-Website-Background.jpg")', height: '100%'}}>
           <p>Getting Your Location, Please Wait</p>
         </div>
       );
