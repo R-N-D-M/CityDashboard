@@ -193,7 +193,7 @@ export default class Main extends React.Component {
       </div>
   }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:2}}>
+    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 3, h: 3}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Nearby</div>
       <Nearby location={context.state.locationTrue} />
     </div>
