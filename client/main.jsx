@@ -66,15 +66,14 @@ export default class Main extends React.Component {
     this.getLayoutsAndState = this.getLayoutsAndState.bind(this);
     this.getLayouts = this.getLayouts.bind(this);
 
-
-    // // saving state layout
+    // saving state layout
     // this.defaultLayouts = {
     //   lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
-    //     {i: 'b', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
-    //     {i: 'c', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 2},
-    //     {i: 'd', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
-    //     {i: 'e', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1},
-    //     {i: 'f', x: 0, y: 0, w: 2, h: 1, minH: 1, minW: 1}
+    //     {i: 'b', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
+    //     {i: 'c', x: 0, y: 0, w: 2, h: 1, minW: 2, minH: 1},
+    //     {i: 'd', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
+    //     {i: 'e', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
+    //     {i: 'f', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1}
     //   ],
     //   md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
     //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
@@ -222,13 +221,13 @@ export default class Main extends React.Component {
     </div>
   }
   makeMovies(context) {
-    return <div className="drag widget card" key={'e'} style={{overflow: "hidden", borderColor: '#373a3c'}}  _grid={{x: 0, y: 0, w:3, h: 1, minW: 3, minH: 1}}>
+    return <div className="drag widget card" key={'e'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>Movies</div>
-      <Movies location={context.state.locationTrue} style={{height: '100%',width: '100%'}} />
+      <Movies location={context.state.locationTrue} />
       </div>
   }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:1}}>
+    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Nearby</div>
       <Nearby location={context.state.locationTrue} />
     </div>
