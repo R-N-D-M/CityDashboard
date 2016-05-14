@@ -213,7 +213,7 @@ export default class Main extends React.Component {
   makeBart(context) {
     return <div className="drag widget card" key={'b'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 2, h:2}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>BART</div>
-      <Bart location={context.state.locationTrue} />
+      <Bart deployed={context.state.deployedWidgets} location={context.state.locationTrue} />
     </div>
   }
   makeMovies(context) {
