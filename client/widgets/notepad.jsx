@@ -159,7 +159,7 @@ class NotesList extends React.Component {
       wordWrap: "break-word"
     };
     return (
-      <div className="notes-list" style={{borderBottom: "solid 1px gray", backgroundColor: "#FFFACD", margin: "0 auto", width: "500px", height: "280px", overflow: "auto", backgroundImage: 'url("http://megandalbey.com/codepen/css-selectors/paper.jpg")', fontFamily: "Courier, monospace"}}>
+      <div className="notes-list" style={{borderBottom: "solid 1px gray", backgroundColor: "#FFFACD", margin: "0 auto", width: "100%", height: "280px", overflow: "auto", backgroundImage: 'url("http://megandalbey.com/codepen/css-selectors/paper.jpg")', fontFamily: "Courier, monospace"}}>
       {
         notes.map( (note) => {
           return (

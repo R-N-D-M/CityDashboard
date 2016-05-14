@@ -102,10 +102,7 @@ class Bart extends React.Component {
         );
       } else {
         return (
-            <div className='drag card widget'>
-              <div className='closeButton'>
-                <button type='button' className='btn-close' style={{float:'right'}} onClick={()=>{this.props.handleClose(this.state.id)}}>&#x274C;</button>
-              </div>
+            <div className="drag card widget">
               <div className='drag card-header text-xs-center departing'>Departing from: {this.state.originStation}</div>
               <div className='drag TrainsData'>
                 <table style={{overflowY: 'scroll'}} className='drag table table-sm table-responsive table-striped'>
