@@ -25,12 +25,16 @@ export default class NavBar extends React.Component {
     }.bind(this));
   }
   render() {
-      // console.log('the profile', this.state.profile)
+      console.log('the profile', this.state.profile)
       let loginLogout = "Login";
       let loginLogoutAction = this.showLock;
+      let avatar = null;
+      let emailSpan = null;
       if(this.state.profile) {
         loginLogout = "Logout";
         loginLogoutAction = this.props.onLogout;
+        avatar = <img className="avatar" src={this.state.profile.picture} style={{float:"right"}}/>
+        emailSpan = <span style={{float:"right", verticalAlign: "middle"}}>{this.state.profile.email}</span>
       };
 
       return (
@@ -41,6 +45,8 @@ export default class NavBar extends React.Component {
             <div className="btn btn-secondary nav-item pull-xs-right">
               <a onClick={loginLogoutAction}>{loginLogout}</a>
             </div>
+            {emailSpan}
+            {avatar}
           </div>
         </nav>
       )
