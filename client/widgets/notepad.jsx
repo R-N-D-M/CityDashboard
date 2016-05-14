@@ -96,10 +96,9 @@ class Notepad extends React.Component {
             handleDelete={this.onDeleteNote.bind(this)} />
           </div>
         </div>
-        <br />
           <div style={{textAlign: "center"}}>
             <div>
-              <button onClick={this.onAddNote.bind(this)}>Add Note</button>
+              <button className="addnote" onClick={this.onAddNote.bind(this)}>Add Note</button>
               <br />
               {editor}
             </div>
@@ -119,8 +118,14 @@ class NoteEditor extends React.Component {
     this.props.onChange(this.props.note.id, event.target.value);
   }
   render() {
+    let textareaStyle = {
+      border: "0.1em solid #ccc",
+      borderRadius: "0.5em",
+      backgroundColor: "#ffffe6",
+      resize: "both"
+    };
     return (
-        <textarea rows={8} cols={60} value={this.props.note.content} onChange={this.onChange.bind(this)} style={{resize: "both"}} />
+        <textarea style={textareaStyle} rows={8} cols={60} value={this.props.note.content} onChange={this.onChange.bind(this)} placeholder="Write your note here..."/>
     );
   }
 
@@ -154,7 +159,7 @@ class NotesList extends React.Component {
       wordWrap: "break-word"
     };
     return (
-      <div className="notes-list" style={{borderBottom: "solid 1px gray", backgroundColor: "#FFFACD", margin: "0 auto", width: "500px", height: "280px", overflowY: "scroll", backgroundImage: 'url("http://megandalbey.com/codepen/css-selectors/paper.jpg")'}}>
+      <div className="notes-list" style={{borderBottom: "solid 1px gray", backgroundColor: "#FFFACD", margin: "0 auto", width: "500px", height: "280px", overflow: "auto", backgroundImage: 'url("http://megandalbey.com/codepen/css-selectors/paper.jpg")', fontFamily: "Courier, monospace"}}>
       {
         notes.map( (note) => {
           return (
