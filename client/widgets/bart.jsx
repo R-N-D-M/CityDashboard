@@ -23,14 +23,12 @@ class Bart extends React.Component {
     }
   }
 
-  handleClose(id){
-    console.log("this.props: ", this.props);
+  handleClose(){
     for(var i = 0; i < this.props.deployed.length; i++){
       if(this.props.deployed[i].id === 'bart'){
         this.props.deployed.splice(i, 1);
       }
     }
-    //this.props.handleClose(id);
   }
 
   timeStamp() {
