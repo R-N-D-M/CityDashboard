@@ -25,7 +25,6 @@ export default class NavBar extends React.Component {
     }.bind(this));
   }
   render() {
-      console.log('the profile', this.state.profile)
       let loginLogout = "Login";
       let loginLogoutAction = this.showLock;
       let avatar = null;
