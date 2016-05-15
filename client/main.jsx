@@ -17,7 +17,7 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: false,
+      locationTrue: null,
       idToken: false,
       deployedWidgets: [],
       profile: null,
@@ -63,48 +63,9 @@ export default class Main extends React.Component {
     this.onLogout = this.onLogout.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.save = this.save.bind(this);
+    this.getGeolocation = this.getGeolocation.bind(this);
     this.getLayoutsAndState = this.getLayoutsAndState.bind(this);
     this.getLayouts = this.getLayouts.bind(this);
-
-    // saving state layout
-    // this.defaultLayouts = {
-    //   lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
-    //     {i: 'b', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-    //     {i: 'c', x: 0, y: 0, w: 2, h: 1, minW: 2, minH: 1},
-    //     {i: 'd', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-    //     {i: 'e', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-    //     {i: 'f', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1}
-    //   ],
-    //   md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ],
-    //   sm: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ],
-    //   xs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ],
-    //   xxs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ]
-    // };
-    // this.state.tempLayouts = this.defaultLayouts;
 
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
@@ -129,16 +90,21 @@ export default class Main extends React.Component {
     this.setState({idToken: this.getIdToken()});
   }
   componentDidMount() {
+    this.getGeolocation();
+    this.autoSave();
+  }
+  getGeolocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition( (position) => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
-        this.setState({
-          locationTrue: [lat, lng]
-        });
+        if(!this.state.locationTrue || this.state.locationTrue[0] !== lat || this.state.locationTrue[1] !== lng){
+          this.setState({
+            locationTrue: [lat, lng]
+          });
+        }
       });
     }
-    this.autoSave();
   }
   getIdToken() {
     let idToken = localStorage.getItem('userToken');
@@ -248,6 +214,7 @@ export default class Main extends React.Component {
     ref.child(`users/${userID}`).update(profile);
     this.setState({profile: profile});
     this.getLayoutsAndState();
+    this.getGeolocation();
   }
   onLogout() {
     // Clear local storage and refresh page
@@ -283,6 +250,7 @@ export default class Main extends React.Component {
       widgets.push(widget.makeFunction(this));
     });
     let mainContainer;
+    this.getGeolocation();
     let layouts = this.getLayouts();
     if (widgets.length < 1) {
       mainContainer = (
