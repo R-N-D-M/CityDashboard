@@ -86,6 +86,11 @@ export default class Main extends React.Component {
     setInterval(this.save, 7000);
   }
   componentWillMount() {
+    console.log("window.location.protocol", window.location.protocol);
+    console.log("window.location.href", window.location.href);
+    if (window.location.protocol != "https:"){
+      window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+    }
     this.lock = new Auth0Lock('NF8TGDHHhTxVpTYSzVvzJyaEeKzDkSZj', 'citydash.auth0.com');
     this.setState({idToken: this.getIdToken()});
   }
@@ -95,9 +100,7 @@ export default class Main extends React.Component {
   }
   getGeolocation() {
     if (navigator.geolocation) {
-      console.log('before callback this', this);
       navigator.geolocation.getCurrentPosition( (position) => {
-        console.log('in callback this', this);
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
         if(!this.state.locationTrue || this.state.locationTrue[0] !== lat || this.state.locationTrue[1] !== lng){
@@ -252,7 +255,7 @@ export default class Main extends React.Component {
       widgets.push(widget.makeFunction(this));
     });
     let mainContainer;
-    this.getGeolocation();
+    // this.getGeolocation();
     let layouts = this.getLayouts();
     if (widgets.length < 1) {
       mainContainer = (
