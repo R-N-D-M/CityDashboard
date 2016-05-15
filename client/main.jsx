@@ -95,7 +95,9 @@ export default class Main extends React.Component {
   }
   getGeolocation() {
     if (navigator.geolocation) {
+      console.log('before callback this', this);
       navigator.geolocation.getCurrentPosition( (position) => {
+        console.log('in callback this', this);
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
         if(!this.state.locationTrue || this.state.locationTrue[0] !== lat || this.state.locationTrue[1] !== lng){
