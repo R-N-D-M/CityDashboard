@@ -255,7 +255,7 @@ export default class Main extends React.Component {
       widgets.push(widget.makeFunction(this));
     });
     let mainContainer;
-    // this.getGeolocation();
+    this.getGeolocation();
     let layouts = this.getLayouts();
     if (widgets.length < 1) {
       mainContainer = (
