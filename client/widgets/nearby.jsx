@@ -34,13 +34,12 @@ class Nearby extends React.Component {
     // heighter listener
     onElementHeightChange(document.getElementById('nearbycontainer'), () => {
       if(document.getElementById('nearbycontainer') !== null ){
-        let height = document.getElementById('nearbycontainer').clientHeight;
-      
-      // console.log('nearbycontainer height changed', height);
-      // select element height is 25px, the dragme height is 24px
-      document.getElementById('map').style.height = "" + (height-25-24) +"px"
-      let mapheight = document.getElementById('map').style.height;
-    }
+          let height = document.getElementById('nearbycontainer').clientHeight;  
+        // console.log('nearbycontainer height changed', height);
+        // select element height is 25px, the dragme height is 24px
+        document.getElementById('map').style.height = "" + (height-25-24) +"px"
+        let mapheight = document.getElementById('map').style.height;
+      }
       // console.log('map height changed', mapheight);
     });
 
