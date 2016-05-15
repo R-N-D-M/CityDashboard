@@ -125,7 +125,7 @@ class NoteEditor extends React.Component {
       resize: "both"
     };
     return (
-        <textarea style={textareaStyle} rows={8} cols={60} value={this.props.note.content} onChange={this.onChange.bind(this)} placeholder="Write your note here..."/>
+        <textarea style={textareaStyle} rows={4} cols={40} value={this.props.note.content} onChange={this.onChange.bind(this)} placeholder="Write your note here..."/>
     );
   }
 
