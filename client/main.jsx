@@ -17,7 +17,7 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locationTrue: false,
+      locationTrue: null,
       idToken: false,
       deployedWidgets: [],
       profile: null,
@@ -63,48 +63,9 @@ export default class Main extends React.Component {
     this.onLogout = this.onLogout.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.save = this.save.bind(this);
+    this.getGeolocation = this.getGeolocation.bind(this);
     this.getLayoutsAndState = this.getLayoutsAndState.bind(this);
     this.getLayouts = this.getLayouts.bind(this);
-
-    // saving state layout
-    // this.defaultLayouts = {
-    //   lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
-    //     {i: 'b', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-    //     {i: 'c', x: 0, y: 0, w: 2, h: 1, minW: 2, minH: 1},
-    //     {i: 'd', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-    //     {i: 'e', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-    //     {i: 'f', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1}
-    //   ],
-    //   md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ],
-    //   sm: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ],
-    //   xs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ],
-    //   xxs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-    //     {i: 'b', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'c', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'd', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'e', x: 0, y: 0, w: 3, h: 3},
-    //     {i: 'f', x: 0, y: 0, w: 3, h: 3}
-    //   ]
-    // };
-    // this.state.tempLayouts = this.defaultLayouts;
 
     // default notepad if no previous notepad is found
     this.defaultNotepad = {
@@ -129,16 +90,21 @@ export default class Main extends React.Component {
     this.setState({idToken: this.getIdToken()});
   }
   componentDidMount() {
+    this.getGeolocation();
+    this.autoSave();
+  }
+  getGeolocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition( (position) => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
-        this.setState({
-          locationTrue: [lat, lng]
-        });
+        if(!this.state.locationTrue || this.state.locationTrue[0] !== lat || this.state.locationTrue[1] !== lng){
+          this.setState({
+            locationTrue: [lat, lng]
+          });
+        }
       });
     }
-    this.autoSave();
   }
   getIdToken() {
     let idToken = localStorage.getItem('userToken');
@@ -215,31 +181,31 @@ export default class Main extends React.Component {
     this.setState({notepad: statefromNP});
   }
   makeBart(context) {
-    return <div className="drag widget card" key={'b'} style={{overflow: 'hidden', borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2.5, h:2, minW: 3, minH: 2}}>
+    return <div className="drag widget card" key={'b'} style={{overflow: 'auto'}} _grid={{x: 0, y: 0, w: 5, h: 4}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>BART</div>
     <Bart deployed={context.state.deployedWidgets} location={context.state.locationTrue} handleClose={context.handleClose} />
     </div>
   }
   makeMovies(context) {
-    return <div className="drag widget card" key={'e'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:1.75}}>
+    return <div className="drag widget card" key={'e'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 5, h: 3}}>
       <div className="drag widget widgetHeader card-header" style={{width:"100%", backgroundColor: "#909090"}}>Movies</div>
       <Movies location={context.state.locationTrue} />
       </div>
   }
   makeNearby(context) {
-    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden", borderColor: '#373a3c'}} _grid={{x: 0, y: 0, w: 2, h:2}}>
+    return <div id={'nearbycontainer'} className="drag widget card" key={'d'} style={{overflow: "hidden"}} _grid={{x: 0, y: 0, w: 3, h: 3}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Nearby</div>
       <Nearby location={context.state.locationTrue} />
     </div>
   }
   makeNotepad(context) {
-    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 2, h:3, minW: 2, minH: 2}} style={{overflow: "hidden", backgroundImage: 'url("http://paper-backgrounds.com/textureimages/2012/07/old-gray-concrete-wall-texture-hd-575x400.jpg")'}}>
+    return <div className="drag widget card" key={'f'} _grid={{x: 0, y: 0, w: 4, h: 5}} style={{overflow: "hidden", backgroundImage: 'url("http://paper-backgrounds.com/textureimages/2012/07/old-gray-concrete-wall-texture-hd-575x400.jpg")'}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Notepad</div>
       <Notepad notepad={context.state.notepad} handleNPchange={context.handleNPstate}/>
     </div>
   }
   makeWeather(context) {
-    return <div className='weatherWidget' className="drag widget card" key={'c'} style={{border: "1px solid", borderColor: '#373a3c', overflow: "hidden"}}  _grid={{x: 0, y: 0, w:2, h: 1.5, minW: 2, minH: 1.5}}>
+    return <div className='weatherWidget' className="drag widget card" key={'c'} style={{overflow: "hidden"}}  _grid={{x: 0, y: 0, w:3, h: 2.75}}>
       <div className="drag widgetHeader card-header" style={{width:"100%"}}>Weather</div>
       <Weather location={context.state.locationTrue} style={{width: '100%', height: '100%'}} />
     </div>
@@ -248,6 +214,7 @@ export default class Main extends React.Component {
     ref.child(`users/${userID}`).update(profile);
     this.setState({profile: profile});
     this.getLayoutsAndState();
+    this.getGeolocation();
   }
   onLogout() {
     // Clear local storage and refresh page
@@ -283,6 +250,7 @@ export default class Main extends React.Component {
       widgets.push(widget.makeFunction(this));
     });
     let mainContainer;
+    this.getGeolocation();
     let layouts = this.getLayouts();
     if (widgets.length < 1) {
       mainContainer = (
@@ -295,8 +263,8 @@ export default class Main extends React.Component {
     }
     else {
       mainContainer = (
-        <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={200} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
-            cols={{lg: 6, md: 6, sm: 6, xs: 6, xxs: 6}} draggableHandle={'.drag'}>
+        <ResponsiveReactGridLayout className="layout" layouts={this.state.tempLayouts || this.defaultLayouts} onLayoutChange={this.handleLayoutChange} rowHeight={100} width={1500} breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 200}}
+            cols={{lg: 12, md: 12, sm: 12, xs: 12, xxs: 12}} draggableHandle={'.drag'}>
             {widgets}
         </ResponsiveReactGridLayout>
       );
