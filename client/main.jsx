@@ -68,39 +68,39 @@ export default class Main extends React.Component {
     // saving state layout
     this.defaultLayouts = {
       lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
-        {i: 'b', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-        {i: 'c', x: 0, y: 0, w: 2, h: 1, minW: 2, minH: 1},
-        {i: 'd', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-        {i: 'e', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1},
-        {i: 'f', x: 0, y: 0, w: 2, h: 1, minW: 1, minH: 1}
+        {i: 'b', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2},
+        {i: 'c', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2},
+        {i: 'd', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2},
+        {i: 'e', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2},
+        {i: 'f', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2}
       ],
       md: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+        {i: 'b', x: 0, y: 0, w: 2, h: 2},
+        {i: 'c', x: 0, y: 0, w: 2, h: 2},
+        {i: 'd', x: 0, y: 0, w: 2, h: 2},
+        {i: 'e', x: 0, y: 0, w: 2, h: 2},
+        {i: 'f', x: 0, y: 0, w: 2, h: 2}
       ],
       sm: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+        {i: 'b', x: 0, y: 0, w: 2, h: 2},
+        {i: 'c', x: 0, y: 0, w: 2, h: 2},
+        {i: 'd', x: 0, y: 0, w: 2, h: 2},
+        {i: 'e', x: 0, y: 0, w: 2, h: 2},
+        {i: 'f', x: 0, y: 0, w: 2, h: 2}
       ],
       xs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+        {i: 'b', x: 0, y: 0, w: 2, h: 2},
+        {i: 'c', x: 0, y: 0, w: 2, h: 2},
+        {i: 'd', x: 0, y: 0, w: 2, h: 2},
+        {i: 'e', x: 0, y: 0, w: 2, h: 2},
+        {i: 'f', x: 0, y: 0, w: 2, h: 2}
       ],
       xxs: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true},
-        {i: 'b', x: 0, y: 0, w: 3, h: 3},
-        {i: 'c', x: 0, y: 0, w: 3, h: 3},
-        {i: 'd', x: 0, y: 0, w: 3, h: 3},
-        {i: 'e', x: 0, y: 0, w: 3, h: 3},
-        {i: 'f', x: 0, y: 0, w: 3, h: 3}
+        {i: 'b', x: 0, y: 0, w: 2, h: 2},
+        {i: 'c', x: 0, y: 0, w: 2, h: 2},
+        {i: 'd', x: 0, y: 0, w: 2, h: 2},
+        {i: 'e', x: 0, y: 0, w: 2, h: 2},
+        {i: 'f', x: 0, y: 0, w: 2, h: 2}
       ]
     };
     this.state.tempLayouts = this.defaultLayouts;
