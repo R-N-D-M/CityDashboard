@@ -1,8 +1,5 @@
 var request = require('request');
 var axios = require('axios');
-
-// var Movies_ID = '6gckbwqssxybn76ccsu56nd6';
-// var Movies_ID = 'dvnxckvy52m4mpeh3zfqpyhc';
 var Movies_ID = process.env.MOVIES_ID;
 
 var getMovies = function(request, response) {
@@ -12,26 +9,17 @@ var getMovies = function(request, response) {
 
   var startDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
   url = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=' + startDate + '&lat=' + latLng[0] + '&lng=' + latLng[1] + '&radius=10&units=mi&api_key=' + Movies_ID;
-  // console.log('this is the url', url)
   axios.get(url)
     .then( (resp) => {
-      // console.log("Movies: ",resp.data);
       sendMovies(resp.data, request, response)
-
     })
     .catch( (resp) => {
       resp.status(503).send('Error getting showtimes');
   });
-
 };
 
 var sendMovies = function(data, request, response) {
-  // console.log('this is the data',data);
-
   data = apiHelper(data);
-
-  // console.log('this is the data',data);
-
   response.status(200).send(data);
 }
 
@@ -44,7 +32,6 @@ var apiHelper = function(data) {
     return innerResult;
   }, {});
 
-    // console.log(showTimesAtTheatre)
     var currentTitle = curr.title;
 
     for (var key in showTimesAtTheatre) {
@@ -58,8 +45,6 @@ var apiHelper = function(data) {
   return result;
 }, {});
 }
-
-
 
 module.exports = {
   getMovies: getMovies
