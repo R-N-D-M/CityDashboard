@@ -67,7 +67,7 @@ export default class Main extends React.Component {
 
     // saving state layout
     this.defaultLayouts = {
-      lg: [{i: 'a', x: 0, y: 0, static: true, minW: 6},
+      lg: [{i: 'a', x: 0, y: 0, w: 2, h: 2, static: true, minW: 6, minH: 6},
         {i: 'b', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2},
         {i: 'c', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2},
         {i: 'd', x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2},
@@ -130,6 +130,14 @@ export default class Main extends React.Component {
   componentDidMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition( (position) => {
+        let lat = position.coords.latitude;
+        let lng = position.coords.longitude;
+        this.setState({
+          locationTrue: [lat, lng]
+        });
+      });
+
+      navigator.geolocation.watchPosition((position) => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
         this.setState({
@@ -248,6 +256,7 @@ export default class Main extends React.Component {
     // Clear local storage and refresh page
     localStorage.removeItem('userToken');
     localStorage.removeItem('layouts');
+    localStorage.removeItem('firebase:host:amber-heat-3161.firebaseio.com');
     this.setState({profile: null});
     window.location.href= "/";
   }
@@ -281,7 +290,7 @@ export default class Main extends React.Component {
     let layouts = this.getLayouts();
     if (widgets.length < 1) {
       mainContainer = (
-        <div key={'a'} className="welcomeMessage jumbotron" style={{textAlign: 'center'}}>
+        <div key={'a'} className="welcomeMessage jumbotron" style={{textAlign: 'center'}} _grid={{x: 0, y: 0, w: 2, h: 2, static: true, minW: 6, minH: 6}}>
           <h1 style={{opacity: '0.9'}} className="display-1">CityDashboard</h1>
           <hr className="m-y-2"></hr>
           <h1 style={{fontSize: '30px'}} className="display-4">What's Happening in Your City?</h1>
