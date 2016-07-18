@@ -136,6 +136,14 @@ export default class Main extends React.Component {
           locationTrue: [lat, lng]
         });
       });
+
+      navigator.geolocation.watchPosition( (position) => {
+        let lat = position.coords.latitude;
+        let lng = position.coords.longitude;
+        this.setState({
+          locationTrue: [lat, lng]
+        });
+      });
     }
     this.autoSave();
   }

@@ -4,6 +4,7 @@ var getWeather = function(request, response) {
   var url;
   var latLng = request.body.latLng;  // [lat, lng]
   url = "http://api.openweathermap.org/data/2.5/weather?lat=" + latLng[0] + "&lon=" + latLng[1] + "&appid=" + APP_ID;
+
   axios.get(url)
     .then( (resp) => {
       sendWeather(resp.data, request, response)
